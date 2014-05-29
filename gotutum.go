@@ -39,23 +39,19 @@ func ListContainers() interface{} {
 func TutumCall(url string, requestType string) interface{} {
 
 	client := &http.Client{}
-	req, err := http.NewRequest("GET", url, nil)
+	req, err := http.NewRequest(requestType, url, nil)
 
 	req.Header.Add("Authorization", AuthForUser())
 	req.Header.Add("Accept", "application/json")
 
-	log.Println(url)
-	// log.Println(req.Header)
 	response, err := client.Do(req)
 	if err != nil {
 		log.Println(err)
 	}
-
 	data, err := ioutil.ReadAll(response.Body)
-	// log.Println(string(data))
-
-	//Response has a tag named objects.  Need to unmarshal objects, then work with objects.
 
 	var f interface{}
 	err = json.Unmarshal(data, &f)
+
+	return f
 }
