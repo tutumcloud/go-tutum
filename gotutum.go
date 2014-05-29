@@ -22,6 +22,21 @@ type Objects struct {
 func ListContainers() interface{} {
 
 	url := "https://app.tutum.co/api/v1/container/"
+	request := "GET"
+
+	f := TutumCall(url, request)
+	m := f.(map[string]interface{})
+
+	//Relies on the array of items being named objects.
+	for k, v := range m {
+		if k == "objects" {
+			return v
+		}
+	}
+	return nil
+}
+
+func TutumCall(url string, requestType string) interface{} {
 
 	client := &http.Client{}
 	req, err := http.NewRequest("GET", url, nil)
@@ -43,40 +58,4 @@ func ListContainers() interface{} {
 
 	var f interface{}
 	err = json.Unmarshal(data, &f)
-
-	m := f.(map[string]interface{})
-	// log.Println(m)
-	// for k, v := range m {
-	// 	switch vv := v.(type) {
-	// 	case string:
-	// 		log.Println(k, "is string", vv)
-	// 	case int:
-	// 		log.Println(k, "is int", vv)
-	// 	case []interface{}:
-	// 		log.Println(k, "is an array:")
-	// 		//Loops through containers.  We want an object. made out of u.
-	// 		for i, u := range vv {
-	// 			log.Println(i)
-	// 			log.Println(u)
-	// 			log.Println("Gets here")
-	// 		}
-	// 	default:
-	// 		log.Println(k, "is of a type I don't know how to handle")
-	// 	}
-	// }
-
-	// for k, v := range m {
-	// 	if v.(type) == []interface{} {
-	// 		log.Println(v)
-	// 	}
-	// }
-	for k, v := range m {
-		// log.Println()
-		// log.Println(k)
-		// log.Println(v)
-		if k == "objects" {
-			return v
-		}
-	}
-	return nil
 }
