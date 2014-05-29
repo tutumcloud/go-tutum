@@ -1,4 +1,4 @@
-package gotutum
+package go-tutum
 
 import (
 	"encoding/json"
