@@ -1,6 +1,7 @@
-package gotutum
+package tutum
 
 import (
+	"container"
 	"encoding/json"
 	"io/ioutil"
 	"log"
@@ -15,26 +16,22 @@ func AuthForUser() string {
 	return "ApiKey " + User + ":" + Apikey
 }
 
-type Objects struct {
-	Status string
-}
+// func ListContainers() interface{} {
 
-func ListContainers() interface{} {
+// 	url := "https://app.tutum.co/api/v1/container/"
+// 	request := "GET"
 
-	url := "https://app.tutum.co/api/v1/container/"
-	request := "GET"
+// 	f := TutumCall(url, request)
+// 	m := f.(map[string]interface{})
 
-	f := TutumCall(url, request)
-	m := f.(map[string]interface{})
-
-	//Relies on the array of items being named objects.
-	for k, v := range m {
-		if k == "objects" {
-			return v
-		}
-	}
-	return nil
-}
+// 	//Relies on the array of items being named objects.
+// 	for k, v := range m {
+// 		if k == "objects" {
+// 			return v
+// 		}
+// 	}
+// 	return nil
+// }
 
 func TutumCall(url string, requestType string) interface{} {
 
