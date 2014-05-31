@@ -30,7 +30,7 @@ func AuthForUser() string {
 func BaseUrl() string {
 	var baseUrl string
 	if os.Getenv("TUTUM_BASE_URL") != "" {
-		url = os.Getenv("TUTUM_BASE_URL")
+		baseUrl = os.Getenv("TUTUM_BASE_URL")
 	} else {
 		baseUrl = "https://app.tutum.co/api/v1/"
 	}
