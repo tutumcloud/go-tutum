@@ -2,7 +2,7 @@ package tutum
 
 import (
 	"encoding/json"
-	"log"
+	// "time"
 )
 
 type AListResponse struct {
@@ -44,21 +44,18 @@ type ACPInfo struct {
 	Protocol    string `json:"protocol"`
 }
 
-func ListApplications() []Application {
+func ListApplications() ([]Application, error) {
 
 	url := "application/"
 	request := "GET"
-
 	var response AListResponse
-	data := TutumCall(url, request)
-	err := json.Unmarshal(data, &response)
+	data, err := TutumCall(url, request)
 	if err != nil {
-
-		log.Println("error unmarshalling")
-		log.Println(err)
-
-		return nil
+		return nil, err
 	}
-
-	return response.Objects
+	err = json.Unmarshal(data, &response)
+	if err != nil {
+		return nil, err
+	}
+	return response.Objects, nil
 }

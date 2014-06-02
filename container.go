@@ -2,7 +2,8 @@ package tutum
 
 import (
 	"encoding/json"
-	"log"
+	// "errors"
+	// "time"
 )
 
 type CListResponse struct {
@@ -42,21 +43,20 @@ type CCPInfo struct {
 	Protocol   string `json:"protocol"`
 }
 
-func ListContainers() []Container {
+func ListContainers() ([]Container, error) {
 
 	url := "container/"
 	request := "GET"
 
 	var response CListResponse
-	data := TutumCall(url, request)
-	err := json.Unmarshal(data, &response)
+	data, err := TutumCall(url, request)
 	if err != nil {
-
-		log.Println("error unmarshalling")
-		log.Println(err)
-
-		return nil
+		return nil, err
 	}
+	err = json.Unmarshal(data, &response)
+	if err != nil {
+		return nil, err
+	}
+	return response.Objects, nil
 
-	return response.Objects
 }
