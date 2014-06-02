@@ -2,8 +2,7 @@ package tutum
 
 import (
 	"encoding/json"
-	// "errors"
-	// "time"
+	"time"
 )
 
 type CListResponse struct {
@@ -18,8 +17,8 @@ type Container struct {
 	Container_ports        []CCPInfo `json:"container_ports"`
 	Container_size         string    `json:"container_size"`
 	Current_num_containers int       `json:"current_num_containers"`
-	Deployed_datetime      string    `json:"deployed_datetime"`
-	Destroyed_datetime     string    `json:"destroyed_datetime"`
+	Deployed_datetime      time.Time `json:"deployed_datetime"`
+	Destroyed_datetime     time.Time `json:"destroyed_datetime"`
 	Entrypoint             string    `json:"entrypoint"`
 	Exit_code              int       `json:"exit_code"`
 	Exit_code_message      string    `json:"exit_code_message"`
@@ -29,9 +28,9 @@ type Container struct {
 	Public_dns             string    `json:"public_dns"`
 	Resource_uri           string    `json:"resource_uri"`
 	Run_command            string    `json:"run_command"`
-	Started_datetime       string    `json:"started_datetime"`
+	Started_datetime       time.Time `json:"started_datetime"`
 	State                  string    `json:"state"`
-	Stopped_datetime       string    `json:"stopped_datetime"`
+	Stopped_datetime       time.Time `json:"stopped_datetime"`
 	Unique_name            string    `json:"unique_name"`
 	Uuid                   string    `json:"uuid"`
 }

@@ -32,6 +32,7 @@ Set the environment variables TUTUM_USER and TUTUM_APIKEY
 	)
 
 	func main() {
+	
 		//Set Credentials.
 		tutum.User = "username"
 		tutum.Apikey = "yourApiKey"
@@ -39,17 +40,15 @@ Set the environment variables TUTUM_USER and TUTUM_APIKEY
 		//Returns an array of Container structs.
 		list, err := tutum.ListContainers()
 		if err != nil {
-			log.Println(err)
-			return
+			log.Fatal(err)
 		}
 		log.Println(list[0])
 	
 		//Returns an array of Application structs.
 		applist, err := tutum.ListApplications()
 		if err != nil {
-			log.Println(err)
-			return
+			log.Fatal(err)
 		}
 		log.Println(applist[0].Image_name)
-	
+		
 	}
