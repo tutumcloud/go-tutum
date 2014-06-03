@@ -1,16 +1,20 @@
 package tutum
 
 import (
-	"errors"
+	"fmt"
 	"github.com/BurntSushi/toml"
 	"io/ioutil"
+	"log"
 	"net/http"
 	"os"
 	"os/user"
 )
 
-var User string
-var Apikey string
+var (
+	User    string
+	ApiKey  string
+	BaseUrl = "https://app.tutum.co/api/v1/"
+)
 
 //Used to unpack the config file.
 type Auth struct {
@@ -19,11 +23,24 @@ type Auth struct {
 }
 type config map[string]Auth
 
-func TutumCall(url string, requestType string) ([]byte, error) {
+func init() {
+	// Initialize base URL
+	if os.Getenv("TUTUM_BASE_URL") != "" {
+		BaseUrl = os.Getenv("TUTUM_BASE_URL")
+	}
 
+	// Initialize credentials
+	LoadAuth()
+}
+
+func TutumCall(url string, requestType string) ([]byte, error) {
+	if !IsAuthenticated() {
+		return nil, fmt.Errorf("Couldn't find any Tutum credentials in ~/.tutum or environment variables TUTUM_USER and TUTUM_APIKEY")
+	}
 	client := &http.Client{}
-	req, err := http.NewRequest(requestType, BaseUrl()+url, nil)
-	req.Header.Add("Authorization", AuthForUser())
+	req, err := http.NewRequest(requestType, BaseUrl+url, nil)
+	authHeader := fmt.Sprintf("ApiKey %s:%s", User, ApiKey)
+	req.Header.Add("Authorization", authHeader)
 	req.Header.Add("Accept", "application/json")
 	response, err := client.Do(req)
 	if err != nil {
@@ -31,7 +48,7 @@ func TutumCall(url string, requestType string) ([]byte, error) {
 	}
 
 	if response.StatusCode != 200 {
-		return nil, errors.New("Failed API call " + response.Status)
+		return nil, fmt.Errorf("Failed API call: %d ", response.Status)
 	}
 
 	data, err := ioutil.ReadAll(response.Body)
@@ -41,53 +58,44 @@ func TutumCall(url string, requestType string) ([]byte, error) {
 	return data, nil
 }
 
-func AuthForUser() string {
-	//Check the init file first.  See if it exists?
-	if User == "" || Apikey == "" {
-		//Get the current user, so we can access home directory.
-		usr, err := user.Current()
-		if err != nil {
-			//What to do if the current user cant be found?
+func LoadAuth() error {
+	if User != "" && ApiKey != "" {
+		// Configuration already loaded
+		log.Printf("Credentials for %s already loaded", User)
+		return nil
+	}
 
-		}
-
+	// Process ~/.tutum configuration file first
+	if usr, err := user.Current(); err == nil {
 		var conf config
-		if _, err := toml.DecodeFile(usr.HomeDir+"/.tutum", &conf); err != nil {
-			// handle error
-		}
-
-		if User == "" {
-			if conf["auth"].User != "" {
-				User = conf["auth"].User
+		confFilePath := usr.HomeDir + "/.tutum"
+		if _, err := os.Stat(confFilePath); !os.IsNotExist(err) {
+			if _, err := toml.DecodeFile(confFilePath, &conf); err == nil {
+				if conf["auth"].User != "" && conf["auth"].Apikey != "" {
+					User = conf["auth"].User
+					ApiKey = conf["auth"].Apikey
+					log.Printf("Loading credentials for %s from config file", User)
+					return nil
+				}
+			} else {
+				log.Printf("Malformed Tutum configuration file found at %s: %s", confFilePath, err)
+				return fmt.Errorf("Malformed Tutum configuration file found at %s: %s", confFilePath, err)
 			}
 		}
-		if Apikey == "" {
-			if conf["auth"].Apikey != "" {
-				Apikey = conf["auth"].Apikey
-			}
-		}
 	}
 
-	if User == "" {
-		if os.Getenv("TUTUM_USER") != "" {
-			User = os.Getenv("TUTUM_USER")
-		}
+	// Load environment variables as an alternative option
+	if os.Getenv("TUTUM_USER") != "" && os.Getenv("TUTUM_APIKEY") != "" {
+		User = os.Getenv("TUTUM_USER")
+		ApiKey = os.Getenv("TUTUM_APIKEY")
+		log.Printf("Loading credentials for %s from environment", User)
+		return nil
 	}
 
-	if Apikey == "" {
-		if os.Getenv("TUTUM_APIKEY") != "" {
-			Apikey = os.Getenv("TUTUM_APIKEY")
-		}
-	}
-	return "ApiKey " + User + ":" + Apikey
+	log.Print("Couldn't automatically load credentials")
+	return fmt.Errorf("Couldn't find any Tutum credentials in ~/.tutum or environment variables TUTUM_USER and TUTUM_APIKEY")
 }
 
-func BaseUrl() string {
-	var baseUrl string
-	if os.Getenv("TUTUM_BASE_URL") != "" {
-		baseUrl = os.Getenv("TUTUM_BASE_URL")
-	} else {
-		baseUrl = "https://app.tutum.co/api/v1/"
-	}
-	return baseUrl
+func IsAuthenticated() bool {
+	return (User != "" && ApiKey != "")
 }

@@ -16,8 +16,8 @@ type Application struct {
 	Container_ports        []ACPInfo `json:"container_ports"`
 	Container_size         string    `json:"container_size"`
 	Current_num_containers int       `json:"current_num_containers"`
-	Deployed_datetime      time.Time    `json:"deployed_datetime"`
-	Destroyed_datetime     time.Time     `json:"destroyed_datetime"`
+	Deployed_datetime      time.Time `json:"deployed_datetime"`
+	Destroyed_datetime     time.Time `json:"destroyed_datetime"`
 	Entrypoint             string    `json:"entrypoint"`
 	Image_name             string    `json:"image_name"`
 	Image_tag              string    `json:"image_tag"`
@@ -27,9 +27,9 @@ type Application struct {
 	Resource_uri           string    `json:"resource_uri"`
 	Run_command            string    `json:"run_command"`
 	Running_num_containers int       `json:"running_num_containers"`
-	Started_datetime       time.Time     `json:"started_datetime"`
+	Started_datetime       time.Time `json:"started_datetime"`
 	State                  string    `json:"state"`
-	Stopped_datetime       time.Time     `json:"stopped_datetime"`
+	Stopped_datetime       time.Time `json:"stopped_datetime"`
 	Stopped_num_containers int       `json:"stopped_num_containers"`
 	Target_num_containers  int       `json:"target_num_containers"`
 	Unique_name            string    `json:"unique_name"`
