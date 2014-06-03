@@ -9,8 +9,6 @@ type AListResponse struct {
 	Objects []Application `json:"objects"`
 }
 
- t, _ := time.Parse("Mon, 2 Jan 2006 15:04:05 -0700", c.Deployed_datetime)
-
 type Application struct {
 	Autodestroy            string    `json:"autodestroy"`
 	Autoreplace            string    `json:"autoreplace"`
