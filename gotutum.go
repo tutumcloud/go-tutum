@@ -4,7 +4,6 @@ import (
 	"fmt"
 	"github.com/BurntSushi/toml"
 	"io/ioutil"
-	"log"
 	"net/http"
 	"os"
 	"os/user"
@@ -61,7 +60,6 @@ func TutumCall(url string, requestType string) ([]byte, error) {
 func LoadAuth() error {
 	if User != "" && ApiKey != "" {
 		// Configuration already loaded
-		log.Printf("Credentials for %s already loaded", User)
 		return nil
 	}
 
@@ -74,11 +72,9 @@ func LoadAuth() error {
 				if conf["auth"].User != "" && conf["auth"].Apikey != "" {
 					User = conf["auth"].User
 					ApiKey = conf["auth"].Apikey
-					log.Printf("Loading credentials for %s from config file", User)
 					return nil
 				}
 			} else {
-				log.Printf("Malformed Tutum configuration file found at %s: %s", confFilePath, err)
 				return fmt.Errorf("Malformed Tutum configuration file found at %s: %s", confFilePath, err)
 			}
 		}
@@ -88,11 +84,9 @@ func LoadAuth() error {
 	if os.Getenv("TUTUM_USER") != "" && os.Getenv("TUTUM_APIKEY") != "" {
 		User = os.Getenv("TUTUM_USER")
 		ApiKey = os.Getenv("TUTUM_APIKEY")
-		log.Printf("Loading credentials for %s from environment", User)
 		return nil
 	}
 
-	log.Print("Couldn't automatically load credentials")
 	return fmt.Errorf("Couldn't find any Tutum credentials in ~/.tutum or environment variables TUTUM_USER and TUTUM_APIKEY")
 }
 
