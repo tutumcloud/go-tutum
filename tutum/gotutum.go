@@ -9,10 +9,12 @@ import (
 	"os/user"
 )
 
+var version string = "0.9.8"
+
 var (
 	User    string
 	ApiKey  string
-	BaseUrl = "https://app.tutum.co/api/v1/"
+	BaseUrl = "https://dashboard.tutum.co/api/v1/"
 )
 
 //Used to unpack the config file.
@@ -41,6 +43,7 @@ func TutumCall(url string, requestType string) ([]byte, error) {
 	authHeader := fmt.Sprintf("ApiKey %s:%s", User, ApiKey)
 	req.Header.Add("Authorization", authHeader)
 	req.Header.Add("Accept", "application/json")
+	req.Header.Add("User-Agent", "go-tutum " + version)
 	response, err := client.Do(req)
 	if err != nil {
 		return nil, err

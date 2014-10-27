@@ -12,7 +12,7 @@ go-tutum
 Manually set in your golang code
 
 	tutum.User = "IchabodDee"
-	tutum.Apikey = "yourApiKeyHere"
+	tutum.ApiKey = "yourApiKeyHere"
 
 Store in a config file in ~/.tutum
 
@@ -27,28 +27,20 @@ Set the environment variables TUTUM_USER and TUTUM_APIKEY
 	package main
 
 	import (
-		"github.com/tutumcloud/go-tutum"
-		"log"
+	    "log"
+	    "github.com/tutumcloud/go-tutum/tutum"
 	)
 
 	func main() {
-	
-		//Set Credentials.
-		tutum.User = "username"
-		tutum.Apikey = "yourApiKey"
-	
-		//Returns an array of Container structs.
-		list, err := tutum.ListContainers()
-		if err != nil {
-			log.Fatal(err)
-		}
-		log.Println(list[0])
-	
-		//Returns an array of Application structs.
-		applist, err := tutum.ListApplications()
-		if err != nil {
-			log.Fatal(err)
-		}
-		log.Println(applist[0].Image_name)
-		
+
+	    //Set Credentials.
+	    tutum.User = "tifayuki"
+	    tutum.ApiKey = "d24c522c3651ad2516c848c268aecb264be34597"
+
+	    //Returns an array of Container structs.
+	    list, err := tutum.ListContainers()
+	    if err != nil {
+	        log.Fatal(err)
+	    }
+	    log.Println(list[0])
 	}
