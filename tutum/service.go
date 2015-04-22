@@ -119,3 +119,80 @@ func GetServiceLogs(uuid string) (string, error) {
 	return s, nil
 
 }
+
+func StartService(uuid string) (Service, error) {
+
+	url := "service/" + uuid + "/start/"
+	request := "POST"
+
+	var response Service
+	data, err := TutumCall(url, request)
+	if err != nil {
+		panic(err)
+	}
+
+	err = json.Unmarshal(data, &response)
+	if err != nil {
+		panic(err)
+	}
+
+	return response, nil
+}
+
+func StopService(uuid string) (Service, error) {
+
+	url := "service/" + uuid + "/stop/"
+	request := "POST"
+
+	var response Service
+	data, err := TutumCall(url, request)
+	if err != nil {
+		panic(err)
+	}
+
+	err = json.Unmarshal(data, &response)
+	if err != nil {
+		panic(err)
+	}
+
+	return response, nil
+}
+
+func RedeployService(uuid string) (Service, error) {
+
+	url := "service/" + uuid + "/redeploy/"
+	request := "POST"
+
+	var response Service
+	data, err := TutumCall(url, request)
+	if err != nil {
+		panic(err)
+	}
+
+	err = json.Unmarshal(data, &response)
+	if err != nil {
+		panic(err)
+	}
+
+	return response, nil
+
+}
+
+func TerminateService(uuid string) (Service, error) {
+	url := "service/" + uuid + "/"
+	request := "DELETE"
+
+	var response Service
+	data, err := TutumCall(url, request)
+	if err != nil {
+		panic(err)
+	}
+
+	err = json.Unmarshal(data, &response)
+	if err != nil {
+		panic(err)
+	}
+
+	return response, nil
+
+}
