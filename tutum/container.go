@@ -137,3 +137,17 @@ func RedeployContainer(uuid string) ([]byte, error) {
 	return data, nil
 
 }
+
+func TerminateContainer(uuid string) ([]byte, error) {
+
+	url := "container/" + uuid + "/"
+	request := "DELETE"
+
+	data, err := TutumCall(url, request)
+	if err != nil {
+		return nil, err
+	}
+
+	return data, nil
+
+}
