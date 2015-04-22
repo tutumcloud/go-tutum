@@ -7,12 +7,38 @@ type SListResponse struct {
 }
 
 type Service struct {
-	Autodestroy            string   `json:"autodestroy"`
-	Autoredeploy           bool     `json:"autoredeploy"`
-	Autorestart            string   `json:"autorestart"`
-	Containers             []string `json:"containers"`
-	Current_num_containers int      `json:"current_num_containers"`
-	Uuid                   string   `json:"uuid"`
+	Autodestroy            string    `json:"autodestroy"`
+	Autoreplace            string    `json:"autoreplace"`
+	Autoredeploy           bool      `json:"autoredeploy"`
+	Autorestart            string    `json:"autorestart"`
+	Containers             []string  `json:"containers"`
+	Container_ports        []SCPInfo `json:"container_ports"`
+	Container_size         string    `json:"container_size"`
+	Current_num_containers int       `json:"current_num_containers"`
+	Deployed_datetime      string    `json:"deployed_datetime"`
+	Destroyed_datetime     string    `json:"destroyed_datetime"`
+	Entrypoint             string    `json:"entrypoint"`
+	Exit_code              int       `json:"exit_code"`
+	Exit_code_message      string    `json:"exit_code_message"`
+	Image_name             string    `json:"image_name"`
+	Image_tag              string    `json:"image_tag"`
+	Name                   string    `json:"name"`
+	Public_dns             string    `json:"public_dns"`
+	Resource_uri           string    `json:"resource_uri"`
+	Run_command            string    `json:"run_command"`
+	Started_datetime       string    `json:"started_datetime"`
+	State                  string    `json:"state"`
+	Stack                  string    `json:"stack"`
+	Stopped_datetime       string    `json:"stopped_datetime"`
+	Unique_name            string    `json:"unique_name"`
+	Uuid                   string    `json:"uuid"`
+}
+
+type SCPInfo struct {
+	Container  string `json:"container"`
+	Inner_port int    `json:"inner_port"`
+	Outer_port int    `json:"outer_port"`
+	Protocol   string `json:"protocol"`
 }
 
 func ListServices() ([]Service, error) {
@@ -29,5 +55,26 @@ func ListServices() ([]Service, error) {
 		return nil, err
 	}
 	return response.Objects, nil
+
+}
+
+func GetService(uuid string) (Service, error) {
+
+	url := "service/" + uuid + "/"
+	request := "GET"
+
+	var response Service
+
+	data, err := TutumCall(url, request)
+	if err != nil {
+		panic(err)
+	}
+
+	err = json.Unmarshal(data, &response)
+	if err != nil {
+		panic(err)
+	}
+
+	return response, nil
 
 }
