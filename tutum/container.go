@@ -94,4 +94,27 @@ func GetContainerLogs(uuid string) (string, error) {
 	s := string(data)
 
 	return s, nil
+
+}
+
+func StartContainer(uuid string) {
+
+}
+
+func StopContainer(uuid string) ([]byte, error) {
+
+	url := "container/" + uuid + "/stop/"
+	request := "POST"
+
+	data, err := TutumCall(url, request)
+	if err != nil {
+		return nil, err
+	}
+
+	return data, nil
+
+}
+
+func RedeployContainer(uuid string) {
+
 }
