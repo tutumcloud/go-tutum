@@ -2,11 +2,12 @@ package tutum
 
 import (
 	"fmt"
-	"github.com/BurntSushi/toml"
 	"io/ioutil"
 	"net/http"
 	"os"
 	"os/user"
+
+	"github.com/BurntSushi/toml"
 )
 
 var version string = "0.9.8"
@@ -43,14 +44,14 @@ func TutumCall(url string, requestType string) ([]byte, error) {
 	authHeader := fmt.Sprintf("ApiKey %s:%s", User, ApiKey)
 	req.Header.Add("Authorization", authHeader)
 	req.Header.Add("Accept", "application/json")
-	req.Header.Add("User-Agent", "go-tutum " + version)
+	req.Header.Add("User-Agent", "go-tutum "+version)
 	response, err := client.Do(req)
 	if err != nil {
 		return nil, err
 	}
 
 	if response.StatusCode != 200 {
-		return nil, fmt.Errorf("Failed API call: %d ", response.Status)
+		return nil, fmt.Errorf("Failed API call: %s ", response.Status)
 	}
 
 	data, err := ioutil.ReadAll(response.Body)
