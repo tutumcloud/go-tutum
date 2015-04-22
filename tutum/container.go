@@ -80,3 +80,18 @@ func GetContainer(uuid string) (Container, error) {
 	return response, nil
 
 }
+
+func GetContainerLogs(uuid string) (string, error) {
+
+	url := "container/" + uuid + "/logs/"
+	request := "GET"
+
+	data, err := TutumCall(url, request)
+	if err != nil {
+		return "", err
+	}
+
+	s := string(data)
+
+	return s, nil
+}
