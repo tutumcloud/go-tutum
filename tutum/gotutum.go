@@ -50,7 +50,7 @@ func TutumCall(url string, requestType string) ([]byte, error) {
 		return nil, err
 	}
 
-	if response.StatusCode != 200 {
+	if response.StatusCode > 300 {
 		return nil, fmt.Errorf("Failed API call: %s ", response.Status)
 	}
 

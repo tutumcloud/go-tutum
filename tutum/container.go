@@ -124,17 +124,19 @@ func StopContainer(uuid string) ([]byte, error) {
 
 }
 
-func RedeployContainer(uuid string) ([]byte, error) {
+func RedeployContainer(uuid string) (string, error) {
 
 	url := "container/" + uuid + "/redeploy/"
 	request := "POST"
 
 	data, err := TutumCall(url, request)
 	if err != nil {
-		return nil, err
+		return "", err
 	}
 
-	return data, nil
+	s := string(data)
+
+	return s, nil
 
 }
 
