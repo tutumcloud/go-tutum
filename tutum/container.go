@@ -97,59 +97,81 @@ func GetContainerLogs(uuid string) (string, error) {
 
 }
 
-func StartContainer(uuid string) ([]byte, error) {
+func StartContainer(uuid string) (Container, error) {
 
 	url := "container/" + uuid + "/start/"
 	request := "POST"
 
+	var response Container
 	data, err := TutumCall(url, request)
 	if err != nil {
-		return nil, err
+		fmt.Println(err)
 	}
 
-	return data, nil
+	err = json.Unmarshal(data, &response)
+	if err != nil {
+		fmt.Println(err)
+	}
+
+	return response, nil
 }
 
-func StopContainer(uuid string) ([]byte, error) {
+func StopContainer(uuid string) (Container, error) {
 
 	url := "container/" + uuid + "/stop/"
 	request := "POST"
 
+	var response Container
 	data, err := TutumCall(url, request)
 	if err != nil {
-		return nil, err
+		fmt.Println(err)
 	}
 
-	return data, nil
+	err = json.Unmarshal(data, &response)
+	if err != nil {
+		fmt.Println(err)
+	}
+
+	return response, nil
 
 }
 
-func RedeployContainer(uuid string) (string, error) {
+func RedeployContainer(uuid string) (Container, error) {
 
 	url := "container/" + uuid + "/redeploy/"
 	request := "POST"
 
+	var response Container
 	data, err := TutumCall(url, request)
 	if err != nil {
-		return "", err
+		fmt.Println(err)
 	}
 
-	s := string(data)
+	err = json.Unmarshal(data, &response)
+	if err != nil {
+		fmt.Println(err)
+	}
 
-	return s, nil
+	return response, nil
 
 }
 
-func TerminateContainer(uuid string) ([]byte, error) {
+func TerminateContainer(uuid string) (Container, error) {
 
 	url := "container/" + uuid + "/"
 	request := "DELETE"
 
+	var response Container
 	data, err := TutumCall(url, request)
 	if err != nil {
-		return nil, err
+		fmt.Println(err)
 	}
 
-	return data, nil
+	err = json.Unmarshal(data, &response)
+	if err != nil {
+		fmt.Println(err)
+	}
+
+	return response, nil
 
 }
