@@ -39,6 +39,10 @@ type CCPInfo struct {
 	Protocol   string `json:"protocol"`
 }
 
+/*
+func ListContainers
+Returns : Array of Container objects
+*/
 func ListContainers() ([]Container, error) {
 
 	url := "container/"
@@ -57,6 +61,11 @@ func ListContainers() ([]Container, error) {
 
 }
 
+/*
+func GetContainer
+Argument : uuid
+Returns : Container JSON object
+*/
 func GetContainer(uuid string) (Container, error) {
 
 	url := "container/" + uuid + "/"
@@ -78,6 +87,11 @@ func GetContainer(uuid string) (Container, error) {
 
 }
 
+/*
+func GetContainerLogs
+Argument : uuid
+Returns : A string containing the logs of the container
+*/
 func GetContainerLogs(uuid string) (string, error) {
 
 	url := "container/" + uuid + "/logs/"
@@ -94,6 +108,11 @@ func GetContainerLogs(uuid string) (string, error) {
 
 }
 
+/*
+func StartContainer
+Argument : uuid
+Returns : Container JSON object
+*/
 func StartContainer(uuid string) (Container, error) {
 
 	url := "container/" + uuid + "/start/"
@@ -113,6 +132,11 @@ func StartContainer(uuid string) (Container, error) {
 	return response, nil
 }
 
+/*
+func StopContainer
+Argument : uuid
+Returns : Container JSON object
+*/
 func StopContainer(uuid string) (Container, error) {
 
 	url := "container/" + uuid + "/stop/"
@@ -133,6 +157,11 @@ func StopContainer(uuid string) (Container, error) {
 
 }
 
+/*
+func RedeployContainer
+Argument : uuid
+Returns : Container JSON object
+*/
 func RedeployContainer(uuid string) (Container, error) {
 
 	url := "container/" + uuid + "/redeploy/"
@@ -153,6 +182,11 @@ func RedeployContainer(uuid string) (Container, error) {
 
 }
 
+/*
+func TerminateContainer
+Argument : uuid
+Returns : Container JSON object
+*/
 func TerminateContainer(uuid string) (Container, error) {
 
 	url := "container/" + uuid + "/"
