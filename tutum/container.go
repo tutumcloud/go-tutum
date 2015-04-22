@@ -1,9 +1,6 @@
 package tutum
 
-import (
-	"encoding/json"
-	"fmt"
-)
+import "encoding/json"
 
 type CListResponse struct {
 	Objects []Container `json:"objects"`
@@ -69,12 +66,12 @@ func GetContainer(uuid string) (Container, error) {
 
 	data, err := TutumCall(url, request)
 	if err != nil {
-		fmt.Println(err)
+		panic(err)
 	}
 
 	err = json.Unmarshal(data, &response)
 	if err != nil {
-		fmt.Println(err)
+		panic(err)
 	}
 
 	return response, nil
@@ -105,12 +102,12 @@ func StartContainer(uuid string) (Container, error) {
 	var response Container
 	data, err := TutumCall(url, request)
 	if err != nil {
-		fmt.Println(err)
+		panic(err)
 	}
 
 	err = json.Unmarshal(data, &response)
 	if err != nil {
-		fmt.Println(err)
+		panic(err)
 	}
 
 	return response, nil
@@ -124,12 +121,12 @@ func StopContainer(uuid string) (Container, error) {
 	var response Container
 	data, err := TutumCall(url, request)
 	if err != nil {
-		fmt.Println(err)
+		panic(err)
 	}
 
 	err = json.Unmarshal(data, &response)
 	if err != nil {
-		fmt.Println(err)
+		panic(err)
 	}
 
 	return response, nil
@@ -144,12 +141,12 @@ func RedeployContainer(uuid string) (Container, error) {
 	var response Container
 	data, err := TutumCall(url, request)
 	if err != nil {
-		fmt.Println(err)
+		panic(err)
 	}
 
 	err = json.Unmarshal(data, &response)
 	if err != nil {
-		fmt.Println(err)
+		panic(err)
 	}
 
 	return response, nil
@@ -164,12 +161,12 @@ func TerminateContainer(uuid string) (Container, error) {
 	var response Container
 	data, err := TutumCall(url, request)
 	if err != nil {
-		fmt.Println(err)
+		panic(err)
 	}
 
 	err = json.Unmarshal(data, &response)
 	if err != nil {
-		fmt.Println(err)
+		panic(err)
 	}
 
 	return response, nil
