@@ -47,9 +47,9 @@ func ListContainers() ([]Container, error) {
 
 	url := "container/"
 	request := "GET"
-
+	body := []byte(`{}`)
 	var response CListResponse
-	data, err := TutumCall(url, request)
+	data, err := TutumCall(url, request, body)
 	if err != nil {
 		return nil, err
 	}
@@ -70,10 +70,10 @@ func GetContainer(uuid string) (Container, error) {
 
 	url := "container/" + uuid + "/"
 	request := "GET"
-
+	body := []byte(`{}`)
 	var response Container
 
-	data, err := TutumCall(url, request)
+	data, err := TutumCall(url, request, body)
 	if err != nil {
 		panic(err)
 	}
@@ -96,8 +96,8 @@ func GetContainerLogs(uuid string) (string, error) {
 
 	url := "container/" + uuid + "/logs/"
 	request := "GET"
-
-	data, err := TutumCall(url, request)
+	body := []byte(`{}`)
+	data, err := TutumCall(url, request, body)
 	if err != nil {
 		return "", err
 	}
@@ -117,9 +117,10 @@ func StartContainer(uuid string) (Container, error) {
 
 	url := "container/" + uuid + "/start/"
 	request := "POST"
-
+	body := []byte(`{}`)
 	var response Container
-	data, err := TutumCall(url, request)
+
+	data, err := TutumCall(url, request, body)
 	if err != nil {
 		panic(err)
 	}
@@ -141,9 +142,10 @@ func StopContainer(uuid string) (Container, error) {
 
 	url := "container/" + uuid + "/stop/"
 	request := "POST"
+	body := []byte(`{}`)
 
 	var response Container
-	data, err := TutumCall(url, request)
+	data, err := TutumCall(url, request, body)
 	if err != nil {
 		panic(err)
 	}
@@ -166,9 +168,10 @@ func RedeployContainer(uuid string) (Container, error) {
 
 	url := "container/" + uuid + "/redeploy/"
 	request := "POST"
+	body := []byte(`{}`)
 
 	var response Container
-	data, err := TutumCall(url, request)
+	data, err := TutumCall(url, request, body)
 	if err != nil {
 		panic(err)
 	}
@@ -191,9 +194,10 @@ func TerminateContainer(uuid string) (Container, error) {
 
 	url := "container/" + uuid + "/"
 	request := "DELETE"
+	body := []byte(`{}`)
 
 	var response Container
-	data, err := TutumCall(url, request)
+	data, err := TutumCall(url, request, body)
 	if err != nil {
 		panic(err)
 	}

@@ -1,6 +1,7 @@
 package tutum
 
 import (
+	"bytes"
 	"fmt"
 	"io/ioutil"
 	"net/http"
@@ -35,12 +36,12 @@ func init() {
 	LoadAuth()
 }
 
-func TutumCall(url string, requestType string) ([]byte, error) {
+func TutumCall(url string, requestType string, requestBody []byte) ([]byte, error) {
 	if !IsAuthenticated() {
 		return nil, fmt.Errorf("Couldn't find any Tutum credentials in ~/.tutum or environment variables TUTUM_USER and TUTUM_APIKEY")
 	}
 	client := &http.Client{}
-	req, err := http.NewRequest(requestType, BaseUrl+url, nil)
+	req, err := http.NewRequest(requestType, BaseUrl+url, bytes.NewBuffer(requestBody))
 	authHeader := fmt.Sprintf("ApiKey %s:%s", User, ApiKey)
 	req.Header.Add("Authorization", authHeader)
 	req.Header.Add("Accept", "application/json")

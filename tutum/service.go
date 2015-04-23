@@ -58,9 +58,10 @@ type BasicService struct {
 func ListServices() ([]Service, error) {
 	url := "service/"
 	request := "GET"
-
+	body := []byte(`{}`)
 	var response SListResponse
-	data, err := TutumCall(url, request)
+
+	data, err := TutumCall(url, request, body)
 	if err != nil {
 		return nil, err
 	}
@@ -76,10 +77,10 @@ func GetService(uuid string) (Service, error) {
 
 	url := "service/" + uuid + "/"
 	request := "GET"
-
+	body := []byte(`{}`)
 	var response Service
 
-	data, err := TutumCall(url, request)
+	data, err := TutumCall(url, request, body)
 	if err != nil {
 		panic(err)
 	}
@@ -108,8 +109,9 @@ func GetServiceLogs(uuid string) (string, error) {
 
 	url := "service/" + uuid + "/logs/"
 	request := "GET"
+	body := []byte(`{}`)
 
-	data, err := TutumCall(url, request)
+	data, err := TutumCall(url, request, body)
 	if err != nil {
 		return "", err
 	}
@@ -124,9 +126,10 @@ func StartService(uuid string) (Service, error) {
 
 	url := "service/" + uuid + "/start/"
 	request := "POST"
-
+	body := []byte(`{}`)
 	var response Service
-	data, err := TutumCall(url, request)
+
+	data, err := TutumCall(url, request, body)
 	if err != nil {
 		panic(err)
 	}
@@ -143,9 +146,10 @@ func StopService(uuid string) (Service, error) {
 
 	url := "service/" + uuid + "/stop/"
 	request := "POST"
-
+	body := []byte(`{}`)
 	var response Service
-	data, err := TutumCall(url, request)
+
+	data, err := TutumCall(url, request, body)
 	if err != nil {
 		panic(err)
 	}
@@ -162,9 +166,10 @@ func RedeployService(uuid string) (Service, error) {
 
 	url := "service/" + uuid + "/redeploy/"
 	request := "POST"
-
+	body := []byte(`{}`)
 	var response Service
-	data, err := TutumCall(url, request)
+
+	data, err := TutumCall(url, request, body)
 	if err != nil {
 		panic(err)
 	}
@@ -181,9 +186,10 @@ func RedeployService(uuid string) (Service, error) {
 func TerminateService(uuid string) (Service, error) {
 	url := "service/" + uuid + "/"
 	request := "DELETE"
-
+	body := []byte(`{}`)
 	var response Service
-	data, err := TutumCall(url, request)
+
+	data, err := TutumCall(url, request, body)
 	if err != nil {
 		panic(err)
 	}
