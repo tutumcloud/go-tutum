@@ -14,9 +14,8 @@ import (
 var version string = "0.9.8"
 
 var (
-	User    string
-	ApiKey  string
-	BaseUrl = "https://dashboard.tutum.co/api/v1/"
+	User   string
+	ApiKey string
 )
 
 //Used to unpack the config file.
@@ -28,15 +27,31 @@ type config map[string]Auth
 
 func init() {
 	// Initialize base URL
-	if os.Getenv("TUTUM_BASE_URL") != "" {
-		BaseUrl = os.Getenv("TUTUM_BASE_URL")
-	}
+	/**/
 
 	// Initialize credentials
 	LoadAuth()
 }
 
 func TutumCall(url string, requestType string, requestBody []byte) ([]byte, error) {
+
+	var BaseUrl = "https://dashboard.tutum.co/api/v1/"
+
+	/*
+		var TestUrl = "http://127.0.0.1:64774"
+		Idea : To run the test, set a variable TUTUM_ENV = "test"
+		at the beginning of each test, tell the TutumCall function
+		to look for this variable
+		if exist => use TestUrl
+		if not => use BaseUrl
+
+		Remove the ENV function after the tests are done
+	*/
+
+	if os.Getenv("TUTUM_BASE_URL") != "" {
+		BaseUrl = os.Getenv("TUTUM_BASE_URL")
+	}
+
 	if !IsAuthenticated() {
 		return nil, fmt.Errorf("Couldn't find any Tutum credentials in ~/.tutum or environment variables TUTUM_USER and TUTUM_APIKEY")
 	}
