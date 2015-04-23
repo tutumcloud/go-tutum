@@ -42,12 +42,17 @@ type SCPInfo struct {
 	Protocol   string `json:"protocol"`
 }
 
+//Basic information from linked services
 type LinkToInfo struct {
 	From_service string `json:"from_service"`
 	Name         string `json:"name"`
 	To_service   string `json:"to_service"`
 }
 
+/*
+func ListServices
+Returns : Array of Service objects
+*/
 func ListServices() ([]Service, error) {
 	url := "service/"
 	request := "GET"
@@ -66,6 +71,11 @@ func ListServices() ([]Service, error) {
 
 }
 
+/*
+func GetService
+Argument : uuid
+Returns : Service JSON object
+*/
 func GetService(uuid string) (Service, error) {
 
 	url := "service/" + uuid + "/"
@@ -87,6 +97,11 @@ func GetService(uuid string) (Service, error) {
 
 }
 
+/*
+func CreateService
+Argument : newService JSON object
+Returns : Service JSON object
+*/
 func CreateService(newService []byte) (Service, error) {
 
 	url := "service/"
@@ -108,6 +123,11 @@ func CreateService(newService []byte) (Service, error) {
 
 }
 
+/*
+func GetServiceLogs
+Argument : uuid
+Returns : A string containing the logs of the service
+*/
 func GetServiceLogs(uuid string) (string, error) {
 
 	url := "service/" + uuid + "/logs/"
@@ -125,13 +145,18 @@ func GetServiceLogs(uuid string) (string, error) {
 
 }
 
-func UpdateService(uuid string, update []byte) (Service, error) {
+/*
+func UpdateService
+Argument : uuid, updatedService JSON object
+Returns : Service JSON object
+*/
+func UpdateService(uuid string, updatedService []byte) (Service, error) {
 
 	url := "service/" + uuid + "/"
 	request := "PATCH"
 	var response Service
 
-	data, err := TutumCall(url, request, update)
+	data, err := TutumCall(url, request, updatedService)
 	if err != nil {
 		panic(err)
 	}
@@ -144,6 +169,11 @@ func UpdateService(uuid string, update []byte) (Service, error) {
 	return response, nil
 }
 
+/*
+func StartService
+Argument : uuid
+Returns : Service JSON object
+*/
 func StartService(uuid string) (Service, error) {
 
 	url := "service/" + uuid + "/start/"
@@ -164,6 +194,11 @@ func StartService(uuid string) (Service, error) {
 	return response, nil
 }
 
+/*
+func StopService
+Argument : uuid
+Returns : Service JSON object
+*/
 func StopService(uuid string) (Service, error) {
 
 	url := "service/" + uuid + "/stop/"
@@ -184,6 +219,11 @@ func StopService(uuid string) (Service, error) {
 	return response, nil
 }
 
+/*
+func RedeployService
+Argument : uuid
+Returns : Service JSON object
+*/
 func RedeployService(uuid string) (Service, error) {
 
 	url := "service/" + uuid + "/redeploy/"
@@ -205,6 +245,11 @@ func RedeployService(uuid string) (Service, error) {
 
 }
 
+/*
+func TerminateService
+Argument : uuid
+Returns : Service JSON object
+*/
 func TerminateService(uuid string) (Service, error) {
 	url := "service/" + uuid + "/"
 	request := "DELETE"
