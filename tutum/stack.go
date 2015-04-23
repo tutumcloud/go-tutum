@@ -69,3 +69,20 @@ func GetStack(uuid string) (Stack, error) {
 
 	return response, nil
 }
+
+func ExportStack(uuid string) (string, error) {
+
+	url := "stack/" + uuid + "/export/"
+	request := "GET"
+	//Empty Body Request
+	body := []byte(`{}`)
+
+	data, err := TutumCall(url, request, body)
+	if err != nil {
+		panic(err)
+	}
+
+	s := string(data)
+
+	return s, nil
+}
