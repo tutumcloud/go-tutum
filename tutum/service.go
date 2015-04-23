@@ -56,6 +56,7 @@ Returns : Array of Service objects
 func ListServices() ([]Service, error) {
 	url := "service/"
 	request := "GET"
+	//Empty Body Request
 	body := []byte(`{}`)
 	var response SListResponse
 
@@ -80,6 +81,7 @@ func GetService(uuid string) (Service, error) {
 
 	url := "service/" + uuid + "/"
 	request := "GET"
+	//Empty Body Request
 	body := []byte(`{}`)
 	var response Service
 
@@ -132,6 +134,8 @@ func GetServiceLogs(uuid string) (string, error) {
 
 	url := "service/" + uuid + "/logs/"
 	request := "GET"
+
+	//Empty Body Request
 	body := []byte(`{}`)
 
 	data, err := TutumCall(url, request, body)
@@ -178,6 +182,7 @@ func StartService(uuid string) (Service, error) {
 
 	url := "service/" + uuid + "/start/"
 	request := "POST"
+	//Empty Body Request
 	body := []byte(`{}`)
 	var response Service
 
@@ -203,6 +208,7 @@ func StopService(uuid string) (Service, error) {
 
 	url := "service/" + uuid + "/stop/"
 	request := "POST"
+	//Empty Body Request
 	body := []byte(`{}`)
 	var response Service
 
@@ -228,6 +234,7 @@ func RedeployService(uuid string) (Service, error) {
 
 	url := "service/" + uuid + "/redeploy/"
 	request := "POST"
+	//Empty Body Request
 	body := []byte(`{}`)
 	var response Service
 
@@ -253,6 +260,7 @@ Returns : Service JSON object
 func TerminateService(uuid string) (Service, error) {
 	url := "service/" + uuid + "/"
 	request := "DELETE"
+	//Empty Body Request
 	body := []byte(`{}`)
 	var response Service
 

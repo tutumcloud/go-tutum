@@ -47,6 +47,7 @@ func ListContainers() ([]Container, error) {
 
 	url := "container/"
 	request := "GET"
+	//Empty Body Request
 	body := []byte(`{}`)
 	var response CListResponse
 	data, err := TutumCall(url, request, body)
@@ -70,6 +71,7 @@ func GetContainer(uuid string) (Container, error) {
 
 	url := "container/" + uuid + "/"
 	request := "GET"
+	//Empty Body Request
 	body := []byte(`{}`)
 	var response Container
 
@@ -96,6 +98,7 @@ func GetContainerLogs(uuid string) (string, error) {
 
 	url := "container/" + uuid + "/logs/"
 	request := "GET"
+	//Empty Body Request
 	body := []byte(`{}`)
 	data, err := TutumCall(url, request, body)
 	if err != nil {
@@ -117,6 +120,7 @@ func StartContainer(uuid string) (Container, error) {
 
 	url := "container/" + uuid + "/start/"
 	request := "POST"
+	//Empty Body Request
 	body := []byte(`{}`)
 	var response Container
 
@@ -142,6 +146,7 @@ func StopContainer(uuid string) (Container, error) {
 
 	url := "container/" + uuid + "/stop/"
 	request := "POST"
+	//Empty Body Request
 	body := []byte(`{}`)
 
 	var response Container
@@ -168,6 +173,7 @@ func RedeployContainer(uuid string) (Container, error) {
 
 	url := "container/" + uuid + "/redeploy/"
 	request := "POST"
+	//Empty Body Request
 	body := []byte(`{}`)
 
 	var response Container
@@ -194,6 +200,7 @@ func TerminateContainer(uuid string) (Container, error) {
 
 	url := "container/" + uuid + "/"
 	request := "DELETE"
+	//Empty Body Request
 	body := []byte(`{}`)
 
 	var response Container
