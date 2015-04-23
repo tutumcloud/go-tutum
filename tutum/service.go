@@ -94,12 +94,22 @@ func GetService(uuid string) (Service, error) {
 
 }
 
-func CreateService(newService BasicService) (Service, error) {
+func CreateService(newService []byte) (Service, error) {
 
-	/*url := "service/"
-	request := "POST"*/
-	//TUTUM CALL WITH BYTE BODY REQUEST
+	url := "service/"
+	request := "POST"
+
 	var response Service
+
+	data, err := TutumCall(url, request, newService)
+	if err != nil {
+		panic(err)
+	}
+
+	err = json.Unmarshal(data, &response)
+	if err != nil {
+		panic(err)
+	}
 
 	return response, nil
 
