@@ -106,3 +106,44 @@ func CreateStack(newStack []byte) (Stack, error) {
 
 	return response, nil
 }
+
+func UpdateStack(uuid string, updatedStack []byte) (Stack, error) {
+
+	url := "stack/" + uuid + "/"
+	request := "PATCH"
+	var response Stack
+
+	data, err := TutumCall(url, request, updatedStack)
+	if err != nil {
+		panic(err)
+	}
+
+	err = json.Unmarshal(data, &response)
+	if err != nil {
+		panic(err)
+	}
+
+	return response, nil
+
+}
+
+func StartStack(uuid string) (Service, error) {
+
+	url := "stack/" + uuid + "/start/"
+	request := "POST"
+	//Empty Body Request
+	body := []byte(`{}`)
+	var response Service
+
+	data, err := TutumCall(url, request, body)
+	if err != nil {
+		panic(err)
+	}
+
+	err = json.Unmarshal(data, &response)
+	if err != nil {
+		panic(err)
+	}
+
+	return response, nil
+}
