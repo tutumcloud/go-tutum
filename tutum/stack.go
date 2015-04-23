@@ -86,3 +86,23 @@ func ExportStack(uuid string) (string, error) {
 
 	return s, nil
 }
+
+func CreateStack(newStack []byte) (Stack, error) {
+
+	url := "stack/"
+	request := "POST"
+
+	var response Stack
+
+	data, err := TutumCall(url, request, newStack)
+	if err != nil {
+		panic(err)
+	}
+
+	err = json.Unmarshal(data, &response)
+	if err != nil {
+		panic(err)
+	}
+
+	return response, nil
+}
