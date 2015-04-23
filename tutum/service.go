@@ -48,12 +48,6 @@ type LinkToInfo struct {
 	To_service   string `json:"to_service"`
 }
 
-type BasicService struct {
-	Image                 string `json:"image"`
-	Name                  string `json:"name"`
-	Target_num_containers int    `json:"target_num_containers"`
-}
-
 func ListServices() ([]Service, error) {
 	url := "service/"
 	request := "GET"
