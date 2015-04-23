@@ -147,3 +147,66 @@ func StartStack(uuid string) (Service, error) {
 
 	return response, nil
 }
+
+func StopStack(uuid string) (Service, error) {
+
+	url := "stack/" + uuid + "/stop/"
+	request := "POST"
+	//Empty Body Request
+	body := []byte(`{}`)
+	var response Service
+
+	data, err := TutumCall(url, request, body)
+	if err != nil {
+		panic(err)
+	}
+
+	err = json.Unmarshal(data, &response)
+	if err != nil {
+		panic(err)
+	}
+
+	return response, nil
+}
+
+func RedeployStack(uuid string) (Service, error) {
+
+	url := "stack/" + uuid + "/redeploy/"
+	request := "POST"
+	//Empty Body Request
+	body := []byte(`{}`)
+	var response Service
+
+	data, err := TutumCall(url, request, body)
+	if err != nil {
+		panic(err)
+	}
+
+	err = json.Unmarshal(data, &response)
+	if err != nil {
+		panic(err)
+	}
+
+	return response, nil
+}
+
+func TerminateStack(uuid string) (Service, error) {
+
+	url := "stack/" + uuid + "/"
+	request := "DELETE"
+	//Empty Body Request
+	body := []byte(`{}`)
+	var response Service
+
+	data, err := TutumCall(url, request, body)
+	if err != nil {
+		panic(err)
+	}
+
+	err = json.Unmarshal(data, &response)
+	if err != nil {
+		panic(err)
+	}
+
+	return response, nil
+}
