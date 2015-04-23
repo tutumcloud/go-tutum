@@ -8,7 +8,6 @@ type SListResponse struct {
 
 type Service struct {
 	Autodestroy            string       `json:"autodestroy"`
-	Autoreplace            string       `json:"autoreplace"`
 	Autoredeploy           bool         `json:"autoredeploy"`
 	Autorestart            string       `json:"autorestart"`
 	Containers             []string     `json:"containers"`
@@ -130,6 +129,25 @@ func GetServiceLogs(uuid string) (string, error) {
 
 	return s, nil
 
+}
+
+func UpdateService(uuid string, update []byte) (Service, error) {
+
+	url := "service/" + uuid + "/"
+	request := "PATCH"
+	var response Service
+
+	data, err := TutumCall(url, request, update)
+	if err != nil {
+		panic(err)
+	}
+
+	err = json.Unmarshal(data, &response)
+	if err != nil {
+		panic(err)
+	}
+
+	return response, nil
 }
 
 func StartService(uuid string) (Service, error) {
