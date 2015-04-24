@@ -2,30 +2,31 @@ package tutum
 
 import "encoding/json"
 
-type VolumeGroupListResponse struct {
-	Objects []VolumeGroup `json:"objects"`
+type NodeTypeListResponse struct {
+	Objects []NodeType `json:"objects"`
 }
 
-type VolumeGroup struct {
+type NodeType struct {
+	Available    bool     `json:"available"`
+	Label        string   `json:"label"`
 	Name         string   `json:"name"`
+	Provider     string   `json:"provider"`
+	Regions      []string `json:"regions"`
 	Resource_uri string   `json:"resource_uri"`
-	Services     []string `json:"services"`
-	State        string   `json:"state"`
-	Uuid         string   `json:"uuid"`
-	Volume       []string `json:"volume"`
 }
 
-func ListVolumeGroups() ([]VolumeGroup, error) {
+func ListNodeTypes() ([]NodeType, error) {
 
-	url := "volumegroup/"
+	url := "nodetype/"
 	request := "GET"
+
 	//Empty Body Request
 	body := []byte(`{}`)
-	var response VolumeGroupListResponse
+	var response NodeTypeListResponse
 
 	data, err := TutumCall(url, request, body)
 	if err != nil {
-		panic(err)
+		return nil, err
 	}
 
 	err = json.Unmarshal(data, &response)
@@ -36,13 +37,13 @@ func ListVolumeGroups() ([]VolumeGroup, error) {
 	return response.Objects, nil
 }
 
-func GetVolumeGroup(uuid string) (VolumeGroup, error) {
+func GetNodeType(provider string, name string) (NodeType, error) {
 
-	url := "volumegroup/" + uuid + "/"
+	url := "nodetype/" + provider + "/" + name + "/"
 	request := "GET"
 	//Empty Body Request
 	body := []byte(`{}`)
-	var response VolumeGroup
+	var response NodeType
 
 	data, err := TutumCall(url, request, body)
 	if err != nil {
