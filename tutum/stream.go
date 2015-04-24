@@ -27,11 +27,12 @@ func TutumStreamCall() error {
 
 	var msg = make([]byte, 512)
 	var n int
-	if n, err = ws.Read(msg); err != nil {
-		return err
+	for {
+		if n, err = ws.Read(msg); err != nil {
+			return err
+		}
+
+		fmt.Printf("Received: %s.\n", msg[:n])
 	}
-
-	fmt.Printf("Received: %s.\n", msg[:n])
-
 	return nil
 }
