@@ -3,7 +3,7 @@ package tutum
 import "encoding/json"
 
 type StackListResponse struct {
-	Objects []StackShort `json: "objects"`
+	Objects []StackShort `json:"objects"`
 }
 
 type StackShort struct {

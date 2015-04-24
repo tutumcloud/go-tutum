@@ -1,5 +1,7 @@
 package tutum
 
+import "encoding/json"
+
 type NodeListResponse struct {
 	Objects []Node `json:"objects"`
 }
@@ -20,4 +22,25 @@ type Node struct {
 
 type NodeTag struct {
 	Name string `json:"name"`
+}
+
+func ListNodes() ([]Node, error) {
+	url := "node/"
+	request := "GET"
+
+	//Empty Body Request
+	body := []byte(`{}`)
+	var response NodeListResponse
+
+	data, err := TutumCall(url, request, body)
+	if err != nil {
+		return nil, err
+	}
+
+	err = json.Unmarshal(data, &response)
+	if err != nil {
+		return nil, err
+	}
+
+	return response.Objects, nil
 }
