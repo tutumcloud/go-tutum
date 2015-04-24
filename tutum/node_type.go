@@ -38,10 +38,8 @@ func ListNodeTypes() ([]NodeType, error) {
 }
 
 func GetNodeType(provider string, name string) (NodeType, error) {
-
 	url := "nodetype/" + provider + "/" + name + "/"
 	request := "GET"
-	//Empty Body Request
 	body := []byte(`{}`)
 	var response NodeType
 

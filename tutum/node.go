@@ -47,10 +47,8 @@ func ListNodes() ([]Node, error) {
 }
 
 func GetNode(uuid string) (Node, error) {
-
 	url := "node/" + uuid + "/"
 	request := "GET"
-	//Empty Body Request
 	body := []byte(`{}`)
 	var response Node
 
@@ -110,7 +108,7 @@ func UpgradeDaemon(uuid string) (Node, error) {
 
 func TerminateNode(uuid string) (Node, error) {
 
-	url := "node/"
+	url := "node/" + uuid + "/"
 	request := "DELETE"
 	//Empty Body Request
 	body := []byte(`{}`)

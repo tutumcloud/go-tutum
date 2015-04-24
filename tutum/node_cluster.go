@@ -147,7 +147,7 @@ func UpgradeClusterDaemon(uuid string) (NodeCluster, error) {
 
 func TerminateNodeCluster(uuid string) (NodeCluster, error) {
 
-	url := "node/"
+	url := "nodecluster/" + uuid + "/"
 	request := "DELETE"
 	//Empty Body Request
 	body := []byte(`{}`)
