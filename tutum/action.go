@@ -22,7 +22,7 @@ type Action struct {
 	Uuid         string `json:"uuid"`
 }
 
-func ListActions() ([]Action, error) {
+func ListActions() (ActionListResponse, error) {
 	url := "action/"
 	request := "GET"
 	//Empty Body Request
@@ -31,15 +31,15 @@ func ListActions() ([]Action, error) {
 
 	data, err := TutumCall(url, request, body)
 	if err != nil {
-		return nil, err
+		panic(err)
 	}
 
 	err = json.Unmarshal(data, &response)
 	if err != nil {
-		return nil, err
+		panic(err)
 	}
 
-	return response.Objects, nil
+	return response, nil
 }
 
 func GetAction(uuid string) (Action, error) {
