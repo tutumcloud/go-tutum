@@ -1,0 +1,28 @@
+{
+    "meta": {
+        "limit": 25,
+        "next": null,
+        "offset": 0,
+        "previous": null,
+        "total_count": 7
+    },
+    "objects": [
+        {
+            "available": true,
+            "label": "Digital Ocean",
+            "name": "digitalocean",
+            "regions": [
+                "/api/v1/region/digitalocean/ams1/",
+                "/api/v1/region/digitalocean/ams2/",
+                "/api/v1/region/digitalocean/ams3/",
+                "/api/v1/region/digitalocean/lon1/",
+                "/api/v1/region/digitalocean/nyc1/",
+                "/api/v1/region/digitalocean/nyc2/",
+                "/api/v1/region/digitalocean/nyc3/",
+                "/api/v1/region/digitalocean/sfo1/",
+                "/api/v1/region/digitalocean/sgp1/"
+            ],
+            "resource_uri": "/api/v1/provider/digitalocean/"
+        }
+    ]
+}
