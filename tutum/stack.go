@@ -28,7 +28,7 @@ type Stack struct {
 	Uuid               string    `json:"uuid"`
 }
 
-func ListStacks() ([]StackShort, error) {
+func ListStacks() (StackListResponse, error) {
 	url := "stack/"
 	request := "GET"
 
@@ -38,15 +38,15 @@ func ListStacks() ([]StackShort, error) {
 
 	data, err := TutumCall(url, request, body)
 	if err != nil {
-		return nil, err
+		panic(err)
 	}
 
 	err = json.Unmarshal(data, &response)
 	if err != nil {
-		return nil, err
+		panic(err)
 	}
 
-	return response.Objects, nil
+	return response, nil
 }
 
 func GetStack(uuid string) (Stack, error) {
@@ -127,13 +127,13 @@ func UpdateStack(uuid string, updatedStack []byte) (Stack, error) {
 
 }
 
-func StartStack(uuid string) (Service, error) {
+func StartStack(uuid string) (Stack, error) {
 
 	url := "stack/" + uuid + "/start/"
 	request := "POST"
 	//Empty Body Request
 	body := []byte(`{}`)
-	var response Service
+	var response Stack
 
 	data, err := TutumCall(url, request, body)
 	if err != nil {
@@ -148,13 +148,13 @@ func StartStack(uuid string) (Service, error) {
 	return response, nil
 }
 
-func StopStack(uuid string) (Service, error) {
+func StopStack(uuid string) (Stack, error) {
 
 	url := "stack/" + uuid + "/stop/"
 	request := "POST"
 	//Empty Body Request
 	body := []byte(`{}`)
-	var response Service
+	var response Stack
 
 	data, err := TutumCall(url, request, body)
 	if err != nil {
@@ -169,13 +169,13 @@ func StopStack(uuid string) (Service, error) {
 	return response, nil
 }
 
-func RedeployStack(uuid string) (Service, error) {
+func RedeployStack(uuid string) (Stack, error) {
 
 	url := "stack/" + uuid + "/redeploy/"
 	request := "POST"
 	//Empty Body Request
 	body := []byte(`{}`)
-	var response Service
+	var response Stack
 
 	data, err := TutumCall(url, request, body)
 	if err != nil {
@@ -190,13 +190,13 @@ func RedeployStack(uuid string) (Service, error) {
 	return response, nil
 }
 
-func TerminateStack(uuid string) (Service, error) {
+func TerminateStack(uuid string) (Stack, error) {
 
 	url := "stack/" + uuid + "/"
 	request := "DELETE"
 	//Empty Body Request
 	body := []byte(`{}`)
-	var response Service
+	var response Stack
 
 	data, err := TutumCall(url, request, body)
 	if err != nil {
