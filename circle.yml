@@ -1,3 +1,5 @@
 test:
+  pre:
+    - go get github.com/BurntSushi/toml
   override:
     - go test -v tutum/*.go
