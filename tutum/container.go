@@ -43,7 +43,7 @@ type CCPInfo struct {
 func ListContainers
 Returns : Array of Container objects
 */
-func ListContainers() ([]Container, error) {
+func ListContainers() (CListResponse, error) {
 
 	url := "container/"
 	request := "GET"
@@ -52,13 +52,13 @@ func ListContainers() ([]Container, error) {
 	var response CListResponse
 	data, err := TutumCall(url, request, body)
 	if err != nil {
-		return nil, err
+		panic(err)
 	}
 	err = json.Unmarshal(data, &response)
 	if err != nil {
-		return nil, err
+		panic(err)
 	}
-	return response.Objects, nil
+	return response, nil
 
 }
 

@@ -1,0 +1,39 @@
+{
+    "autodestroy": "OFF",
+    "autorestart": "OFF",
+    "container_ports": [
+        {
+            "endpoint_uri": null,
+            "inner_port": 80,
+            "outer_port": null,
+            "port_name": "http",
+            "protocol": "tcp",
+            "published": false,
+            "uri_protocol": "http"
+        }
+    ],
+    "cpu_shares": null,
+    "deployed_datetime": "Fri, 24 Apr 2015 16:30:47 +0000",
+    "destroyed_datetime": null,
+    "docker_id": "9ab356fd7aa7b7e23f31a0eb952e7c31ff4182136767370e15cb6321651a0885",
+    "entrypoint": "",
+    "exit_code": null,
+    "exit_code_msg": null,
+    "image_name": "tutum/hello-world:latest",
+    "image_tag": "/api/v1/image/tutum/hello-world/tag/latest/",
+    "layer": "/api/v1/layer/529c404c672f7370316815c0ccd6b544a8b1baf72741a3de601457a58f205cf9/",
+    "memory": null,
+    "name": "my-new-app-1",
+    "node": "/api/v1/node/89226618-4cbf-44a7-b354-0edd6e251068/",
+    "private_ip": "10.7.0.1",
+    "privileged": false,
+    "public_dns": "my-new-app-1.maximeheckel.cont.tutum.io",
+    "resource_uri": "/api/v1/container/dcbe16b4-21a1-474b-a814-131a3626b1de/",
+    "run_command": "/run.sh",
+    "service": "/api/v1/service/02522970-a79a-46d6-8a64-475bf52e4258/",
+    "started_datetime": "Fri, 24 Apr 2015 16:30:47 +0000",
+    "state": "Running",
+    "stopped_datetime": null,
+    "synchronized": true,
+    "uuid": "dcbe16b4-21a1-474b-a814-131a3626b1de"
+}
