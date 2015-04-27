@@ -24,7 +24,7 @@ type NodeTag struct {
 	Name string `json:"name"`
 }
 
-func ListNodes() ([]Node, error) {
+func ListNodes() (NodeListResponse, error) {
 
 	url := "node/"
 	request := "GET"
@@ -35,15 +35,15 @@ func ListNodes() ([]Node, error) {
 
 	data, err := TutumCall(url, request, body)
 	if err != nil {
-		return nil, err
+		panic(err)
 	}
 
 	err = json.Unmarshal(data, &response)
 	if err != nil {
-		return nil, err
+		panic(err)
 	}
 
-	return response.Objects, nil
+	return response, nil
 }
 
 func GetNode(uuid string) (Node, error) {

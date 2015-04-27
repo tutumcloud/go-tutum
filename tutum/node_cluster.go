@@ -20,7 +20,7 @@ type NodeCluster struct {
 	Uuid               string    `json:"uuid"`
 }
 
-func ListNodeClusters() ([]NodeCluster, error) {
+func ListNodeClusters() (NodeClusterListResponse, error) {
 
 	url := "nodecluster/"
 	request := "GET"
@@ -31,15 +31,15 @@ func ListNodeClusters() ([]NodeCluster, error) {
 
 	data, err := TutumCall(url, request, body)
 	if err != nil {
-		return nil, err
+		panic(err)
 	}
 
 	err = json.Unmarshal(data, &response)
 	if err != nil {
-		return nil, err
+		panic(err)
 	}
 
-	return response.Objects, nil
+	return response, nil
 }
 
 func GetNodeCluster(uuid string) (NodeCluster, error) {
