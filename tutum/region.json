@@ -1,0 +1,18 @@
+{
+    "availability_zones": [],
+    "available": true,
+    "label": "Amsterdam 2",
+    "name": "ams2",
+    "node_types": [
+        "/api/v1/nodetype/digitalocean/1gb/",
+        "/api/v1/nodetype/digitalocean/2gb/",
+        "/api/v1/nodetype/digitalocean/4gb/",
+        "/api/v1/nodetype/digitalocean/8gb/",
+        "/api/v1/nodetype/digitalocean/16gb/",
+        "/api/v1/nodetype/digitalocean/32gb/",
+        "/api/v1/nodetype/digitalocean/48gb/",
+        "/api/v1/nodetype/digitalocean/64gb/"
+    ],
+    "provider": "/api/v1/provider/digitalocean/",
+    "resource_uri": "/api/v1/region/digitalocean/ams2/"
+}

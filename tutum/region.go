@@ -15,7 +15,7 @@ type Region struct {
 	Resource_uri string   `json:"resource_uri"`
 }
 
-func ListRegions() ([]Region, error) {
+func ListRegions() (RegionListResponse, error) {
 
 	url := "region/"
 	request := "GET"
@@ -25,15 +25,15 @@ func ListRegions() ([]Region, error) {
 
 	data, err := TutumCall(url, request, body)
 	if err != nil {
-		return nil, err
+		panic(err)
 	}
 
 	err = json.Unmarshal(data, &response)
 	if err != nil {
-		return nil, err
+		panic(err)
 	}
 
-	return response.Objects, nil
+	return response, nil
 }
 
 func GetRegion(provider string, name string) (Region, error) {
