@@ -15,7 +15,7 @@ type NodeType struct {
 	Resource_uri string   `json:"resource_uri"`
 }
 
-func ListNodeTypes() ([]NodeType, error) {
+func ListNodeTypes() (NodeTypeListResponse, error) {
 
 	url := "nodetype/"
 	request := "GET"
@@ -26,15 +26,15 @@ func ListNodeTypes() ([]NodeType, error) {
 
 	data, err := TutumCall(url, request, body)
 	if err != nil {
-		return nil, err
+		panic(err)
 	}
 
 	err = json.Unmarshal(data, &response)
 	if err != nil {
-		return nil, err
+		panic(err)
 	}
 
-	return response.Objects, nil
+	return response, nil
 }
 
 func GetNodeType(provider string, name string) (NodeType, error) {

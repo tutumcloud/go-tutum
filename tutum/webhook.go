@@ -12,7 +12,7 @@ type Webhook struct {
 	Resource_uri string `json:"resource_uri"`
 }
 
-func ListWebhooks(uuid string) ([]Webhook, error) {
+func ListWebhooks(uuid string) (WebhookListResponse, error) {
 	url := "service/" + uuid + "/webhook/handler/"
 	request := "GET"
 	//Empty Body Request
@@ -21,15 +21,15 @@ func ListWebhooks(uuid string) ([]Webhook, error) {
 
 	data, err := TutumCall(url, request, body)
 	if err != nil {
-		return nil, err
+		panic(err)
 	}
 
 	err = json.Unmarshal(data, &response)
 	if err != nil {
-		return nil, err
+		panic(err)
 	}
 
-	return response.Objects, nil
+	return response, nil
 }
 
 func GetWebhook(uuid string, webhook_uuid string) (Webhook, error) {
