@@ -53,7 +53,7 @@ type LinkToInfo struct {
 func ListServices
 Returns : Array of Service objects
 */
-func ListServices() ([]Service, error) {
+func ListServices() (SListResponse, error) {
 	url := "service/"
 	request := "GET"
 	//Empty Body Request
@@ -62,13 +62,13 @@ func ListServices() ([]Service, error) {
 
 	data, err := TutumCall(url, request, body)
 	if err != nil {
-		return nil, err
+		panic(err)
 	}
 	err = json.Unmarshal(data, &response)
 	if err != nil {
-		return nil, err
+		panic(err)
 	}
-	return response.Objects, nil
+	return response, nil
 
 }
 

@@ -79,6 +79,8 @@ func TutumCall(url string, requestType string, requestBody []byte) ([]byte, erro
 	if err != nil {
 		return nil, err
 	}
+
+	//fmt.Println(string(data))
 	return data, nil
 }
 
