@@ -15,7 +15,7 @@ type Volume struct {
 	Volume_group string   `json:"volume_group"`
 }
 
-func ListVolumes() ([]Volume, error) {
+func ListVolumes() (VolumeListResponse, error) {
 	url := "volume/"
 	request := "GET"
 	//Empty Body Request
@@ -24,15 +24,15 @@ func ListVolumes() ([]Volume, error) {
 
 	data, err := TutumCall(url, request, body)
 	if err != nil {
-		return nil, err
+		panic(err)
 	}
 
 	err = json.Unmarshal(data, &response)
 	if err != nil {
-		return nil, err
+		panic(err)
 	}
 
-	return response.Objects, nil
+	return response, nil
 }
 
 func GetVolume(uuid string) (Volume, error) {

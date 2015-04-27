@@ -52,9 +52,6 @@ func Test_ListStacks(t *testing.T) {
 		t.Fatal(err)
 	}
 
-	fmt.Println(test_response)
-	fmt.Println(response)
-
 	if reflect.DeepEqual(test_response, response) != true {
 		t.Fatal("Invalid output")
 	}

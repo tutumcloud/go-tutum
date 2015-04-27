@@ -1,0 +1,23 @@
+{
+    "meta": {
+        "limit": 25,
+        "next": null,
+        "offset": 0,
+        "previous": null,
+        "total_count": 1
+    },
+    "objects": [
+        {
+            "name": "mysql_etc",
+            "resource_uri": "/api/v1/volume/1863e34d-6a7d-4945-aefc-8f27a4ab1a9e/",
+            "services": [
+                "/api/v1/service/1ddb524a-e7f5-4b68-b99c-50bf7c57602d/"
+            ],
+            "state": "Created",
+            "uuid": "1863e34d-6a7d-4945-aefc-8f27a4ab1a9e",
+            "volumes": [
+                "/api/v1/volume/1863e34d-6a7d-4945-aefc-8f27a4ab1a9e/"
+            ]
+        }
+    ]
+}

@@ -15,7 +15,7 @@ type VolumeGroup struct {
 	Volume       []string `json:"volume"`
 }
 
-func ListVolumeGroups() ([]VolumeGroup, error) {
+func ListVolumeGroups() (VolumeGroupListResponse, error) {
 
 	url := "volumegroup/"
 	request := "GET"
@@ -30,10 +30,10 @@ func ListVolumeGroups() ([]VolumeGroup, error) {
 
 	err = json.Unmarshal(data, &response)
 	if err != nil {
-		return nil, err
+		panic(err)
 	}
 
-	return response.Objects, nil
+	return response, nil
 }
 
 func GetVolumeGroup(uuid string) (VolumeGroup, error) {
