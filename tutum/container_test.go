@@ -99,7 +99,7 @@ func Test_GetContainer(t *testing.T) {
 	}
 }
 
-func Test_StartContainer(t *testing.T) {
+/*func Test_StartContainer(t *testing.T) {
 	User = "test"
 	ApiKey = "test"
 
@@ -274,4 +274,4 @@ func Test_TerminateContainer(t *testing.T) {
 	if reflect.DeepEqual(test_response, response) != true {
 		t.Fatal("Invalid output")
 	}
-}
+}*/

@@ -11,29 +11,6 @@ import (
 	"github.com/BurntSushi/toml"
 )
 
-var version string = "0.9.8"
-
-var (
-	User    string
-	ApiKey  string
-	BaseUrl = "https://dashboard.tutum.co/api/v1/"
-)
-
-//Used to unpack the config file.
-type Auth struct {
-	User   string
-	Apikey string
-}
-type config map[string]Auth
-
-func init() {
-	// Initialize base URL
-	/**/
-
-	// Initialize credentials
-	LoadAuth()
-}
-
 func TutumCall(url string, requestType string, requestBody []byte) ([]byte, error) {
 	/*
 
