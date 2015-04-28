@@ -1,6 +1,9 @@
 package tutum
 
-import "encoding/json"
+import (
+	"encoding/json"
+	"fmt"
+)
 
 type CListResponse struct {
 	Objects []Container `json:"objects"`
@@ -116,25 +119,18 @@ func StartContainer
 Argument : uuid
 Returns : Container JSON object
 */
-func StartContainer(uuid string) (Container, error) {
+func (self *Container) Start() {
 
-	url := "container/" + uuid + "/start/"
+	url := "container/" + self.Uuid + "/start/"
 	request := "POST"
 	//Empty Body Request
 	body := []byte(`{}`)
-	var response Container
 
-	data, err := TutumCall(url, request, body)
+	_, err := TutumCall(url, request, body)
 	if err != nil {
 		panic(err)
 	}
-
-	err = json.Unmarshal(data, &response)
-	if err != nil {
-		panic(err)
-	}
-
-	return response, nil
+	fmt.Println("Starting Container: " + self.Uuid)
 }
 
 /*
@@ -142,25 +138,19 @@ func StopContainer
 Argument : uuid
 Returns : Container JSON object
 */
-func StopContainer(uuid string) (Container, error) {
+func (self *Container) Stop() {
 
-	url := "container/" + uuid + "/stop/"
+	url := "container/" + self.Uuid + "/stop/"
 	request := "POST"
 	//Empty Body Request
 	body := []byte(`{}`)
 
-	var response Container
-	data, err := TutumCall(url, request, body)
+	_, err := TutumCall(url, request, body)
 	if err != nil {
 		panic(err)
 	}
 
-	err = json.Unmarshal(data, &response)
-	if err != nil {
-		panic(err)
-	}
-
-	return response, nil
+	fmt.Println("Stopping Container: " + self.Uuid)
 
 }
 
@@ -169,25 +159,19 @@ func RedeployContainer
 Argument : uuid
 Returns : Container JSON object
 */
-func RedeployContainer(uuid string) (Container, error) {
+func (self *Container) Redeploy() {
 
-	url := "container/" + uuid + "/redeploy/"
+	url := "container/" + self.Uuid + "/redeploy/"
 	request := "POST"
 	//Empty Body Request
 	body := []byte(`{}`)
 
-	var response Container
-	data, err := TutumCall(url, request, body)
+	_, err := TutumCall(url, request, body)
 	if err != nil {
 		panic(err)
 	}
 
-	err = json.Unmarshal(data, &response)
-	if err != nil {
-		panic(err)
-	}
-
-	return response, nil
+	fmt.Println("Redeploying Container: " + self.Uuid)
 
 }
 
@@ -196,24 +180,18 @@ func TerminateContainer
 Argument : uuid
 Returns : Container JSON object
 */
-func TerminateContainer(uuid string) (Container, error) {
+func (self *Container) Terminate() {
 
-	url := "container/" + uuid + "/"
+	url := "container/" + self.Uuid + "/"
 	request := "DELETE"
 	//Empty Body Request
 	body := []byte(`{}`)
 
-	var response Container
-	data, err := TutumCall(url, request, body)
+	_, err := TutumCall(url, request, body)
 	if err != nil {
 		panic(err)
 	}
 
-	err = json.Unmarshal(data, &response)
-	if err != nil {
-		panic(err)
-	}
-
-	return response, nil
+	fmt.Println("Terminating Container: " + self.Uuid)
 
 }
