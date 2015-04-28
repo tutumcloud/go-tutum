@@ -6,6 +6,9 @@ import (
 	"os"
 )
 
+/*
+Test variables used as arguments
+*/
 var (
 	fake_location_name    = "ams2"
 	fake_name             = "1gb"
@@ -20,6 +23,11 @@ var (
 	fake_uuid_volumegroup = "1863e34d-6a7d-4945-aefc-8f27a4ab1a9e"
 )
 
+/*
+  func MockupResponse
+  Argument : endpoint
+  Returns : the corresponding JSON response file
+*/
 func MockupResponse(response_file string) (string, error) {
 
 	file, e := ioutil.ReadFile("json_test_output/" + response_file)

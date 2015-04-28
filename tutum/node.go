@@ -24,6 +24,10 @@ type NodeTag struct {
 	Name string `json:"name"`
 }
 
+/*
+func ListNodes
+Returns : Array of Node objects
+*/
 func ListNodes() (NodeListResponse, error) {
 
 	url := "node/"
@@ -46,6 +50,11 @@ func ListNodes() (NodeListResponse, error) {
 	return response, nil
 }
 
+/*
+func GetNode
+Argument : uuid
+Returns : Node JSON object
+*/
 func GetNode(uuid string) (Node, error) {
 	url := "node/" + uuid + "/"
 	request := "GET"
@@ -65,6 +74,11 @@ func GetNode(uuid string) (Node, error) {
 	return response, nil
 }
 
+/*
+func UpdateNode
+Argument : uuid
+Returns : Node JSON object
+*/
 func UpdateNode(uuid string, updatedNode []byte) (Node, error) {
 
 	url := "node/" + uuid + "/"
@@ -85,6 +99,11 @@ func UpdateNode(uuid string, updatedNode []byte) (Node, error) {
 	return response, nil
 }
 
+/*
+func UpgradeDaemon
+Argument : uuid
+Returns : Node JSON object
+*/
 func UpgradeDaemon(uuid string) (Node, error) {
 
 	url := "node/" + uuid + "/docker-upgrade/"
@@ -106,6 +125,11 @@ func UpgradeDaemon(uuid string) (Node, error) {
 	return response, nil
 }
 
+/*
+func TerminateNode
+Argument : uuid
+Returns : Node JSON object
+*/
 func TerminateNode(uuid string) (Node, error) {
 
 	url := "node/" + uuid + "/"

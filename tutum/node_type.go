@@ -15,6 +15,10 @@ type NodeType struct {
 	Resource_uri string   `json:"resource_uri"`
 }
 
+/*
+func ListNodeTypes
+Returns : Array of NodeType objects
+*/
 func ListNodeTypes() (NodeTypeListResponse, error) {
 
 	url := "nodetype/"
@@ -37,6 +41,11 @@ func ListNodeTypes() (NodeTypeListResponse, error) {
 	return response, nil
 }
 
+/*
+func GetNodeType
+Argument : provider name and type name
+Returns : NodeType JSON object
+*/
 func GetNodeType(provider string, name string) (NodeType, error) {
 	url := "nodetype/" + provider + "/" + name + "/"
 	request := "GET"

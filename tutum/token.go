@@ -6,6 +6,10 @@ type Token struct {
 	Token string `json:"token"`
 }
 
+/*
+	func CreateToken
+	Returns : Token JSON object
+*/
 func CreateToken() (Token, error) {
 	url := "token/"
 	request := "POST"

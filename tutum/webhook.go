@@ -12,6 +12,10 @@ type Webhook struct {
 	Resource_uri string `json:"resource_uri"`
 }
 
+/*
+func ListWebhooks
+Returns : Array of Webhook objects
+*/
 func ListWebhooks(uuid string) (WebhookListResponse, error) {
 	url := "service/" + uuid + "/webhook/handler/"
 	request := "GET"
@@ -32,6 +36,11 @@ func ListWebhooks(uuid string) (WebhookListResponse, error) {
 	return response, nil
 }
 
+/*
+func GetWebhook
+Argument : service uuid and webhook uuid
+Returns : Webhook JSON object
+*/
 func GetWebhook(uuid string, webhook_uuid string) (Webhook, error) {
 	url := "service/" + uuid + "/webhook/handler/" + webhook_uuid + "/"
 	request := "GET"
@@ -51,6 +60,11 @@ func GetWebhook(uuid string, webhook_uuid string) (Webhook, error) {
 	return response, nil
 }
 
+/*
+func CreateWebhook
+Argument : service uuid and webhook JSON object
+Returns : Array of Webhook objects
+*/
 func CreateWebhook(uuid string, newWebhook []byte) ([]Webhook, error) {
 
 	url := "service/" + uuid + "/webhook/handler/"
@@ -72,6 +86,10 @@ func CreateWebhook(uuid string, newWebhook []byte) ([]Webhook, error) {
 
 }
 
+/*
+func DeleteWebhook
+Argument : service uuid and webhook uuid
+*/
 func DeleteWebhook(uuid string, webhook_uuid string) error {
 	url := "service/" + uuid + "/webhook/handler/" + webhook_uuid + "/"
 	request := "DELETE"
@@ -91,6 +109,11 @@ func DeleteWebhook(uuid string, webhook_uuid string) error {
 	return nil
 }
 
+/*
+func CallWebhook
+Argument : service uuid and webhook uuid
+Returns : Webhook JSON object
+*/
 func CallWebhook(uuid string, webhook_uuid string) (Webhook, error) {
 	url := "service/" + uuid + "/webhook/handler/" + webhook_uuid + "/call/"
 	request := "POST"

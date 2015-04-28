@@ -7,6 +7,10 @@ import (
 	"github.com/docker/docker/vendor/src/code.google.com/p/go.net/websocket"
 )
 
+/*
+	func TutumStreamCall
+	Returns : The stream of all events from your NodeClusters, Containers, Services, Stack, Actions, ...
+*/
 func TutumStreamCall() error {
 
 	var StreamUrl = "wss://stream.tutum.co:443/v1/events?token=" + ApiKey + "&user=" + User

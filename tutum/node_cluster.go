@@ -20,6 +20,10 @@ type NodeCluster struct {
 	Uuid               string    `json:"uuid"`
 }
 
+/*
+func ListNodeClusters
+Returns : Array of NodeCluster objects
+*/
 func ListNodeClusters() (NodeClusterListResponse, error) {
 
 	url := "nodecluster/"
@@ -42,6 +46,11 @@ func ListNodeClusters() (NodeClusterListResponse, error) {
 	return response, nil
 }
 
+/*
+func GetNodeCluster
+Argument : uuid
+Returns : NodeCluster JSON object
+*/
 func GetNodeCluster(uuid string) (NodeCluster, error) {
 
 	url := "nodecluster/" + uuid + "/"
@@ -63,6 +72,11 @@ func GetNodeCluster(uuid string) (NodeCluster, error) {
 	return response, nil
 }
 
+/*
+func CreateNodeCluster
+Argument : NodeCluster JSON object (see documentation)
+Returns : NodeCluster JSON object
+*/
 func CreateNodeCluster(newCluster []byte) (NodeCluster, error) {
 
 	url := "nodecluster/"
@@ -83,6 +97,11 @@ func CreateNodeCluster(newCluster []byte) (NodeCluster, error) {
 	return response, nil
 }
 
+/*
+func DeployNodeCluster
+Argument : uuid
+Returns : NodeCluster JSON object
+*/
 func DeployNodeCluster(uuid string) (NodeCluster, error) {
 
 	url := "nodecluster/" + uuid + "/deploy/"
@@ -104,6 +123,11 @@ func DeployNodeCluster(uuid string) (NodeCluster, error) {
 	return response, nil
 }
 
+/*
+func UpdateNodeCluster
+Argument : uuid and nodecluster JSON object (see documentation)
+Returns : NodeCluster JSON object
+*/
 func UpdateNodeCluster(uuid string, updatedNode []byte) (NodeCluster, error) {
 
 	url := "nodecluster/" + uuid + "/"
@@ -124,6 +148,11 @@ func UpdateNodeCluster(uuid string, updatedNode []byte) (NodeCluster, error) {
 	return response, nil
 }
 
+/*
+func UpgradeNodeCluster
+Argument : uuid
+Returns : NodeCluster JSON object
+*/
 func UpgradeClusterDaemon(uuid string) (NodeCluster, error) {
 
 	url := "nodecluster/" + uuid + "/docker-upgrade/"
@@ -145,6 +174,11 @@ func UpgradeClusterDaemon(uuid string) (NodeCluster, error) {
 	return response, nil
 }
 
+/*
+func TerminateNodeCluster
+Argument : uuid
+Returns : NodeCluster JSON object
+*/
 func TerminateNodeCluster(uuid string) (NodeCluster, error) {
 
 	url := "nodecluster/" + uuid + "/"

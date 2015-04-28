@@ -28,6 +28,10 @@ type Stack struct {
 	Uuid               string    `json:"uuid"`
 }
 
+/*
+func ListStacks
+Returns : Array of Stack objects
+*/
 func ListStacks() (StackListResponse, error) {
 	url := "stack/"
 	request := "GET"
@@ -49,6 +53,11 @@ func ListStacks() (StackListResponse, error) {
 	return response, nil
 }
 
+/*
+func GetStack
+Argument : uuid
+Returns : Stack JSON object
+*/
 func GetStack(uuid string) (Stack, error) {
 
 	url := "stack/" + uuid + "/"
@@ -70,6 +79,11 @@ func GetStack(uuid string) (Stack, error) {
 	return response, nil
 }
 
+/*
+func Export
+Argument : uuid
+Returns : String that contains the Stack details
+*/
 func ExportStack(uuid string) (string, error) {
 
 	url := "stack/" + uuid + "/export/"
@@ -87,6 +101,11 @@ func ExportStack(uuid string) (string, error) {
 	return s, nil
 }
 
+/*
+func CreateStack
+Argument : Stack JSON object (see documentation)
+Returns : Stack JSON object
+*/
 func CreateStack(newStack []byte) (Stack, error) {
 
 	url := "stack/"
@@ -107,6 +126,11 @@ func CreateStack(newStack []byte) (Stack, error) {
 	return response, nil
 }
 
+/*
+func UpdateStack
+Argument : uuid and Stack JSON object (see documentation)
+Returns : Stack JSON object
+*/
 func UpdateStack(uuid string, updatedStack []byte) (Stack, error) {
 
 	url := "stack/" + uuid + "/"
@@ -127,6 +151,11 @@ func UpdateStack(uuid string, updatedStack []byte) (Stack, error) {
 
 }
 
+/*
+func StartStack
+Argument : uuid
+Returns : Stack JSON object
+*/
 func StartStack(uuid string) (Stack, error) {
 
 	url := "stack/" + uuid + "/start/"
@@ -148,6 +177,11 @@ func StartStack(uuid string) (Stack, error) {
 	return response, nil
 }
 
+/*
+func StopStack
+Argument : uuid
+Returns : Stack JSON object
+*/
 func StopStack(uuid string) (Stack, error) {
 
 	url := "stack/" + uuid + "/stop/"
@@ -169,6 +203,11 @@ func StopStack(uuid string) (Stack, error) {
 	return response, nil
 }
 
+/*
+func RedeployStack
+Argument : uuid
+Returns : Stack JSON object
+*/
 func RedeployStack(uuid string) (Stack, error) {
 
 	url := "stack/" + uuid + "/redeploy/"
@@ -190,6 +229,11 @@ func RedeployStack(uuid string) (Stack, error) {
 	return response, nil
 }
 
+/*
+func TerminateStack
+Argument : uuid
+Returns : Stack JSON object
+*/
 func TerminateStack(uuid string) (Stack, error) {
 
 	url := "stack/" + uuid + "/"

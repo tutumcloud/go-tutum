@@ -22,6 +22,10 @@ type Action struct {
 	Uuid         string `json:"uuid"`
 }
 
+/*
+func ListActions
+Returns : Array of Action objects
+*/
 func ListActions() (ActionListResponse, error) {
 	url := "action/"
 	request := "GET"
@@ -42,6 +46,11 @@ func ListActions() (ActionListResponse, error) {
 	return response, nil
 }
 
+/*
+func GetAction
+Argument : uuid
+Returns : Action JSON object
+*/
 func GetAction(uuid string) (Action, error) {
 	url := "action/" + uuid + "/"
 	request := "GET"

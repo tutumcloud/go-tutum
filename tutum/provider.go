@@ -14,6 +14,10 @@ type Provider struct {
 	Resource_uri string   `json:"resource_uri"`
 }
 
+/*
+func ListProviders
+Returns : Array of Provider objects
+*/
 func ListProviders() (ProviderListResponse, error) {
 
 	url := "provider/"
@@ -35,6 +39,11 @@ func ListProviders() (ProviderListResponse, error) {
 	return response, nil
 }
 
+/*
+func GetProvider
+Argument : name of the provider
+Returns : Provider JSON object
+*/
 func GetProvider(name string) (Provider, error) {
 
 	url := "provider/" + name + "/"

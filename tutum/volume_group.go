@@ -15,6 +15,10 @@ type VolumeGroup struct {
 	Volume       []string `json:"volume"`
 }
 
+/*
+func ListVolumeGroups
+Returns : Array of VolumeGroup objects
+*/
 func ListVolumeGroups() (VolumeGroupListResponse, error) {
 
 	url := "volumegroup/"
@@ -36,6 +40,11 @@ func ListVolumeGroups() (VolumeGroupListResponse, error) {
 	return response, nil
 }
 
+/*
+func GetVolumeGroup
+Argument : uuid
+Returns : VolumeGroup JSON object
+*/
 func GetVolumeGroup(uuid string) (VolumeGroup, error) {
 
 	url := "volumegroup/" + uuid + "/"

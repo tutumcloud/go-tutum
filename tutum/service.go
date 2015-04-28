@@ -101,7 +101,7 @@ func GetService(uuid string) (Service, error) {
 
 /*
 func CreateService
-Argument : newService JSON object
+Argument : Service JSON object (see documentation)
 Returns : Service JSON object
 */
 func CreateService(newService []byte) (Service, error) {

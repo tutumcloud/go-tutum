@@ -15,6 +15,10 @@ type Region struct {
 	Resource_uri string   `json:"resource_uri"`
 }
 
+/*
+func ListRegions
+Returns : Array of Region objects
+*/
 func ListRegions() (RegionListResponse, error) {
 
 	url := "region/"
@@ -36,6 +40,11 @@ func ListRegions() (RegionListResponse, error) {
 	return response, nil
 }
 
+/*
+func GetRegion
+Argument : provider name and location name
+Returns : Region JSON object
+*/
 func GetRegion(provider string, name string) (Region, error) {
 
 	url := "region/" + provider + "/" + name + "/"
