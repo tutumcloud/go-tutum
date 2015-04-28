@@ -1,6 +1,9 @@
 package tutum
 
-import "encoding/json"
+import (
+	"encoding/json"
+	"fmt"
+)
 
 type NodeClusterListResponse struct {
 	Objects []NodeCluster `json:"objects"`
@@ -102,25 +105,19 @@ func DeployNodeCluster
 Argument : uuid
 Returns : NodeCluster JSON object
 */
-func DeployNodeCluster(uuid string) (NodeCluster, error) {
+func (self *NodeCluster) Deploy() {
 
-	url := "nodecluster/" + uuid + "/deploy/"
+	url := "nodecluster/" + self.Uuid + "/deploy/"
 	request := "POST"
 	//Empty Body Request
 	body := []byte(`{}`)
-	var response NodeCluster
 
-	data, err := TutumCall(url, request, body)
+	_, err := TutumCall(url, request, body)
 	if err != nil {
 		panic(err)
 	}
 
-	err = json.Unmarshal(data, &response)
-	if err != nil {
-		panic(err)
-	}
-
-	return response, nil
+	fmt.Println("Deploying NodeCluster: " + self.Uuid)
 }
 
 /*
@@ -128,24 +125,17 @@ func UpdateNodeCluster
 Argument : uuid and nodecluster JSON object (see documentation)
 Returns : NodeCluster JSON object
 */
-func UpdateNodeCluster(uuid string, updatedNode []byte) (NodeCluster, error) {
+func (self *NodeCluster) Update(updatedNode []byte) {
 
-	url := "nodecluster/" + uuid + "/"
+	url := "nodecluster/" + self.Uuid + "/"
 	request := "PATCH"
 
-	var response NodeCluster
-
-	data, err := TutumCall(url, request, updatedNode)
+	_, err := TutumCall(url, request, updatedNode)
 	if err != nil {
 		panic(err)
 	}
 
-	err = json.Unmarshal(data, &response)
-	if err != nil {
-		panic(err)
-	}
-
-	return response, nil
+	fmt.Println("Updating NodeCluster: " + self.Uuid)
 }
 
 /*
@@ -153,25 +143,19 @@ func UpgradeNodeCluster
 Argument : uuid
 Returns : NodeCluster JSON object
 */
-func UpgradeClusterDaemon(uuid string) (NodeCluster, error) {
+func (self *NodeCluster) Upgrade() {
 
-	url := "nodecluster/" + uuid + "/docker-upgrade/"
+	url := "nodecluster/" + self.Uuid + "/docker-upgrade/"
 	request := "POST"
 	//Empty Body Request
 	body := []byte(`{}`)
-	var response NodeCluster
 
-	data, err := TutumCall(url, request, body)
+	_, err := TutumCall(url, request, body)
 	if err != nil {
 		panic(err)
 	}
 
-	err = json.Unmarshal(data, &response)
-	if err != nil {
-		panic(err)
-	}
-
-	return response, nil
+	fmt.Println("Upgrading Docker on NodeCluster: " + self.Uuid)
 }
 
 /*
@@ -179,24 +163,18 @@ func TerminateNodeCluster
 Argument : uuid
 Returns : NodeCluster JSON object
 */
-func TerminateNodeCluster(uuid string) (NodeCluster, error) {
+func (self *NodeCluster) Terminate() {
 
-	url := "nodecluster/" + uuid + "/"
+	url := "nodecluster/" + self.Uuid + "/"
 	request := "DELETE"
 	//Empty Body Request
 	body := []byte(`{}`)
-	var response NodeCluster
 
-	data, err := TutumCall(url, request, body)
+	_, err := TutumCall(url, request, body)
 	if err != nil {
 		panic(err)
 	}
 
-	err = json.Unmarshal(data, &response)
-	if err != nil {
-		panic(err)
-	}
-
-	return response, nil
+	fmt.Println("Terminating NodeCluster: " + self.Uuid)
 
 }
