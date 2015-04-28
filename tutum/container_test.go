@@ -10,8 +10,6 @@ import (
 	"testing"
 )
 
-var fake_uuid_container = "dcbe16b4-21a1-474b-a814-131a3626b1de"
-
 func Test_ListContainers(t *testing.T) {
 	User = "test"
 	ApiKey = "test"

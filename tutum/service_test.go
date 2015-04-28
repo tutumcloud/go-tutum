@@ -10,8 +10,6 @@ import (
 	"testing"
 )
 
-var fake_uuid_service = "02522970-a79a-46d6-8a64-475bf52e4258"
-
 func Test_ListServices(t *testing.T) {
 	User = "test"
 	ApiKey = "test"

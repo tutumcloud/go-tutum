@@ -10,8 +10,6 @@ import (
 	"testing"
 )
 
-var fake_uuid_volume = "1863e34d-6a7d-4945-aefc-8f27a4ab1a9e"
-
 func Test_ListVolumes(t *testing.T) {
 	User = "test"
 	ApiKey = "test"

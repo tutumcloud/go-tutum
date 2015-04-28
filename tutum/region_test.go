@@ -10,8 +10,6 @@ import (
 	"testing"
 )
 
-var fake_location_name = "ams2"
-
 func Test_ListRegions(t *testing.T) {
 	User = "test"
 	ApiKey = "test"

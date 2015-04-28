@@ -10,8 +10,6 @@ import (
 	"testing"
 )
 
-var fake_uuid_stack = "09cbcf8d-a727-40d9-b420-c8e18b7fa55b"
-
 func Test_ListStacks(t *testing.T) {
 	User = "test"
 	ApiKey = "test"

@@ -10,8 +10,6 @@ import (
 	"testing"
 )
 
-var fake_uuid_nodecluster = "72a7902a-5f70-4771-bcbf-4abb3a4f93fe"
-
 func Test_ListNodeClusters(t *testing.T) {
 	User = "test"
 	ApiKey = "test"

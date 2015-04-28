@@ -10,9 +10,6 @@ import (
 	"testing"
 )
 
-var fake_provider = "digitalocean"
-var fake_name = "1gb"
-
 func Test_ListNodeTypes(t *testing.T) {
 	User = "test"
 	ApiKey = "test"

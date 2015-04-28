@@ -10,8 +10,6 @@ import (
 	"testing"
 )
 
-var fake_uuid_node = "89226618-4cbf-44a7-b354-0edd6e251068"
-
 func Test_ListNodes(t *testing.T) {
 	User = "test"
 	ApiKey = "test"

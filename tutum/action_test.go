@@ -10,8 +10,6 @@ import (
 	"testing"
 )
 
-var fake_uuid_action = "6246c558-976c-4df6-ba60-eb1a344a17af"
-
 func Test_ListActions(t *testing.T) {
 	User = "test"
 	ApiKey = "test"
