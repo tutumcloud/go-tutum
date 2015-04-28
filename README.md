@@ -15,11 +15,11 @@ In order to install the Tutum Go library, you can use :
 
 **Auth:**
 
-In order to be able to make requests to the API, you should first obtain an ApiKey for your account. For this, log into Tutum, click on the menu on the upper right corner of the screen and select **Get Api Key**. 
+In order to be able to make requests to the API, you should first obtain an ApiKey for your account. For this, log into Tutum, click on the menu on the upper right corner of the screen and select **Get Api Key**.
 
 You can use your ApiKey with the Go library in any of the following ways:
 
-Manually set in your golang code
+Manually set in your Go code
 
 	tutum.User = "yourUsernameHere"
 	tutum.ApiKey = "yourApiKeyHere"
@@ -189,4 +189,4 @@ Set the environment variables TUTUM_USER and TUTUM_APIKEY
 - TerminateNodeCluster(uuid string) : returns the newly terminated nodecluster in a JSON object
 
 
-The complete API Documentation is available [here](https://docs.tutum.co/v2/api/) with additionnal examples written in Go.
+The complete API Documentation is available [here](https://docs.tutum.co/v2/api/) with additional examples written in Go.
