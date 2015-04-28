@@ -1,6 +1,9 @@
 package tutum
 
-import "encoding/json"
+import (
+	"encoding/json"
+	"fmt"
+)
 
 type StackListResponse struct {
 	Objects []StackShort `json:"objects"`
@@ -81,12 +84,11 @@ func GetStack(uuid string) (Stack, error) {
 
 /*
 func Export
-Argument : uuid
 Returns : String that contains the Stack details
 */
-func ExportStack(uuid string) (string, error) {
+func (self *Stack) ExportStack() string {
 
-	url := "stack/" + uuid + "/export/"
+	url := "stack/" + self.Uuid + "/export/"
 	request := "GET"
 	//Empty Body Request
 	body := []byte(`{}`)
@@ -98,13 +100,12 @@ func ExportStack(uuid string) (string, error) {
 
 	s := string(data)
 
-	return s, nil
+	return s
 }
 
 /*
 func CreateStack
 Argument : Stack JSON object (see documentation)
-Returns : Stack JSON object
 */
 func CreateStack(newStack []byte) (Stack, error) {
 
@@ -127,130 +128,78 @@ func CreateStack(newStack []byte) (Stack, error) {
 }
 
 /*
-func UpdateStack
-Argument : uuid and Stack JSON object (see documentation)
-Returns : Stack JSON object
+func Update
+Argument : a Stack JSON object (see documentation)
 */
-func UpdateStack(uuid string, updatedStack []byte) (Stack, error) {
+func (self *Stack) Update(updatedStack []byte) {
 
-	url := "stack/" + uuid + "/"
+	url := "stack/" + self.Uuid + "/"
 	request := "PATCH"
-	var response Stack
 
-	data, err := TutumCall(url, request, updatedStack)
+	_, err := TutumCall(url, request, updatedStack)
 	if err != nil {
 		panic(err)
 	}
 
-	err = json.Unmarshal(data, &response)
-	if err != nil {
-		panic(err)
-	}
-
-	return response, nil
-
+	fmt.Println("Updating Stack: " + self.Uuid)
 }
 
-/*
-func StartStack
-Argument : uuid
-Returns : Stack JSON object
-*/
-func StartStack(uuid string) (Stack, error) {
+func (self *Stack) Start() {
 
-	url := "stack/" + uuid + "/start/"
+	url := "stack/" + self.Uuid + "/start/"
 	request := "POST"
 	//Empty Body Request
 	body := []byte(`{}`)
-	var response Stack
 
-	data, err := TutumCall(url, request, body)
+	_, err := TutumCall(url, request, body)
 	if err != nil {
 		panic(err)
 	}
 
-	err = json.Unmarshal(data, &response)
-	if err != nil {
-		panic(err)
-	}
-
-	return response, nil
+	fmt.Println("Starting Stack: " + self.Uuid)
 }
 
-/*
-func StopStack
-Argument : uuid
-Returns : Stack JSON object
-*/
-func StopStack(uuid string) (Stack, error) {
+func (self *Stack) Stop() {
 
-	url := "stack/" + uuid + "/stop/"
+	url := "stack/" + self.Uuid + "/stop/"
 	request := "POST"
 	//Empty Body Request
 	body := []byte(`{}`)
-	var response Stack
 
-	data, err := TutumCall(url, request, body)
+	_, err := TutumCall(url, request, body)
 	if err != nil {
 		panic(err)
 	}
 
-	err = json.Unmarshal(data, &response)
-	if err != nil {
-		panic(err)
-	}
-
-	return response, nil
+	fmt.Println("Stopping Stack: " + self.Uuid)
 }
 
-/*
-func RedeployStack
-Argument : uuid
-Returns : Stack JSON object
-*/
-func RedeployStack(uuid string) (Stack, error) {
+func (self *Stack) Redeploy() {
 
-	url := "stack/" + uuid + "/redeploy/"
+	url := "stack/" + self.Uuid + "/redeploy/"
 	request := "POST"
 	//Empty Body Request
 	body := []byte(`{}`)
-	var response Stack
 
-	data, err := TutumCall(url, request, body)
+	_, err := TutumCall(url, request, body)
 	if err != nil {
 		panic(err)
 	}
 
-	err = json.Unmarshal(data, &response)
-	if err != nil {
-		panic(err)
-	}
-
-	return response, nil
+	fmt.Println("Redeploying Stack: " + self.Uuid)
 }
 
-/*
-func TerminateStack
-Argument : uuid
-Returns : Stack JSON object
-*/
-func TerminateStack(uuid string) (Stack, error) {
+func (self *Stack) Terminate() {
 
-	url := "stack/" + uuid + "/"
+	url := "stack/" + self.Uuid + "/"
 	request := "DELETE"
 	//Empty Body Request
 	body := []byte(`{}`)
-	var response Stack
 
-	data, err := TutumCall(url, request, body)
+	_, err := TutumCall(url, request, body)
 	if err != nil {
 		panic(err)
 	}
 
-	err = json.Unmarshal(data, &response)
-	if err != nil {
-		panic(err)
-	}
-
-	return response, nil
+	fmt.Println("Terminating Stack: " + self.Uuid)
 }
