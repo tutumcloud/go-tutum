@@ -20,6 +20,7 @@ type TutumObject interface {
 	Stop()
 	Redeploy()
 	Terminate()
+	Deploy()
 	Update([]byte)
 }
 

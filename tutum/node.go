@@ -1,6 +1,9 @@
 package tutum
 
-import "encoding/json"
+import (
+	"encoding/json"
+	"fmt"
+)
 
 type NodeListResponse struct {
 	Objects []Node `json:"objects"`
@@ -79,24 +82,17 @@ func UpdateNode
 Argument : uuid
 Returns : Node JSON object
 */
-func UpdateNode(uuid string, updatedNode []byte) (Node, error) {
+func (self *Node) Update(updatedNode []byte) {
 
-	url := "node/" + uuid + "/"
+	url := "node/" + self.Uuid + "/"
 	request := "PATCH"
 
-	var response Node
-
-	data, err := TutumCall(url, request, updatedNode)
+	_, err := TutumCall(url, request, updatedNode)
 	if err != nil {
 		panic(err)
 	}
 
-	err = json.Unmarshal(data, &response)
-	if err != nil {
-		panic(err)
-	}
-
-	return response, nil
+	fmt.Println("Updating Node: " + self.Uuid)
 }
 
 /*
@@ -104,25 +100,19 @@ func UpgradeDaemon
 Argument : uuid
 Returns : Node JSON object
 */
-func UpgradeDaemon(uuid string) (Node, error) {
+func (self *Node) UpgradeDaemon(uuid string) {
 
-	url := "node/" + uuid + "/docker-upgrade/"
+	url := "node/" + self.Uuid + "/docker-upgrade/"
 	request := "POST"
 	//Empty Body Request
 	body := []byte(`{}`)
-	var response Node
 
-	data, err := TutumCall(url, request, body)
+	_, err := TutumCall(url, request, body)
 	if err != nil {
 		panic(err)
 	}
 
-	err = json.Unmarshal(data, &response)
-	if err != nil {
-		panic(err)
-	}
-
-	return response, nil
+	fmt.Println("Upgrading Docker on Node: " + self.Uuid)
 }
 
 /*
@@ -130,24 +120,18 @@ func TerminateNode
 Argument : uuid
 Returns : Node JSON object
 */
-func TerminateNode(uuid string) (Node, error) {
+func (self *Node) Terminate() {
 
-	url := "node/" + uuid + "/"
+	url := "node/" + self.Uuid + "/"
 	request := "DELETE"
 	//Empty Body Request
 	body := []byte(`{}`)
-	var response Node
 
-	data, err := TutumCall(url, request, body)
+	_, err := TutumCall(url, request, body)
 	if err != nil {
 		panic(err)
 	}
 
-	err = json.Unmarshal(data, &response)
-	if err != nil {
-		panic(err)
-	}
-
-	return response, nil
+	fmt.Println("Terminating Node: " + self.Uuid)
 
 }

@@ -65,9 +65,9 @@ func CreateWebhook
 Argument : service uuid and webhook JSON object
 Returns : Array of Webhook objects
 */
-func CreateWebhook(uuid string, newWebhook []byte) ([]Webhook, error) {
+func (self *Service) CreateWebhook(newWebhook []byte) ([]Webhook, error) {
 
-	url := "service/" + uuid + "/webhook/handler/"
+	url := "service/" + self.Uuid + "/webhook/handler/"
 	request := "POST"
 
 	var response []Webhook
@@ -90,8 +90,8 @@ func CreateWebhook(uuid string, newWebhook []byte) ([]Webhook, error) {
 func DeleteWebhook
 Argument : service uuid and webhook uuid
 */
-func DeleteWebhook(uuid string, webhook_uuid string) error {
-	url := "service/" + uuid + "/webhook/handler/" + webhook_uuid + "/"
+func (self *Service) DeleteWebhook(webhook_uuid string) error {
+	url := "service/" + self.Uuid + "/webhook/handler/" + webhook_uuid + "/"
 	request := "DELETE"
 	body := []byte(`{}`)
 	var response Webhook
@@ -114,8 +114,8 @@ func CallWebhook
 Argument : service uuid and webhook uuid
 Returns : Webhook JSON object
 */
-func CallWebhook(uuid string, webhook_uuid string) (Webhook, error) {
-	url := "service/" + uuid + "/webhook/handler/" + webhook_uuid + "/call/"
+func (self *Service) CallWebhook(webhook_uuid string) (Webhook, error) {
+	url := "service/" + self.Uuid + "/webhook/handler/" + webhook_uuid + "/call/"
 	request := "POST"
 	body := []byte(`{}`)
 	var response Webhook

@@ -176,5 +176,4 @@ func (self *NodeCluster) Terminate() {
 	}
 
 	fmt.Println("Terminating NodeCluster: " + self.Uuid)
-
 }
