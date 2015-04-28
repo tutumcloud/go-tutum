@@ -1,9 +1,6 @@
 package tutum
 
-import (
-	"encoding/json"
-	"fmt"
-)
+import "encoding/json"
 
 type NodeClusterListResponse struct {
 	Objects []NodeCluster `json:"objects"`
@@ -116,8 +113,6 @@ func (self *NodeCluster) Deploy() {
 	if err != nil {
 		panic(err)
 	}
-
-	fmt.Println("Deploying NodeCluster: " + self.Uuid)
 }
 
 /*
@@ -134,8 +129,6 @@ func (self *NodeCluster) Update(updatedNode []byte) {
 	if err != nil {
 		panic(err)
 	}
-
-	fmt.Println("Updating NodeCluster: " + self.Uuid)
 }
 
 /*
@@ -154,8 +147,6 @@ func (self *NodeCluster) Upgrade() {
 	if err != nil {
 		panic(err)
 	}
-
-	fmt.Println("Upgrading Docker on NodeCluster: " + self.Uuid)
 }
 
 /*
@@ -174,6 +165,4 @@ func (self *NodeCluster) Terminate() {
 	if err != nil {
 		panic(err)
 	}
-
-	fmt.Println("Terminating NodeCluster: " + self.Uuid)
 }

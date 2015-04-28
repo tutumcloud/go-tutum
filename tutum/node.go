@@ -1,9 +1,6 @@
 package tutum
 
-import (
-	"encoding/json"
-	"fmt"
-)
+import "encoding/json"
 
 type NodeListResponse struct {
 	Objects []Node `json:"objects"`
@@ -91,8 +88,6 @@ func (self *Node) Update(updatedNode []byte) {
 	if err != nil {
 		panic(err)
 	}
-
-	fmt.Println("Updating Node: " + self.Uuid)
 }
 
 /*
@@ -111,8 +106,6 @@ func (self *Node) UpgradeDaemon(uuid string) {
 	if err != nil {
 		panic(err)
 	}
-
-	fmt.Println("Upgrading Docker on Node: " + self.Uuid)
 }
 
 /*
@@ -131,7 +124,4 @@ func (self *Node) Terminate() {
 	if err != nil {
 		panic(err)
 	}
-
-	fmt.Println("Terminating Node: " + self.Uuid)
-
 }

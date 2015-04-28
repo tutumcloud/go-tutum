@@ -16,8 +16,8 @@ type Auth struct {
 }
 
 type TutumObject interface {
-	Start()
-	Stop()
+	Start() string
+	Stop() string
 	Redeploy()
 	Terminate()
 	Deploy()

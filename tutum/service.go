@@ -1,9 +1,6 @@
 package tutum
 
-import (
-	"encoding/json"
-	"fmt"
-)
+import "encoding/json"
 
 type SListResponse struct {
 	Objects []Service `json: "objects"`
@@ -125,7 +122,6 @@ func CreateService(newService []byte) (Service, error) {
 	}
 
 	return response, nil
-
 }
 
 /*
@@ -149,7 +145,6 @@ func (self *Service) GetServiceLogs() (string, error) {
 	s := string(data)
 
 	return s, nil
-
 }
 
 /*
@@ -166,8 +161,6 @@ func (self *Service) Update(updatedService []byte) {
 	if err != nil {
 		panic(err)
 	}
-
-	fmt.Println("Updating Container: " + self.Uuid)
 }
 
 /*
@@ -176,7 +169,6 @@ Argument : uuid
 Returns : Service JSON object
 */
 func (self *Service) Start() {
-
 	url := "service/" + self.Uuid + "/start/"
 	request := "POST"
 	//Empty Body Request
@@ -185,8 +177,6 @@ func (self *Service) Start() {
 	if err != nil {
 		panic(err)
 	}
-
-	fmt.Println("Starting Service: " + self.Uuid)
 }
 
 /*
@@ -204,8 +194,6 @@ func (self *Service) StopService() {
 	if err != nil {
 		panic(err)
 	}
-
-	fmt.Println("Stopping Service: " + self.Uuid)
 }
 
 /*
@@ -224,7 +212,6 @@ func (self *Service) Redeploy() {
 	if err != nil {
 		panic(err)
 	}
-	fmt.Println("Redeploying Service: " + self.Uuid)
 }
 
 /*
@@ -242,7 +229,4 @@ func (self *Service) TerminateService() {
 	if err != nil {
 		panic(err)
 	}
-
-	fmt.Println("Terminating Service: " + self.Uuid)
-
 }

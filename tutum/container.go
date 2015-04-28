@@ -1,9 +1,6 @@
 package tutum
 
-import (
-	"encoding/json"
-	"fmt"
-)
+import "encoding/json"
 
 type CListResponse struct {
 	Objects []Container `json:"objects"`
@@ -62,7 +59,6 @@ func ListContainers() (CListResponse, error) {
 		panic(err)
 	}
 	return response, nil
-
 }
 
 /*
@@ -89,7 +85,6 @@ func GetContainer(uuid string) (Container, error) {
 	}
 
 	return response, nil
-
 }
 
 /*
@@ -111,7 +106,6 @@ func GetContainerLogs(uuid string) (string, error) {
 	s := string(data)
 
 	return s, nil
-
 }
 
 /*
@@ -125,12 +119,17 @@ func (self *Container) Start() {
 	request := "POST"
 	//Empty Body Request
 	body := []byte(`{}`)
+	var response Container
 
-	_, err := TutumCall(url, request, body)
+	data, err := TutumCall(url, request, body)
 	if err != nil {
 		panic(err)
 	}
-	fmt.Println("Starting Container: " + self.Uuid)
+
+	err = json.Unmarshal(data, &response)
+	if err != nil {
+		panic(err)
+	}
 }
 
 /*
@@ -144,14 +143,17 @@ func (self *Container) Stop() {
 	request := "POST"
 	//Empty Body Request
 	body := []byte(`{}`)
+	var response Container
 
-	_, err := TutumCall(url, request, body)
+	data, err := TutumCall(url, request, body)
 	if err != nil {
 		panic(err)
 	}
 
-	fmt.Println("Stopping Container: " + self.Uuid)
-
+	err = json.Unmarshal(data, &response)
+	if err != nil {
+		panic(err)
+	}
 }
 
 /*
@@ -170,9 +172,6 @@ func (self *Container) Redeploy() {
 	if err != nil {
 		panic(err)
 	}
-
-	fmt.Println("Redeploying Container: " + self.Uuid)
-
 }
 
 /*
@@ -191,7 +190,4 @@ func (self *Container) Terminate() {
 	if err != nil {
 		panic(err)
 	}
-
-	fmt.Println("Terminating Container: " + self.Uuid)
-
 }

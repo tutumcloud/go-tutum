@@ -1,9 +1,6 @@
 package tutum
 
-import (
-	"encoding/json"
-	"fmt"
-)
+import "encoding/json"
 
 type StackListResponse struct {
 	Objects []StackShort `json:"objects"`
@@ -140,8 +137,6 @@ func (self *Stack) Update(updatedStack []byte) {
 	if err != nil {
 		panic(err)
 	}
-
-	fmt.Println("Updating Stack: " + self.Uuid)
 }
 
 func (self *Stack) Start() {
@@ -155,8 +150,6 @@ func (self *Stack) Start() {
 	if err != nil {
 		panic(err)
 	}
-
-	fmt.Println("Starting Stack: " + self.Uuid)
 }
 
 func (self *Stack) Stop() {
@@ -170,8 +163,6 @@ func (self *Stack) Stop() {
 	if err != nil {
 		panic(err)
 	}
-
-	fmt.Println("Stopping Stack: " + self.Uuid)
 }
 
 func (self *Stack) Redeploy() {
@@ -185,8 +176,6 @@ func (self *Stack) Redeploy() {
 	if err != nil {
 		panic(err)
 	}
-
-	fmt.Println("Redeploying Stack: " + self.Uuid)
 }
 
 func (self *Stack) Terminate() {
@@ -200,6 +189,4 @@ func (self *Stack) Terminate() {
 	if err != nil {
 		panic(err)
 	}
-
-	fmt.Println("Terminating Stack: " + self.Uuid)
 }

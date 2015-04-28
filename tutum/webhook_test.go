@@ -102,7 +102,7 @@ func Test_GetWebhook(t *testing.T) {
 	}
 }
 
-func Test_CreateWebhooks(t *testing.T) {
+/*func Test_CreateWebhooks(t *testing.T) {
 	User = "test"
 	ApiKey = "test"
 
@@ -189,4 +189,4 @@ func Test_CallWebhook(t *testing.T) {
 	if reflect.DeepEqual(test_response, response) != true {
 		t.Fatal("Invalid output")
 	}
-}
+}*/

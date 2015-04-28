@@ -83,7 +83,6 @@ func (self *Service) CreateWebhook(newWebhook []byte) ([]Webhook, error) {
 	}
 
 	return response, nil
-
 }
 
 /*
@@ -105,7 +104,6 @@ func (self *Service) DeleteWebhook(webhook_uuid string) error {
 	if err != nil {
 		panic(err)
 	}
-
 	return nil
 }
 
@@ -129,6 +127,5 @@ func (self *Service) CallWebhook(webhook_uuid string) (Webhook, error) {
 	if err != nil {
 		panic(err)
 	}
-
 	return response, nil
 }
