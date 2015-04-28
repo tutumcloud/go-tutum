@@ -11,13 +11,13 @@ Go library for Tutum's API. Full documentation available at [https://docs.tutum.
 In order to install the Tutum Go library, you can use :
 
 	go get github.com/tutumcloud/go-tutum
-	
+
 
 **Auth:**
-	
-In order to be able to make requests to the API, you should first obtain an ApiKey for your accoun. For this, log into Tutum, click on the menu on the upper right corner of the screen and sekect **Get Api Key**. 
 
-You can use your ApiKey with the Go library in any of the following ways: 
+In order to be able to make requests to the API, you should first obtain an ApiKey for your account. For this, log into Tutum, click on the menu on the upper right corner of the screen and select **Get Api Key**. 
+
+You can use your ApiKey with the Go library in any of the following ways:
 
 Manually set in your golang code
 
@@ -29,7 +29,7 @@ Store in a config file in ~/.tutum
 	[auth]
 	user = "username"
 	apikey = "apikey"
-	
+
 Set the environment variables TUTUM_USER and TUTUM_APIKEY
 
 
@@ -39,7 +39,7 @@ Set the environment variables TUTUM_USER and TUTUM_APIKEY
 
 - ListServices() : returns all the services in a JSON object
 
-######Example 
+######Example
 ```
 	    list, err := tutum.ListServices()
 	    if err != nil {
@@ -50,7 +50,7 @@ Set the environment variables TUTUM_USER and TUTUM_APIKEY
 
 - GetService(uuid string) : returns the details of the service in a JSON object
 
-######Example 
+######Example
 
 ```
 	    service, err := tutum.GetService("0a6e3c0d-cefd-4347-930b-d112d991ba52")
@@ -63,7 +63,7 @@ Set the environment variables TUTUM_USER and TUTUM_APIKEY
 
 - CreateService(newService []byte) : returns the newly created service in a JSON object
 
-######Example 
+######Example
 ```
 	    newservice, err := tutum.CreateService([]byte(`{"image": "tutum/hello-world", "name": "my-new-app", "target_num_containers": 2}`))
 	    if err != nil {
@@ -74,7 +74,7 @@ Set the environment variables TUTUM_USER and TUTUM_APIKEY
 
 - GetServiceLogs(uuid string) : returns the logs of the service
 
-######Example 
+######Example
 ```
 	    logs, err := tutum.GetServiceLogs("37062446-aaef-46d6-b2d0-0cb4c1bab8cf")
 	    if err != nil {
@@ -92,12 +92,12 @@ Set the environment variables TUTUM_USER and TUTUM_APIKEY
 	        log.Fatal(err)
 	    }
 	    log.Println(updatedService)
-``` 
+```
 
 
 - StartService(uuid string) : returns the newly started service in a JSON object
 
-######Example 
+######Example
 ```
 	    start, err := tutum.StartService("0a6e3c0d-cefd-4347-930b-d112d991ba52")
 	    if err != nil {
@@ -106,7 +106,7 @@ Set the environment variables TUTUM_USER and TUTUM_APIKEY
 	    log.Println(start)
 ```
 
-- StopService(uuid string) : returns the newly stopped service in a JSON object 
+- StopService(uuid string) : returns the newly stopped service in a JSON object
 
 - RedeployService(uuid string) : returns the newly redeployed service in a JSON object
 
@@ -118,7 +118,7 @@ Set the environment variables TUTUM_USER and TUTUM_APIKEY
 
 - ListContainers() : returns all the containers in a JSON object
 
-######Example 
+######Example
 
 ```
 	    list, err := tutum.ListContainers()
@@ -130,7 +130,7 @@ Set the environment variables TUTUM_USER and TUTUM_APIKEY
 
 - GetContainer(uuid string) : returns the details of the container in a JSON object
 
-######Example 
+######Example
 
 ```
 	    container, err := tutum.GetContainer("fcf37b7f-2df5-4a45-9acb-fd11dca3d562")
@@ -156,7 +156,7 @@ Set the environment variables TUTUM_USER and TUTUM_APIKEY
 - StartContainer(uuid string) : returns the newly started container in a JSON object
 
 
-######Example 
+######Example
 
 ```
 	    start, err := tutum.StartContainer("fcf37b7f-2df5-4a45-9acb-fd11dca3d562")
