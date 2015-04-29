@@ -128,10 +128,12 @@ func CreateStack(requestBody string) (Stack, error) {
 func Update
 Argument : a Stack JSON object (see documentation)
 */
-func (self *Stack) Update(updatedStack []byte) {
+func (self *Stack) Update(requestBody string) {
 
 	url := "stack/" + self.Uuid + "/"
 	request := "PATCH"
+
+	updatedStack := []byte(requestBody)
 
 	_, err := TutumCall(url, request, updatedStack)
 	if err != nil {

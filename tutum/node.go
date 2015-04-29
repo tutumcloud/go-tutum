@@ -79,10 +79,12 @@ func UpdateNode
 Argument : uuid
 Returns : Node JSON object
 */
-func (self *Node) Update(updatedNode []byte) {
+func (self *Node) Update(requestBody string) {
 
 	url := "node/" + self.Uuid + "/"
 	request := "PATCH"
+
+	updatedNode := []byte(requestBody)
 
 	_, err := TutumCall(url, request, updatedNode)
 	if err != nil {

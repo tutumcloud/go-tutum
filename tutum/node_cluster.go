@@ -121,10 +121,12 @@ func UpdateNodeCluster
 Argument : uuid and nodecluster JSON object (see documentation)
 Returns : NodeCluster JSON object
 */
-func (self *NodeCluster) Update(updatedNode []byte) {
+func (self *NodeCluster) Update(requestBody string) {
 
 	url := "nodecluster/" + self.Uuid + "/"
 	request := "PATCH"
+
+	updatedNode := []byte(requestBody)
 
 	_, err := TutumCall(url, request, updatedNode)
 	if err != nil {

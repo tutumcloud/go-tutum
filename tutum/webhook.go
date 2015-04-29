@@ -65,10 +65,12 @@ func CreateWebhook
 Argument : service uuid and webhook JSON object
 Returns : Array of Webhook objects
 */
-func (self *Service) CreateWebhook(newWebhook []byte) ([]Webhook, error) {
+func (self *Service) CreateWebhook(requestBody string) ([]Webhook, error) {
 
 	url := "service/" + self.Uuid + "/webhook/handler/"
 	request := "POST"
+
+	newWebhook := []byte(requestBody)
 
 	var response []Webhook
 

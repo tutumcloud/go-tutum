@@ -153,10 +153,12 @@ func UpdateService
 Argument : uuid, updatedService JSON object
 Returns : Service JSON object
 */
-func (self *Service) Update(updatedService []byte) {
+func (self *Service) Update(requestBody string) {
 
 	url := "service/" + self.Uuid + "/"
 	request := "PATCH"
+
+	updatedService := []byte(requestBody)
 
 	_, err := TutumCall(url, request, updatedService)
 	if err != nil {
