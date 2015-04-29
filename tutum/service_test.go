@@ -134,7 +134,7 @@ func Test_CreateService(t *testing.T) {
 	}
 
 	BaseUrl = server.URL + "/api/v1/"
-	test_response, err := CreateService([]byte(`{"image": "tutum/hello-world", "name": "my-new-app", "target_num_containers": 2}`))
+	test_response, err := CreateService(`{"image": "tutum/hello-world", "name": "my-new-app", "target_num_containers": 2}`)
 	if err != nil {
 		t.Fatal(err)
 	}

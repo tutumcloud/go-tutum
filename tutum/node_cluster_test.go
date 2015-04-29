@@ -134,7 +134,7 @@ func Test_CreateNodeCluster(t *testing.T) {
 	}
 
 	BaseUrl = server.URL + "/api/v1/"
-	test_response, err := CreateNodeCluster([]byte(`{"name": "Test-Cluster", "region": "/api/v1/region/digitalocean/lon1/", "node_type": "/api/v1/nodetype/digitalocean/1gb/", "disk": 60}`))
+	test_response, err := CreateNodeCluster(`{"name": "Test-Cluster", "region": "/api/v1/region/digitalocean/lon1/", "node_type": "/api/v1/nodetype/digitalocean/1gb/", "disk": 60}`)
 	if err != nil {
 		t.Fatal(err)
 	}

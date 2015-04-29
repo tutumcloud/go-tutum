@@ -7,21 +7,21 @@ type SListResponse struct {
 }
 
 type Service struct {
-	Autodestroy            string       `json:"autodestroy"`
-	Autoredeploy           bool         `json:"autoredeploy"`
-	Autorestart            string       `json:"autorestart"`
-	Containers             []string     `json:"containers"`
-	Container_ports        []SCPInfo    `json:"container_ports"`
-	Container_size         string       `json:"container_size"`
-	Current_num_containers int          `json:"current_num_containers"`
-	Deployed_datetime      string       `json:"deployed_datetime"`
-	Destroyed_datetime     string       `json:"destroyed_datetime"`
-	Entrypoint             string       `json:"entrypoint"`
-	Exit_code              int          `json:"exit_code"`
-	Exit_code_message      string       `json:"exit_code_message"`
+	Autodestroy            string       `json:"autodestroy`
+	Autoredeploy           bool         `json:"autoredeploy`
+	Autorestart            string       `json:"autorestart`
+	Containers             []string     `json:"containers`
+	Container_ports        []SCPInfo    `json:"container_ports`
+	Container_size         string       `json:"container_size`
+	Current_num_containers int          `json:"current_num_containers`
+	Deployed_datetime      string       `json:"deployed_datetime`
+	Destroyed_datetime     string       `json:"destroyed_datetime`
+	Entrypoint             string       `json:"entrypoint`
+	Exit_code              int          `json:"exit_code`
+	Exit_code_message      string       `json:"exit_code_message`
 	Image_name             string       `json:"image_name"`
-	Image_tag              string       `json:"image_tag"`
-	Linked_to_service      []LinkToInfo `json:"linked_to_service"`
+	Image_tag              string       `json:"image_tag`
+	Linked_to_service      []LinkToInfo `json:"linked_to_service`
 	Name                   string       `json:"name"`
 	Public_dns             string       `json:"public_dns"`
 	Resource_uri           string       `json:"resource_uri"`
@@ -104,11 +104,12 @@ func CreateService
 Argument : Service JSON object (see documentation)
 Returns : Service JSON object
 */
-func CreateService(newService []byte) (Service, error) {
+func CreateService(requestBody string) (Service, error) {
 
 	url := "service/"
 	request := "POST"
 
+	newService := []byte(requestBody)
 	var response Service
 
 	data, err := TutumCall(url, request, newService)

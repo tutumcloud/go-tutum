@@ -77,11 +77,12 @@ func CreateNodeCluster
 Argument : NodeCluster JSON object (see documentation)
 Returns : NodeCluster JSON object
 */
-func CreateNodeCluster(newCluster []byte) (NodeCluster, error) {
+func CreateNodeCluster(requestBody string) (NodeCluster, error) {
 
 	url := "nodecluster/"
 	request := "POST"
 
+	newCluster := []byte(requestBody)
 	var response NodeCluster
 
 	data, err := TutumCall(url, request, newCluster)

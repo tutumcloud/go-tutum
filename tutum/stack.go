@@ -19,9 +19,9 @@ type StackShort struct {
 
 type Stack struct {
 	Deployed_datetime  string    `json:"deployed_datetime"`
-	Destroyed_datetime string    `json:"destroyed_datetime"`
+	Destroyed_datetime string    `json:"destroyed_datetime`
 	Name               string    `json:"name"`
-	Resource_uri       string    `json:"resource_uri"`
+	Resource_uri       string    `json:"resource_uri`
 	Service            []Service `json:"services"`
 	State              string    `json:"state"`
 	Synchronized       bool      `json:"synchronized"`
@@ -104,11 +104,11 @@ func (self *Stack) ExportStack() string {
 func CreateStack
 Argument : Stack JSON object (see documentation)
 */
-func CreateStack(newStack []byte) (Stack, error) {
-
+func CreateStack(requestBody string) (Stack, error) {
 	url := "stack/"
 	request := "POST"
 
+	newStack := []byte(requestBody)
 	var response Stack
 
 	data, err := TutumCall(url, request, newStack)
