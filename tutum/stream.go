@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/docker/docker/vendor/src/code.google.com/p/go.net/websocket"
+	"golang.org/x/net/websocket"
 )
 
 /*

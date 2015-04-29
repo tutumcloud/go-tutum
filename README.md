@@ -32,161 +32,88 @@ Store in a config file in ~/.tutum
 
 Set the environment variables TUTUM_USER and TUTUM_APIKEY
 
+##Examples
 
-##Function and examples
-
-**Services**
-
-- ListServices() : returns all the services in a JSON object
-
-######Example
-```
-	    list, err := tutum.ListServices()
-	    if err != nil {
-	        log.Fatal(err)
-	    }
-	    log.Println(list)
-```
-
-- GetService(uuid string) : returns the details of the service in a JSON object
-
-######Example
+**Creating and deploying a NodeCluster**
 
 ```
-	    service, err := tutum.GetService("0a6e3c0d-cefd-4347-930b-d112d991ba52")
-	    if err != nil {
-	        log.Fatal(err)
-	    }
-	    log.Println(service)
+nodecluster, err := tutum.CreateNodeCluster(`{"name": "my_cluster", "region": "/api/v1/region/digitalocean/lon1/", "node_type": "/api/v1/nodetype/digitalocean/1gb/", "disk": 60}`)
+
+if err != nil {
+  log.Println(err)
+}
+
+
+nodecluster.Deploy()
 ```
 
-
-- CreateService(newService []byte) : returns the newly created service in a JSON object
-
-######Example
-```
-	    newservice, err := tutum.CreateService([]byte(`{"image": "tutum/hello-world", "name": "my-new-app", "target_num_containers": 2}`))
-	    if err != nil {
-	        log.Fatal(err)
-	    }
-	    log.Println(newservice)
-```
-
-- GetServiceLogs(uuid string) : returns the logs of the service
-
-######Example
-```
-	    logs, err := tutum.GetServiceLogs("37062446-aaef-46d6-b2d0-0cb4c1bab8cf")
-	    if err != nil {
-	        log.Fatal(err)
-	    }
-	    log.Println(logs)
-```
-
-- UpdateService(uuid string, updatedService []byte) : returns the updated service in a JSON object
-
-######Example
-```
-	    updatedService, err := tutum.UpdateService("0a6e3c0d-cefd-4347-930b-d112d991ba52", []byte(`{"container_envvars": [{"key": "NAME", "value": "New Service"}]}`))
-	    if err != nil {
-	        log.Fatal(err)
-	    }
-	    log.Println(updatedService)
-```
-
-
-- StartService(uuid string) : returns the newly started service in a JSON object
-
-######Example
-```
-	    start, err := tutum.StartService("0a6e3c0d-cefd-4347-930b-d112d991ba52")
-	    if err != nil {
-	        log.Fatal(err)
-	    }
-	    log.Println(start)
-```
-
-- StopService(uuid string) : returns the newly stopped service in a JSON object
-
-- RedeployService(uuid string) : returns the newly redeployed service in a JSON object
-
-- TerminateService(uuid string) : returns the newly terminated service in a JSON object
-
-
-
-**Containers**
-
-- ListContainers() : returns all the containers in a JSON object
-
-######Example
+**Creating and starting a Stack**
 
 ```
-	    list, err := tutum.ListContainers()
-	    if err != nil {
-	        log.Fatal(err)
-	    }
-	    log.Println(list)
+stack, err := tutum.CreateStack(`{
+    "name": "my-new-stack",
+    "services": [
+        {
+            "name": "hello-word",
+            "image": "tutum/hello-world",
+            "target_num_containers": 2,
+            "linked_to_service": [
+                {
+                    "to_service": "database",
+                    "name": "DB"
+                }
+            ]
+        },
+        {
+            "name": "database",
+            "image": "tutum/mysql"
+        }
+    ]
+}`)
+
+if err != nil {
+  log.Println(err)
+}
+
+stack.Start()
 ```
 
-- GetContainer(uuid string) : returns the details of the container in a JSON object
-
-######Example
+**Listing running containers**
 
 ```
-	    container, err := tutum.GetContainer("fcf37b7f-2df5-4a45-9acb-fd11dca3d562")
-	    if err != nil {
-	        log.Fatal(err)
-	    }
-	    log.Println(container)
+containers, err := tutum.ListContainers()
+
+if err != nil {
+	log.Println(err)
+}
+
+log.Println(containers)
 ```
 
-- GetContainerLogs(uuid string) : returns the logs of the container
-
-######Example
+**Stopping a running service**
 
 ```
-	    logs, err := tutum.GetContainerLogs("fcf37b7f-2df5-4a45-9acb-fd11dca3d562")
-	    if err != nil {
-	        log.Fatal(err)
-	    }
-	    log.Println(logs)
+service, err := tutum.GetService("7eaf7fff-882c-4f3d-9a8f-a22317ac00ce")
+
+if err != nil {
+	log.Println(err)
+}
+
+service.Stop()
 ```
 
-
-- StartContainer(uuid string) : returns the newly started container in a JSON object
-
-
-######Example
+**Stream events**
 
 ```
-	    start, err := tutum.StartContainer("fcf37b7f-2df5-4a45-9acb-fd11dca3d562")
-	    if err != nil {
-	        log.Fatal(err)
-	    }
-	    log.Println(start)
+tutum.Stream()
 ```
 
+**Apply a function at each new event**
 
-- StopContainer(uuid string) : returns the newly stopped container in a JSON object
+```
+tutum.OnEvent(function_name)
 
-
-- RedeployContainer(uuid string) : returns the newly redeployed container in a JSON object
-
-- TerminateContainer(uuid string) : returns the newly terminated container in a JSON object
-
-**NodeClusters**
-
-- ListNodeClusters() : returns all the nodeclusters in a JSON object
-
-- GetNodeCluster(uuid string) : returns the details of a specific container in a JSON object
-
-- CreateNodeCluster(newCluster []byte) : returns the newly created nodecluster in a JSON object
-
-- DeployNodeCluster(uuid string) : returns the newly deployed nodecluster in a JSON object
-
-- UpdateNodeCluster(uuid string, updatedNode []byte) : returns the newly updated nodecluster in a JSON object
-
-- TerminateNodeCluster(uuid string) : returns the newly terminated nodecluster in a JSON object
+```
 
 
 The complete API Documentation is available [here](https://docs.tutum.co/v2/api/) with additional examples written in Go.
