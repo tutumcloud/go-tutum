@@ -8,26 +8,31 @@ import (
 )
 
 /*
-	func TutumStreamCall
-	Returns : The stream of all events from your NodeClusters, Containers, Services, Stack, Actions, ...
+	func dial()
+	Returns : a websocket connection
 */
-func TutumStreamCall() error {
-
+func dial() (websocket.Conn, error) {
 	var StreamUrl = "wss://stream.tutum.co:443/v1/events?token=" + ApiKey + "&user=" + User
 	var origin = "http://localhost"
+	ws, err := websocket.Dial(StreamUrl, "", origin)
 
 	if os.Getenv("TUTUM_STREAM_URL") != "" {
 		StreamUrl = os.Getenv("TUTUM_STREAM_URL")
 	}
 
-	if !IsAuthenticated() {
-		return fmt.Errorf("Couldn't find any Tutum credentials in ~/.tutum or environment variables TUTUM_USER and TUTUM_APIKEY")
-	}
-
-	ws, err := websocket.Dial(StreamUrl, "", origin)
 	if err != nil {
-		return err
+		dial()
 	}
+	return *ws, nil
+}
+
+/*
+	func TutumStreamCall
+	Returns : The stream of all events from your NodeClusters, Containers, Services, Stack, Actions, ...
+*/
+func TutumStreamCall(c chan string) error {
+
+	ws, err := dial()
 
 	var msg = make([]byte, 512)
 	var n int
@@ -36,7 +41,29 @@ func TutumStreamCall() error {
 			return err
 		}
 
-		fmt.Printf("Received: %s.\n", msg[:n])
+		c <- fmt.Sprintf("%s", msg[:n])
 	}
-	return nil
+}
+
+func OnEvent(f func()) {
+	c := make(chan string)
+	go TutumStreamCall(c)
+	for {
+		select {
+		case stream := <-c:
+			fmt.Println(stream)
+			f()
+		}
+	}
+}
+
+func Stream() {
+	c := make(chan string)
+	go TutumStreamCall(c)
+	for {
+		select {
+		case stream := <-c:
+			fmt.Println(stream)
+		}
+	}
 }
