@@ -1,6 +1,9 @@
 package tutum
 
-import "encoding/json"
+import (
+	"encoding/json"
+	"fmt"
+)
 
 type NodeClusterListResponse struct {
 	Objects []NodeCluster `json:"objects"`
@@ -126,9 +129,10 @@ func (self *NodeCluster) Update(requestBody string) {
 	url := "nodecluster/" + self.Uuid + "/"
 	request := "PATCH"
 
-	updatedNode := []byte(requestBody)
+	updatedNodeCluster := []byte(requestBody)
+	fmt.Println(string(updatedNodeCluster))
 
-	_, err := TutumCall(url, request, updatedNode)
+	_, err := TutumCall(url, request, updatedNodeCluster)
 	if err != nil {
 		panic(err)
 	}

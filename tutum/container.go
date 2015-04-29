@@ -92,9 +92,9 @@ func GetContainerLogs
 Argument : uuid
 Returns : A string containing the logs of the container
 */
-func GetContainerLogs(uuid string) (string, error) {
+func (self *Container) Logs() (string, error) {
 
-	url := "container/" + uuid + "/logs/"
+	url := "container/" + self.Uuid + "/logs/"
 	request := "GET"
 	//Empty Body Request
 	body := []byte(`{}`)

@@ -16,8 +16,8 @@ type Webhook struct {
 func ListWebhooks
 Returns : Array of Webhook objects
 */
-func ListWebhooks(uuid string) (WebhookListResponse, error) {
-	url := "service/" + uuid + "/webhook/handler/"
+func (self *Service) ListWebhooks() (WebhookListResponse, error) {
+	url := "service/" + self.Uuid + "/webhook/handler/"
 	request := "GET"
 	//Empty Body Request
 	body := []byte(`{}`)
@@ -41,8 +41,8 @@ func GetWebhook
 Argument : service uuid and webhook uuid
 Returns : Webhook JSON object
 */
-func GetWebhook(uuid string, webhook_uuid string) (Webhook, error) {
-	url := "service/" + uuid + "/webhook/handler/" + webhook_uuid + "/"
+func (self *Service) GetWebhook(webhook_uuid string) (Webhook, error) {
+	url := "service/" + self.Uuid + "/webhook/handler/" + webhook_uuid + "/"
 	request := "GET"
 	body := []byte(`{}`)
 	var response Webhook
@@ -91,7 +91,7 @@ func (self *Service) CreateWebhook(requestBody string) ([]Webhook, error) {
 func DeleteWebhook
 Argument : service uuid and webhook uuid
 */
-func (self *Service) DeleteWebhook(webhook_uuid string) error {
+func (self *Service) DeleteWebhook(webhook_uuid string) {
 	url := "service/" + self.Uuid + "/webhook/handler/" + webhook_uuid + "/"
 	request := "DELETE"
 	body := []byte(`{}`)
@@ -106,7 +106,6 @@ func (self *Service) DeleteWebhook(webhook_uuid string) error {
 	if err != nil {
 		panic(err)
 	}
-	return nil
 }
 
 /*

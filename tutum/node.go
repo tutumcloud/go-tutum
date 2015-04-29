@@ -97,7 +97,7 @@ func UpgradeDaemon
 Argument : uuid
 Returns : Node JSON object
 */
-func (self *Node) UpgradeDaemon(uuid string) {
+func (self *Node) Upgrade() {
 
 	url := "node/" + self.Uuid + "/docker-upgrade/"
 	request := "POST"

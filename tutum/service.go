@@ -130,7 +130,7 @@ func GetServiceLogs
 Argument : uuid
 Returns : A string containing the logs of the service
 */
-func (self *Service) GetServiceLogs() (string, error) {
+func (self *Service) Logs() (string, error) {
 
 	url := "service/" + self.Uuid + "/logs/"
 	request := "GET"
