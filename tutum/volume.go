@@ -46,7 +46,13 @@ Returns : Volume JSON object
 */
 func GetVolume(uuid string) (Volume, error) {
 
-	url := "volume/" + uuid + "/"
+	url := ""
+	if string(uuid[0]) == "/" {
+		url = uuid[8:]
+	} else {
+		url = "volume/" + uuid + "/"
+	}
+
 	request := "GET"
 	//Empty Body Request
 	body := []byte(`{}`)

@@ -47,7 +47,13 @@ Returns : VolumeGroup JSON object
 */
 func GetVolumeGroup(uuid string) (VolumeGroup, error) {
 
-	url := "volumegroup/" + uuid + "/"
+	url := ""
+	if string(uuid[0]) == "/" {
+		url = uuid[8:]
+	} else {
+		url = "volumegroup/" + uuid + "/"
+	}
+
 	request := "GET"
 	//Empty Body Request
 	body := []byte(`{}`)

@@ -60,7 +60,13 @@ Returns : Stack JSON object
 */
 func GetStack(uuid string) (Stack, error) {
 
-	url := "stack/" + uuid + "/"
+	url := ""
+	if string(uuid[0]) == "/" {
+		url = uuid[8:]
+	} else {
+		url = "stack/" + uuid + "/"
+	}
+
 	request := "GET"
 	//Empty Body Request
 	body := []byte(`{}`)

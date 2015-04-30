@@ -45,9 +45,15 @@ func GetRegion
 Argument : provider name and location name
 Returns : Region JSON object
 */
-func GetRegion(provider string, name string) (Region, error) {
+func GetRegion(id string) (Region, error) {
 
-	url := "region/" + provider + "/" + name + "/"
+	url := ""
+	if string(id[0]) == "/" {
+		url = id[8:]
+	} else {
+		url = "region/" + id + "/"
+	}
+
 	request := "GET"
 	//Empty Body Request
 	body := []byte(`{}`)

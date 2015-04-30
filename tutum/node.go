@@ -56,7 +56,14 @@ Argument : uuid
 Returns : Node JSON object
 */
 func GetNode(uuid string) (Node, error) {
-	url := "node/" + uuid + "/"
+
+	url := ""
+	if string(uuid[0]) == "/" {
+		url = uuid[8:]
+	} else {
+		url = "node/" + uuid + "/"
+	}
+
 	request := "GET"
 	body := []byte(`{}`)
 	var response Node

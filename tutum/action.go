@@ -52,7 +52,14 @@ Argument : uuid
 Returns : Action JSON object
 */
 func GetAction(uuid string) (Action, error) {
-	url := "action/" + uuid + "/"
+
+	url := ""
+	if string(uuid[0]) == "/" {
+		url = uuid[8:]
+	} else {
+		url = "action/" + uuid + "/"
+	}
+
 	request := "GET"
 	//Empty Body Request
 	body := []byte(`{}`)

@@ -56,7 +56,13 @@ Returns : NodeCluster JSON object
 */
 func GetNodeCluster(uuid string) (NodeCluster, error) {
 
-	url := "nodecluster/" + uuid + "/"
+	url := ""
+	if string(uuid[0]) == "/" {
+		url = uuid[8:] + "/"
+	} else {
+		url = "nodecluster/" + uuid + "/"
+	}
+
 	request := "GET"
 	//Empty Body Request
 	body := []byte(`{}`)

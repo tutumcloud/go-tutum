@@ -46,7 +46,13 @@ Returns : Provider JSON object
 */
 func GetProvider(name string) (Provider, error) {
 
-	url := "provider/" + name + "/"
+	url := ""
+	if string(name[0]) == "/" {
+		url = name[8:]
+	} else {
+		url = "provider/" + name + "/"
+	}
+
 	request := "GET"
 	//Empty Body Request
 	body := []byte(`{}`)

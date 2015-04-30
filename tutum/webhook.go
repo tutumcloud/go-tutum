@@ -42,7 +42,14 @@ Argument : service uuid and webhook uuid
 Returns : Webhook JSON object
 */
 func (self *Service) GetWebhook(webhook_uuid string) (Webhook, error) {
-	url := "service/" + self.Uuid + "/webhook/handler/" + webhook_uuid + "/"
+
+	url := ""
+	if string(webhook_uuid[0]) == "/" {
+		url = webhook_uuid[8:]
+	} else {
+		url = "service/" + self.Uuid + "/webhook/handler/" + webhook_uuid + "/"
+	}
+
 	request := "GET"
 	body := []byte(`{}`)
 	var response Webhook
@@ -92,7 +99,13 @@ func DeleteWebhook
 Argument : service uuid and webhook uuid
 */
 func (self *Service) DeleteWebhook(webhook_uuid string) error {
-	url := "service/" + self.Uuid + "/webhook/handler/" + webhook_uuid + "/"
+	url := ""
+	if string(webhook_uuid[0]) == "/" {
+		url = webhook_uuid[8:]
+	} else {
+		url = "service/" + self.Uuid + "/webhook/handler/" + webhook_uuid + "/"
+	}
+
 	request := "DELETE"
 	body := []byte(`{}`)
 	var response Webhook
@@ -116,7 +129,13 @@ Argument : service uuid and webhook uuid
 Returns : Webhook JSON object
 */
 func (self *Service) CallWebhook(webhook_uuid string) (Webhook, error) {
-	url := "service/" + self.Uuid + "/webhook/handler/" + webhook_uuid + "/call/"
+	url := ""
+	if string(webhook_uuid[0]) == "/" {
+		url = webhook_uuid[8:]
+	} else {
+		url = "service/" + self.Uuid + "/webhook/handler/" + webhook_uuid + "/"
+	}
+
 	request := "POST"
 	body := []byte(`{}`)
 	var response Webhook

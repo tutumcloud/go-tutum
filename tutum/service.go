@@ -79,7 +79,13 @@ Returns : Service JSON object
 */
 func GetService(uuid string) (Service, error) {
 
-	url := "service/" + uuid + "/"
+	url := ""
+	if string(uuid[0]) == "/" {
+		url = uuid[8:]
+	} else {
+		url = "service/" + uuid + "/"
+	}
+
 	request := "GET"
 	//Empty Body Request
 	body := []byte(`{}`)

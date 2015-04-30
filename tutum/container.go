@@ -68,7 +68,13 @@ Returns : Container JSON object
 */
 func GetContainer(uuid string) (Container, error) {
 
-	url := "container/" + uuid + "/"
+	url := ""
+	if string(uuid[0]) == "/" {
+		url = uuid[8:]
+	} else {
+		url = "container/" + uuid + "/"
+	}
+
 	request := "GET"
 	//Empty Body Request
 	body := []byte(`{}`)
