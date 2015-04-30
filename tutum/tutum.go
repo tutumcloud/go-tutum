@@ -24,12 +24,13 @@ type Auth struct {
 }
 
 type TutumObject interface {
-	Start() string
-	Stop() string
-	Redeploy()
-	Terminate()
-	Deploy()
-	Update([]byte)
+	Start() error
+	Stop() error
+	Redeploy() error
+	Terminate() error
+	Deploy() error
+	Upgrade() error
+	Update([]byte) error
 }
 
 func init() {

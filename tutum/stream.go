@@ -21,6 +21,7 @@ func dial() (websocket.Conn, error) {
 	}
 
 	if err != nil {
+		fmt.Println("Error: %s", err)
 		dial()
 	}
 	return *ws, nil
@@ -30,7 +31,7 @@ func dial() (websocket.Conn, error) {
 	func TutumStreamCall
 	Returns : The stream of all events from your NodeClusters, Containers, Services, Stack, Actions, ...
 */
-func TutumStreamCall(c chan string) error {
+func TutumStreamCall(c chan string) {
 
 	ws, err := dial()
 
@@ -38,7 +39,7 @@ func TutumStreamCall(c chan string) error {
 	var n int
 	for {
 		if n, err = ws.Read(msg); err != nil {
-			return err
+			c <- fmt.Sprintf("%s", err)
 		}
 
 		c <- fmt.Sprintf("%s", msg[:n])
