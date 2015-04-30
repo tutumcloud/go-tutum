@@ -1,11 +1,20 @@
 package tutum
 
 import (
-	"fmt"
+	"encoding/json"
 	"os"
+	"reflect"
 
 	"golang.org/x/net/websocket"
 )
+
+type Event struct {
+	Type         string   `json:"type"`
+	Action       string   `json:"action"`
+	Parents      []string `json:"parents"`
+	Resource_uri string   `json:"resource_uri"`
+	State        string   `json:"state"`
+}
 
 /*
 	func dial()
@@ -21,7 +30,6 @@ func dial() (websocket.Conn, error) {
 	}
 
 	if err != nil {
-		fmt.Println("Error: %s", err)
 		dial()
 	}
 	return *ws, nil
@@ -31,24 +39,32 @@ func dial() (websocket.Conn, error) {
 	func TutumStreamCall
 	Returns : The stream of all events from your NodeClusters, Containers, Services, Stack, Actions, ...
 */
-func TutumStreamCall(c chan string) {
+func TutumEvents(c chan Event) (Event, error) {
 
 	ws, err := dial()
 
 	var msg = make([]byte, 512)
+	var event Event
 	var n int
 	for {
 		if n, err = ws.Read(msg); err != nil {
-			c <- fmt.Sprintf("%s", err)
+			return event, err
+		}
+		err := json.Unmarshal(msg[:n], &event)
+		if err != nil {
+			return event, err
+		}
+		if reflect.TypeOf(event).String() == "tutum.Event" {
+			c <- event
 		}
 
-		c <- fmt.Sprintf("%s", msg[:n])
+		//fmt.Printf("Received: %s.\n", msg[:n])
 	}
 }
 
-func OnEvent(f func()) {
+/*func OnEvent(f func()) {
 	c := make(chan string)
-	go TutumStreamCall(c)
+	//go TutumStreamCall(c)
 	for {
 		select {
 		case stream := <-c:
@@ -60,11 +76,11 @@ func OnEvent(f func()) {
 
 func Stream() {
 	c := make(chan string)
-	go TutumStreamCall(c)
+	//go TutumStreamCall(c)
 	for {
 		select {
 		case stream := <-c:
 			fmt.Println(stream)
 		}
 	}
-}
+}*/
