@@ -1,6 +1,6 @@
 test:
   pre:
     - go get github.com/BurntSushi/toml
-    - go get github.com/docker/docker/vendor/src/code.google.com/p/go.net/websocket
+    - go get golang.org/x/net/websocket
   override:
     - go test -v tutum/*.go
