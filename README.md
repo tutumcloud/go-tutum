@@ -43,8 +43,9 @@ if err != nil {
   log.Println(err)
 }
 
-
-nodecluster.Deploy()
+if err = nodecluster.Deploy(); err != nil {
+   log.Println(err)
+}
 ```
 
 **Creating and starting a Stack**
@@ -75,7 +76,9 @@ if err != nil {
   log.Println(err)
 }
 
-stack.Start()
+if err = stack.Start(); err != nil {
+   log.Println(err)
+}
 ```
 
 **Listing running containers**
@@ -99,7 +102,9 @@ if err != nil {
 	log.Println(err)
 }
 
-service.Stop()
+if err = service.Stop(); err != nil {
+   log.Println(err)
+}
 ```
 
 **Stream events**
