@@ -29,12 +29,12 @@ func ListRegions() (RegionListResponse, error) {
 
 	data, err := TutumCall(url, request, body)
 	if err != nil {
-		panic(err)
+		return response, err
 	}
 
 	err = json.Unmarshal(data, &response)
 	if err != nil {
-		panic(err)
+		return response, err
 	}
 
 	return response, nil
@@ -55,12 +55,12 @@ func GetRegion(provider string, name string) (Region, error) {
 
 	data, err := TutumCall(url, request, body)
 	if err != nil {
-		panic(err)
+		return response, err
 	}
 
 	err = json.Unmarshal(data, &response)
 	if err != nil {
-		panic(err)
+		return response, err
 	}
 
 	return response, nil

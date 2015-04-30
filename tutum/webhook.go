@@ -25,12 +25,12 @@ func (self *Service) ListWebhooks() (WebhookListResponse, error) {
 
 	data, err := TutumCall(url, request, body)
 	if err != nil {
-		panic(err)
+		return response, err
 	}
 
 	err = json.Unmarshal(data, &response)
 	if err != nil {
-		panic(err)
+		return response, err
 	}
 
 	return response, nil
@@ -49,12 +49,12 @@ func (self *Service) GetWebhook(webhook_uuid string) (Webhook, error) {
 
 	data, err := TutumCall(url, request, body)
 	if err != nil {
-		panic(err)
+		return response, err
 	}
 
 	err = json.Unmarshal(data, &response)
 	if err != nil {
-		panic(err)
+		return response, err
 	}
 
 	return response, nil
@@ -76,12 +76,12 @@ func (self *Service) CreateWebhook(requestBody string) ([]Webhook, error) {
 
 	data, err := TutumCall(url, request, newWebhook)
 	if err != nil {
-		panic(err)
+		return response, err
 	}
 
 	err = json.Unmarshal(data, &response)
 	if err != nil {
-		panic(err)
+		return response, err
 	}
 
 	return response, nil
@@ -91,7 +91,7 @@ func (self *Service) CreateWebhook(requestBody string) ([]Webhook, error) {
 func DeleteWebhook
 Argument : service uuid and webhook uuid
 */
-func (self *Service) DeleteWebhook(webhook_uuid string) {
+func (self *Service) DeleteWebhook(webhook_uuid string) error {
 	url := "service/" + self.Uuid + "/webhook/handler/" + webhook_uuid + "/"
 	request := "DELETE"
 	body := []byte(`{}`)
@@ -99,13 +99,15 @@ func (self *Service) DeleteWebhook(webhook_uuid string) {
 
 	data, err := TutumCall(url, request, body)
 	if err != nil {
-		panic(err)
+		return err
 	}
 
 	err = json.Unmarshal(data, &response)
 	if err != nil {
-		panic(err)
+		return err
 	}
+
+	return nil
 }
 
 /*
@@ -121,12 +123,12 @@ func (self *Service) CallWebhook(webhook_uuid string) (Webhook, error) {
 
 	data, err := TutumCall(url, request, body)
 	if err != nil {
-		panic(err)
+		return response, err
 	}
 
 	err = json.Unmarshal(data, &response)
 	if err != nil {
-		panic(err)
+		return response, err
 	}
 	return response, nil
 }

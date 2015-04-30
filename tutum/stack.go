@@ -68,12 +68,12 @@ func GetStack(uuid string) (Stack, error) {
 
 	data, err := TutumCall(url, request, body)
 	if err != nil {
-		panic(err)
+		return response, err
 	}
 
 	err = json.Unmarshal(data, &response)
 	if err != nil {
-		panic(err)
+		return response, err
 	}
 
 	return response, nil
@@ -83,7 +83,7 @@ func GetStack(uuid string) (Stack, error) {
 func Export
 Returns : String that contains the Stack details
 */
-func (self *Stack) ExportStack() string {
+func (self *Stack) ExportStack() (string, error) {
 
 	url := "stack/" + self.Uuid + "/export/"
 	request := "GET"
@@ -92,12 +92,12 @@ func (self *Stack) ExportStack() string {
 
 	data, err := TutumCall(url, request, body)
 	if err != nil {
-		panic(err)
+		return "", err
 	}
 
 	s := string(data)
 
-	return s
+	return s, nil
 }
 
 /*
@@ -113,12 +113,12 @@ func CreateStack(requestBody string) (Stack, error) {
 
 	data, err := TutumCall(url, request, newStack)
 	if err != nil {
-		panic(err)
+		return response, err
 	}
 
 	err = json.Unmarshal(data, &response)
 	if err != nil {
-		panic(err)
+		return response, err
 	}
 
 	return response, nil
@@ -128,7 +128,7 @@ func CreateStack(requestBody string) (Stack, error) {
 func Update
 Argument : a Stack JSON object (see documentation)
 */
-func (self *Stack) Update(requestBody string) {
+func (self *Stack) Update(requestBody string) error {
 
 	url := "stack/" + self.Uuid + "/"
 	request := "PATCH"
@@ -137,11 +137,13 @@ func (self *Stack) Update(requestBody string) {
 
 	_, err := TutumCall(url, request, updatedStack)
 	if err != nil {
-		panic(err)
+		return err
 	}
+
+	return nil
 }
 
-func (self *Stack) Start() {
+func (self *Stack) Start() error {
 
 	url := "stack/" + self.Uuid + "/start/"
 	request := "POST"
@@ -150,11 +152,13 @@ func (self *Stack) Start() {
 
 	_, err := TutumCall(url, request, body)
 	if err != nil {
-		panic(err)
+		return err
 	}
+
+	return nil
 }
 
-func (self *Stack) Stop() {
+func (self *Stack) Stop() error {
 
 	url := "stack/" + self.Uuid + "/stop/"
 	request := "POST"
@@ -163,11 +167,13 @@ func (self *Stack) Stop() {
 
 	_, err := TutumCall(url, request, body)
 	if err != nil {
-		panic(err)
+		return err
 	}
+
+	return nil
 }
 
-func (self *Stack) Redeploy() {
+func (self *Stack) Redeploy() error {
 
 	url := "stack/" + self.Uuid + "/redeploy/"
 	request := "POST"
@@ -176,11 +182,13 @@ func (self *Stack) Redeploy() {
 
 	_, err := TutumCall(url, request, body)
 	if err != nil {
-		panic(err)
+		return err
 	}
+
+	return nil
 }
 
-func (self *Stack) Terminate() {
+func (self *Stack) Terminate() error {
 
 	url := "stack/" + self.Uuid + "/"
 	request := "DELETE"
@@ -189,6 +197,8 @@ func (self *Stack) Terminate() {
 
 	_, err := TutumCall(url, request, body)
 	if err != nil {
-		panic(err)
+		return err
 	}
+
+	return nil
 }

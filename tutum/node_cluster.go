@@ -38,12 +38,12 @@ func ListNodeClusters() (NodeClusterListResponse, error) {
 
 	data, err := TutumCall(url, request, body)
 	if err != nil {
-		panic(err)
+		return response, err
 	}
 
 	err = json.Unmarshal(data, &response)
 	if err != nil {
-		panic(err)
+		return response, err
 	}
 
 	return response, nil
@@ -64,12 +64,12 @@ func GetNodeCluster(uuid string) (NodeCluster, error) {
 
 	data, err := TutumCall(url, request, body)
 	if err != nil {
-		panic(err)
+		return response, err
 	}
 
 	err = json.Unmarshal(data, &response)
 	if err != nil {
-		panic(err)
+		return response, err
 	}
 
 	return response, nil
@@ -90,12 +90,12 @@ func CreateNodeCluster(requestBody string) (NodeCluster, error) {
 
 	data, err := TutumCall(url, request, newCluster)
 	if err != nil {
-		panic(err)
+		return response, err
 	}
 
 	err = json.Unmarshal(data, &response)
 	if err != nil {
-		panic(err)
+		return response, err
 	}
 
 	return response, nil
@@ -106,7 +106,7 @@ func DeployNodeCluster
 Argument : uuid
 Returns : NodeCluster JSON object
 */
-func (self *NodeCluster) Deploy() {
+func (self *NodeCluster) Deploy() error {
 
 	url := "nodecluster/" + self.Uuid + "/deploy/"
 	request := "POST"
@@ -115,8 +115,10 @@ func (self *NodeCluster) Deploy() {
 
 	_, err := TutumCall(url, request, body)
 	if err != nil {
-		panic(err)
+		return err
 	}
+
+	return nil
 }
 
 /*
@@ -124,7 +126,7 @@ func UpdateNodeCluster
 Argument : uuid and nodecluster JSON object (see documentation)
 Returns : NodeCluster JSON object
 */
-func (self *NodeCluster) Update(requestBody string) {
+func (self *NodeCluster) Update(requestBody string) error {
 
 	url := "nodecluster/" + self.Uuid + "/"
 	request := "PATCH"
@@ -134,8 +136,10 @@ func (self *NodeCluster) Update(requestBody string) {
 
 	_, err := TutumCall(url, request, updatedNodeCluster)
 	if err != nil {
-		panic(err)
+		return err
 	}
+
+	return nil
 }
 
 /*
@@ -143,7 +147,7 @@ func UpgradeNodeCluster
 Argument : uuid
 Returns : NodeCluster JSON object
 */
-func (self *NodeCluster) Upgrade() {
+func (self *NodeCluster) Upgrade() error {
 
 	url := "nodecluster/" + self.Uuid + "/docker-upgrade/"
 	request := "POST"
@@ -152,8 +156,10 @@ func (self *NodeCluster) Upgrade() {
 
 	_, err := TutumCall(url, request, body)
 	if err != nil {
-		panic(err)
+		return err
 	}
+
+	return nil
 }
 
 /*
@@ -161,7 +167,7 @@ func TerminateNodeCluster
 Argument : uuid
 Returns : NodeCluster JSON object
 */
-func (self *NodeCluster) Terminate() {
+func (self *NodeCluster) Terminate() error {
 
 	url := "nodecluster/" + self.Uuid + "/"
 	request := "DELETE"
@@ -170,6 +176,8 @@ func (self *NodeCluster) Terminate() {
 
 	_, err := TutumCall(url, request, body)
 	if err != nil {
-		panic(err)
+		return err
 	}
+
+	return nil
 }

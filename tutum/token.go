@@ -18,12 +18,12 @@ func CreateToken() (Token, error) {
 
 	data, err := TutumCall(url, request, body)
 	if err != nil {
-		panic(err)
+		return response, err
 	}
 
 	err = json.Unmarshal(data, &response)
 	if err != nil {
-		panic(err)
+		return response, err
 	}
 
 	return response, nil

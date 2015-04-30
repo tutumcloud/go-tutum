@@ -52,11 +52,11 @@ func ListContainers() (CListResponse, error) {
 	var response CListResponse
 	data, err := TutumCall(url, request, body)
 	if err != nil {
-		panic(err)
+		return response, err
 	}
 	err = json.Unmarshal(data, &response)
 	if err != nil {
-		panic(err)
+		return response, err
 	}
 	return response, nil
 }
@@ -76,12 +76,12 @@ func GetContainer(uuid string) (Container, error) {
 
 	data, err := TutumCall(url, request, body)
 	if err != nil {
-		panic(err)
+		return response, err
 	}
 
 	err = json.Unmarshal(data, &response)
 	if err != nil {
-		panic(err)
+		return response, err
 	}
 
 	return response, nil
@@ -113,7 +113,7 @@ func StartContainer
 Argument : uuid
 Returns : Container JSON object
 */
-func (self *Container) Start() {
+func (self *Container) Start() error {
 
 	url := "container/" + self.Uuid + "/start/"
 	request := "POST"
@@ -123,13 +123,15 @@ func (self *Container) Start() {
 
 	data, err := TutumCall(url, request, body)
 	if err != nil {
-		panic(err)
+		return err
 	}
 
 	err = json.Unmarshal(data, &response)
 	if err != nil {
-		panic(err)
+		return err
 	}
+
+	return nil
 }
 
 /*
@@ -137,23 +139,19 @@ func StopContainer
 Argument : uuid
 Returns : Container JSON object
 */
-func (self *Container) Stop() {
+func (self *Container) Stop() error {
 
 	url := "container/" + self.Uuid + "/stop/"
 	request := "POST"
 	//Empty Body Request
 	body := []byte(`{}`)
-	var response Container
 
-	data, err := TutumCall(url, request, body)
+	_, err := TutumCall(url, request, body)
 	if err != nil {
-		panic(err)
+		return err
 	}
 
-	err = json.Unmarshal(data, &response)
-	if err != nil {
-		panic(err)
-	}
+	return nil
 }
 
 /*
@@ -161,7 +159,7 @@ func RedeployContainer
 Argument : uuid
 Returns : Container JSON object
 */
-func (self *Container) Redeploy() {
+func (self *Container) Redeploy() error {
 
 	url := "container/" + self.Uuid + "/redeploy/"
 	request := "POST"
@@ -170,8 +168,10 @@ func (self *Container) Redeploy() {
 
 	_, err := TutumCall(url, request, body)
 	if err != nil {
-		panic(err)
+		return err
 	}
+
+	return nil
 }
 
 /*
@@ -179,7 +179,7 @@ func TerminateContainer
 Argument : uuid
 Returns : Container JSON object
 */
-func (self *Container) Terminate() {
+func (self *Container) Terminate() error {
 
 	url := "container/" + self.Uuid + "/"
 	request := "DELETE"
@@ -188,6 +188,8 @@ func (self *Container) Terminate() {
 
 	_, err := TutumCall(url, request, body)
 	if err != nil {
-		panic(err)
+		return err
 	}
+
+	return nil
 }

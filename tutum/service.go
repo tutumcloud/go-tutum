@@ -62,11 +62,11 @@ func ListServices() (SListResponse, error) {
 
 	data, err := TutumCall(url, request, body)
 	if err != nil {
-		panic(err)
+		return response, err
 	}
 	err = json.Unmarshal(data, &response)
 	if err != nil {
-		panic(err)
+		return response, err
 	}
 	return response, nil
 
@@ -87,12 +87,12 @@ func GetService(uuid string) (Service, error) {
 
 	data, err := TutumCall(url, request, body)
 	if err != nil {
-		panic(err)
+		return response, err
 	}
 
 	err = json.Unmarshal(data, &response)
 	if err != nil {
-		panic(err)
+		return response, err
 	}
 
 	return response, nil
@@ -114,12 +114,12 @@ func CreateService(requestBody string) (Service, error) {
 
 	data, err := TutumCall(url, request, newService)
 	if err != nil {
-		panic(err)
+		return response, err
 	}
 
 	err = json.Unmarshal(data, &response)
 	if err != nil {
-		panic(err)
+		return response, err
 	}
 
 	return response, nil
@@ -153,7 +153,7 @@ func UpdateService
 Argument : uuid, updatedService JSON object
 Returns : Service JSON object
 */
-func (self *Service) Update(requestBody string) {
+func (self *Service) Update(requestBody string) error {
 
 	url := "service/" + self.Uuid + "/"
 	request := "PATCH"
@@ -162,8 +162,10 @@ func (self *Service) Update(requestBody string) {
 
 	_, err := TutumCall(url, request, updatedService)
 	if err != nil {
-		panic(err)
+		return err
 	}
+
+	return nil
 }
 
 /*
@@ -171,15 +173,17 @@ func StartService
 Argument : uuid
 Returns : Service JSON object
 */
-func (self *Service) Start() {
+func (self *Service) Start() error {
 	url := "service/" + self.Uuid + "/start/"
 	request := "POST"
 	//Empty Body Request
 	body := []byte(`{}`)
 	_, err := TutumCall(url, request, body)
 	if err != nil {
-		panic(err)
+		return err
 	}
+
+	return nil
 }
 
 /*
@@ -187,7 +191,7 @@ func StopService
 Argument : uuid
 Returns : Service JSON object
 */
-func (self *Service) StopService() {
+func (self *Service) StopService() error {
 
 	url := "service/" + self.Uuid + "/stop/"
 	request := "POST"
@@ -195,8 +199,10 @@ func (self *Service) StopService() {
 	body := []byte(`{}`)
 	_, err := TutumCall(url, request, body)
 	if err != nil {
-		panic(err)
+		return err
 	}
+
+	return nil
 }
 
 /*
@@ -204,7 +210,7 @@ func RedeployService
 Argument : uuid
 Returns : Service JSON object
 */
-func (self *Service) Redeploy() {
+func (self *Service) Redeploy() error {
 
 	url := "service/" + self.Uuid + "/redeploy/"
 	request := "POST"
@@ -213,8 +219,10 @@ func (self *Service) Redeploy() {
 
 	_, err := TutumCall(url, request, body)
 	if err != nil {
-		panic(err)
+		return err
 	}
+
+	return nil
 }
 
 /*
@@ -222,7 +230,7 @@ func TerminateService
 Argument : uuid
 Returns : Service JSON object
 */
-func (self *Service) TerminateService() {
+func (self *Service) TerminateService() error {
 	url := "service/" + self.Uuid + "/"
 	request := "DELETE"
 	//Empty Body Request
@@ -230,6 +238,8 @@ func (self *Service) TerminateService() {
 
 	_, err := TutumCall(url, request, body)
 	if err != nil {
-		panic(err)
+		return err
 	}
+
+	return nil
 }

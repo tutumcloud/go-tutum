@@ -115,5 +115,21 @@ tutum.OnEvent(function_name)
 
 ```
 
+**Note** 
+
+Add error logs while applying actions (Start, Stop, Redeploy, ...) on containers, services, nodeclusters or nodes is done like the following :
+
+```
+service, err := tutum.GetService("7eaf7fff-882c-4f3d-9a8f-a22317ac00ce")
+
+if err != nil {
+	log.Println(err)
+}
+
+if err = service.Start(); err != nil {
+	log.Println(err)
+}
+
+```
 
 The complete API Documentation is available [here](https://docs.tutum.co/v2/api/) with additional examples written in Go.

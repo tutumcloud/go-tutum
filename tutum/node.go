@@ -39,12 +39,12 @@ func ListNodes() (NodeListResponse, error) {
 
 	data, err := TutumCall(url, request, body)
 	if err != nil {
-		panic(err)
+		return response, err
 	}
 
 	err = json.Unmarshal(data, &response)
 	if err != nil {
-		panic(err)
+		return response, err
 	}
 
 	return response, nil
@@ -63,12 +63,12 @@ func GetNode(uuid string) (Node, error) {
 
 	data, err := TutumCall(url, request, body)
 	if err != nil {
-		panic(err)
+		return response, err
 	}
 
 	err = json.Unmarshal(data, &response)
 	if err != nil {
-		panic(err)
+		return response, err
 	}
 
 	return response, nil
@@ -79,7 +79,7 @@ func UpdateNode
 Argument : uuid
 Returns : Node JSON object
 */
-func (self *Node) Update(requestBody string) {
+func (self *Node) Update(requestBody string) error {
 
 	url := "node/" + self.Uuid + "/"
 	request := "PATCH"
@@ -88,8 +88,10 @@ func (self *Node) Update(requestBody string) {
 
 	_, err := TutumCall(url, request, updatedNode)
 	if err != nil {
-		panic(err)
+		return err
 	}
+
+	return nil
 }
 
 /*
@@ -97,7 +99,7 @@ func UpgradeDaemon
 Argument : uuid
 Returns : Node JSON object
 */
-func (self *Node) Upgrade() {
+func (self *Node) Upgrade() error {
 
 	url := "node/" + self.Uuid + "/docker-upgrade/"
 	request := "POST"
@@ -106,8 +108,10 @@ func (self *Node) Upgrade() {
 
 	_, err := TutumCall(url, request, body)
 	if err != nil {
-		panic(err)
+		return err
 	}
+
+	return nil
 }
 
 /*
@@ -115,7 +119,7 @@ func TerminateNode
 Argument : uuid
 Returns : Node JSON object
 */
-func (self *Node) Terminate() {
+func (self *Node) Terminate() error {
 
 	url := "node/" + self.Uuid + "/"
 	request := "DELETE"
@@ -124,6 +128,8 @@ func (self *Node) Terminate() {
 
 	_, err := TutumCall(url, request, body)
 	if err != nil {
-		panic(err)
+		return err
 	}
+
+	return nil
 }
