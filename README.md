@@ -34,6 +34,11 @@ Set the environment variables TUTUM_USER and TUTUM_APIKEY
 
 ##Examples
 
+
+**Note**
+
+Each of the methods that require a uuid number as argument can also use a resource_uri as argument.
+
 **Creating and deploying a NodeCluster**
 
 ```
@@ -97,6 +102,8 @@ log.Println(containers)
 
 ```
 service, err := tutum.GetService("7eaf7fff-882c-4f3d-9a8f-a22317ac00ce")
+// or service, err := tutum.GetService("/api/v1/service/7eaf7fff-882c-4f3d-9a8f-a22317ac00ce")
+
 
 if err != nil {
 	log.Println(err)
@@ -119,23 +126,6 @@ go tutum.TutumEvents(c)
 		event := <-c
 		log.Println(event)
 	}
-```
-
-**Note** 
-
-Add error logs while applying actions (Start, Stop, Redeploy, ...) on containers, services, nodeclusters or nodes is done like the following :
-
-```
-service, err := tutum.GetService("7eaf7fff-882c-4f3d-9a8f-a22317ac00ce")
-
-if err != nil {
-	log.Println(err)
-}
-
-if err = service.Start(); err != nil {
-	log.Println(err)
-}
-
 ```
 
 The complete API Documentation is available [here](https://docs.tutum.co/v2/api/) with additional examples written in Go.
