@@ -90,7 +90,7 @@ func Test_GetRegion(t *testing.T) {
 	}
 
 	BaseUrl = server.URL + "/api/v1/"
-	test_response, err := GetRegion(fake_provider, fake_location_name)
+	test_response, err := GetRegion(fake_provider + "/" + fake_name)
 	if err != nil {
 		t.Fatal(err)
 	}
