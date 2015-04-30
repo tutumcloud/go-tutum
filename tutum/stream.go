@@ -57,30 +57,5 @@ func TutumEvents(c chan Event) (Event, error) {
 		if reflect.TypeOf(event).String() == "tutum.Event" {
 			c <- event
 		}
-
-		//fmt.Printf("Received: %s.\n", msg[:n])
 	}
 }
-
-/*func OnEvent(f func()) {
-	c := make(chan string)
-	//go TutumStreamCall(c)
-	for {
-		select {
-		case stream := <-c:
-			fmt.Println(stream)
-			f()
-		}
-	}
-}
-
-func Stream() {
-	c := make(chan string)
-	//go TutumStreamCall(c)
-	for {
-		select {
-		case stream := <-c:
-			fmt.Println(stream)
-		}
-	}
-}*/

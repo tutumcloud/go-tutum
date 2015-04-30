@@ -107,17 +107,18 @@ if err = service.Stop(); err != nil {
 }
 ```
 
-**Stream events**
+
+**Events**
+
+In order to handle events, you can call the TutumEvents function inside a goroutine.
 
 ```
-tutum.Stream()
-```
-
-**Apply a function at each new event**
-
-```
-tutum.OnEvent(function_name)
-
+c := make(chan tutum.Event)
+go tutum.TutumEvents(c)
+	for {
+		event := <-c
+		log.Println(event)
+	}
 ```
 
 **Note** 
