@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"os"
 	"os/user"
+	"strings"
 
 	"github.com/BurntSushi/toml"
 )
@@ -72,4 +73,101 @@ func LoadAuth() error {
 
 func IsAuthenticated() bool {
 	return (User != "" && ApiKey != "")
+}
+
+func FetchByResourceUri(id string) interface{} {
+	words := strings.Split(id, "/")
+	switch words[3] {
+	case "action":
+		action, err := GetAction(id)
+
+		if err != nil {
+			return err
+		}
+
+		return action
+		break
+	case "nodecluster":
+		nodecluster, err := GetNodeCluster(id)
+
+		if err != nil {
+			return err
+		}
+
+		return nodecluster
+		break
+	case "provider":
+		provider, err := GetProvider(id)
+
+		if err != nil {
+			return err
+		}
+
+		return provider
+		break
+	case "region":
+		region, err := GetRegion(id)
+
+		if err != nil {
+			return err
+		}
+
+		return region
+		break
+	case "service":
+		service, err := GetService(id)
+
+		if err != nil {
+			return err
+		}
+
+		return service
+		break
+	case "stack":
+		stack, err := GetStack(id)
+
+		if err != nil {
+			return err
+		}
+
+		return stack
+		break
+	case "volume":
+		volume, err := GetVolume(id)
+
+		if err != nil {
+			return err
+		}
+
+		return volume
+		break
+	case "volumegroup":
+		volumegroup, err := GetVolumeGroup(id)
+
+		if err != nil {
+			return err
+		}
+
+		return volumegroup
+		break
+	case "node":
+		node, err := GetNode(id)
+
+		if err != nil {
+			return err
+		}
+
+		return node
+		break
+	case "container":
+		container, err := GetContainer(id)
+
+		if err != nil {
+			return err
+		}
+
+		return container
+		break
+	}
+	return 0
 }
