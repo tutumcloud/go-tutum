@@ -12,9 +12,10 @@ import (
 var version string = "0.9.8"
 
 var (
-	User    string
-	ApiKey  string
-	BaseUrl = "https://dashboard.tutum.co/api/v1/"
+	User       string
+	ApiKey     string
+	BaseUrl    = "https://dashboard.tutum.co/api/v1/"
+	AuthHeader string
 )
 
 type config map[string]Auth
@@ -40,8 +41,11 @@ func init() {
 
 func LoadAuth() error {
 	if User != "" && ApiKey != "" {
-		// Configuration already loaded
 		return nil
+	} else {
+		if os.Getenv("TUTUM_AUTH") != "" {
+			AuthHeader = os.Getenv("TUTUM_AUTH")
+		}
 	}
 
 	// Process ~/.tutum configuration file first
@@ -72,7 +76,7 @@ func LoadAuth() error {
 }
 
 func IsAuthenticated() bool {
-	return (User != "" && ApiKey != "")
+	return ((User != "" && ApiKey != "") || os.Getenv("TUTUM_AUTH") != "")
 }
 
 func FetchByResourceUri(id string) interface{} {

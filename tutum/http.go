@@ -19,8 +19,10 @@ func TutumCall(url string, requestType string, requestBody []byte) ([]byte, erro
 	}
 	client := &http.Client{}
 	req, err := http.NewRequest(requestType, BaseUrl+url, bytes.NewBuffer(requestBody))
-	authHeader := fmt.Sprintf("ApiKey %s:%s", User, ApiKey)
-	req.Header.Add("Authorization", authHeader)
+	if ApiKey != "" {
+		AuthHeader = fmt.Sprintf("ApiKey %s:%s", User, ApiKey)
+	}
+	req.Header.Add("Authorization", AuthHeader)
 	req.Header.Add("Accept", "application/json")
 	req.Header.Add("User-Agent", "go-tutum "+version)
 	response, err := client.Do(req)
