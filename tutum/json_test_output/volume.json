@@ -1,0 +1,10 @@
+{
+    "containers": [
+        "/api/v1/container/55b07a2e-fa72-481f-984b-0e94f275de0b/"
+    ],
+    "node": "/api/v1/node/fc1a5bb9-17f5-4819-b667-8c7cd819e950/",
+    "resource_uri": "/api/v1/volume/1863e34d-6a7d-4945-aefc-8f27a4ab1a9e/",
+    "state": "Created",
+    "uuid": "1863e34d-6a7d-4945-aefc-8f27a4ab1a9e",
+    "volume_group": "/api/v1/volumegroup/2f4f54e5-9d3b-4ac1-85ad-a2d4ff25a173/"
+}

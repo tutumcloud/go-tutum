@@ -1,0 +1,18 @@
+{
+    "meta": {
+        "limit": 25,
+        "next": null,
+        "offset": 0,
+        "previous": null,
+        "total_count": 1
+    },
+    "objects": [
+        {
+            "name": "mywebhook_name",
+            "operation": "REDEPLOY",
+            "resource_uri": "/api/v1/service/02522970-a79a-46d6-8a64-475bf52e4258/webhook/handler/62a5f41d-192d-4c83-9982-4d3cbead1904/",
+            "url": "/api/v1/service/02522970-a79a-46d6-8a64-475bf52e4258/webhook/handler/62a5f41d-192d-4c83-9982-4d3cbead1904/call/",
+            "uuid": "62a5f41d-192d-4c83-9982-4d3cbead1904"
+        }
+    ]
+}

@@ -1,0 +1,37 @@
+{
+    "meta": {
+        "limit": 25,
+        "next": null,
+        "offset": 0,
+        "previous": null,
+        "total_count": 2
+    },
+    "objects": [
+        {
+            "current_num_nodes": 0,
+            "deployed_datetime": "Fri, 24 Apr 2015 15:37:56 +0000",
+            "destroyed_datetime": null,
+            "disk": 60,
+            "name": "my_cluster",
+            "node_type": "/api/v1/nodetype/digitalocean/1gb/",
+            "region": "/api/v1/region/digitalocean/lon1/",
+            "resource_uri": "/api/v1/nodecluster/2bc0ea8f-6edf-4f19-9c33-35c15c3e4250/",
+            "state": "Empty cluster",
+            "target_num_nodes": 0,
+            "uuid": "2bc0ea8f-6edf-4f19-9c33-35c15c3e4250"
+        },
+        {
+            "current_num_nodes": 1,
+            "deployed_datetime": "Fri, 24 Apr 2015 16:17:05 +0000",
+            "destroyed_datetime": null,
+            "disk": 60,
+            "name": "Test-Cluster",
+            "node_type": "/api/v1/nodetype/digitalocean/1gb/",
+            "region": "/api/v1/region/digitalocean/ams2/",
+            "resource_uri": "/api/v1/nodecluster/72a7902a-5f70-4771-bcbf-4abb3a4f93fe/",
+            "state": "Deployed",
+            "target_num_nodes": 1,
+            "uuid": "72a7902a-5f70-4771-bcbf-4abb3a4f93fe"
+        }
+    ]
+}

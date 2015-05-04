@@ -1,0 +1,80 @@
+{
+    "meta": {
+        "limit": 25,
+        "next": null,
+        "offset": 0,
+        "previous": null,
+        "total_count": 2
+    },
+    "objects": [
+        {
+            "autodestroy": "OFF",
+            "autoredeploy": false,
+            "autorestart": "OFF",
+            "container_ports": [
+                {
+                    "endpoint_uri": null,
+                    "inner_port": 3000,
+                    "outer_port": null,
+                    "port_name": "unknown",
+                    "protocol": "tcp",
+                    "published": true
+                }
+            ],
+            "cpu_shares": null,
+            "current_num_containers": 0,
+            "deployed_datetime": "Mon, 20 Apr 2015 11:16:39 +0000",
+            "deployment_strategy": "EMPTIEST_NODE",
+            "destroyed_datetime": null,
+            "entrypoint": null,
+            "image_name": "tutum.co/maximeheckel/quicksell-image-resampler-server:latest",
+            "image_tag": "/api/v1/image/tutum.co/maximeheckel/quicksell-image-resampler-server/tag/latest/",
+            "memory": null,
+            "name": "image-resampler",
+            "privileged": false,
+            "public_dns": "image-resampler.maximeheckel.svc.tutum.io",
+            "resource_uri": "/api/v1/service/1a1775a3-5ed8-40cb-8b4f-f934c0a879e2/",
+            "run_command": null,
+            "running_num_containers": 0,
+            "sequential_deployment": false,
+            "stack": null,
+            "started_datetime": "Wed, 22 Apr 2015 13:07:11 +0000",
+            "state": "Not running",
+            "stopped_datetime": "Wed, 22 Apr 2015 12:52:44 +0000",
+            "stopped_num_containers": 0,
+            "synchronized": true,
+            "target_num_containers": 1,
+            "uuid": "1a1775a3-5ed8-40cb-8b4f-f934c0a879e2"
+        },
+        {
+            "autodestroy": "OFF",
+            "autoredeploy": false,
+            "autorestart": "OFF",
+            "container_ports": [],
+            "cpu_shares": null,
+            "current_num_containers": 2,
+            "deployed_datetime": "Fri, 24 Apr 2015 15:43:52 +0000",
+            "deployment_strategy": "EMPTIEST_NODE",
+            "destroyed_datetime": null,
+            "entrypoint": null,
+            "image_name": "tutum/hello-world:latest",
+            "image_tag": "/api/v1/image/tutum/hello-world/tag/latest/",
+            "memory": null,
+            "name": "my-new-app",
+            "privileged": false,
+            "public_dns": "my-new-app.maximeheckel.svc.tutum.io",
+            "resource_uri": "/api/v1/service/02522970-a79a-46d6-8a64-475bf52e4258/",
+            "run_command": null,
+            "running_num_containers": 2,
+            "sequential_deployment": false,
+            "stack": null,
+            "started_datetime": "Fri, 24 Apr 2015 16:30:56 +0000",
+            "state": "Running",
+            "stopped_datetime": "Fri, 24 Apr 2015 15:44:08 +0000",
+            "stopped_num_containers": 0,
+            "synchronized": true,
+            "target_num_containers": 2,
+            "uuid": "02522970-a79a-46d6-8a64-475bf52e4258"
+        }
+    ]
+}

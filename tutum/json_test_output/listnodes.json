@@ -1,0 +1,29 @@
+{
+    "meta": {
+        "limit": 25,
+        "next": null,
+        "offset": 0,
+        "previous": null,
+        "total_count": 1
+    },
+    "objects": [
+        {
+            "current_num_containers": 2,
+            "deployed_datetime": "Fri, 24 Apr 2015 16:17:05 +0000",
+            "destroyed_datetime": null,
+            "disk": 30,
+            "docker_execdriver": "native-0.2",
+            "docker_graphdriver": "aufs",
+            "docker_version": "1.5.0",
+            "external_fqdn": "89226618-maximeheckel.node.tutum.io",
+            "last_seen": "Mon, 27 Apr 2015 12:17:05 +0000",
+            "node_cluster": "/api/v1/nodecluster/72a7902a-5f70-4771-bcbf-4abb3a4f93fe/",
+            "node_type": "/api/v1/nodetype/digitalocean/1gb/",
+            "public_ip": "95.85.49.197",
+            "region": "/api/v1/region/digitalocean/ams2/",
+            "resource_uri": "/api/v1/node/89226618-4cbf-44a7-b354-0edd6e251068/",
+            "state": "Deployed",
+            "uuid": "89226618-4cbf-44a7-b354-0edd6e251068"
+        }
+    ]
+}

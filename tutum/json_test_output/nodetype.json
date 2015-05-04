@@ -1,0 +1,18 @@
+{
+    "availability_zones": [],
+    "available": true,
+    "label": "1GB",
+    "name": "1gb",
+    "provider": "/api/v1/provider/digitalocean/",
+    "regions": [
+        "/api/v1/region/digitalocean/ams1/",
+        "/api/v1/region/digitalocean/sfo1/",
+        "/api/v1/region/digitalocean/nyc2/",
+        "/api/v1/region/digitalocean/ams2/",
+        "/api/v1/region/digitalocean/sgp1/",
+        "/api/v1/region/digitalocean/lon1/",
+        "/api/v1/region/digitalocean/nyc3/",
+        "/api/v1/region/digitalocean/nyc1/"
+    ],
+    "resource_uri": "/api/v1/nodetype/digitalocean/1gb/"
+}
