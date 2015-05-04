@@ -10,7 +10,7 @@ Go library for Tutum's API. Full documentation available at [https://docs.tutum.
 
 In order to install the Tutum Go library, you can use :
 
-	go get github.com/tutumcloud/go-tutum
+	go get github.com/tutumcloud/go-tutum/tutum
 
 
 **Auth:**
