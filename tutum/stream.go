@@ -3,6 +3,7 @@ package tutum
 import (
 	"encoding/json"
 	"log"
+	"net/url"
 	"os"
 	"reflect"
 
@@ -24,7 +25,8 @@ type Event struct {
 func dial() (websocket.Conn, error) {
 	var StreamUrl = ""
 	if os.Getenv("TUTUM_AUTH") != "" {
-		StreamUrl = "wss://stream.tutum.co:443/v1/events?auth=" + os.Getenv("TUTUM_AUTH")
+		endpoint := url.QueryEscape(os.Getenv("TUTUM_AUTH"))
+		StreamUrl = "wss://stream.tutum.co:443/v1/events?auth=" + endpoint
 	}
 	if User != "" && ApiKey != "" {
 		StreamUrl = "wss://stream.tutum.co:443/v1/events?token=" + ApiKey + "&user=" + User
