@@ -2,6 +2,7 @@ package tutum
 
 import (
 	"encoding/json"
+	"log"
 	"net/url"
 	"os"
 	"reflect"
@@ -56,23 +57,27 @@ func dial() (websocket.Conn, error) {
 	func TutumStreamCall
 	Returns : The stream of all events from your NodeClusters, Containers, Services, Stack, Actions, ...
 */
-func TutumEvents(c chan Event) (Event, error) {
+func TutumEvents(c chan Event) {
 
 	ws, err := dial()
-
 	var msg = make([]byte, 512)
 	var event Event
 	var n int
 	for {
+
 		if n, err = ws.Read(msg); err != nil {
-			return event, err
+			log.Println(err)
 		}
-		err := json.Unmarshal(msg[:n], &event)
-		if err != nil {
-			return event, err
+		err2 := json.Unmarshal(msg[:n], &event)
+		if err2 != nil {
+			log.Println(err)
 		}
 		if reflect.TypeOf(event).String() == "tutum.Event" {
 			c <- event
+		}
+		if ws.IsClientConn() == false {
+			log.Println("Redialing websocket")
+			dial()
 		}
 	}
 }
