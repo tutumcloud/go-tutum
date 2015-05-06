@@ -2,7 +2,6 @@ package tutum
 
 import (
 	"encoding/json"
-	"log"
 	"net/url"
 	"os"
 	"reflect"
@@ -30,8 +29,6 @@ func dial() (websocket.Conn, error) {
 	}
 	if User != "" && ApiKey != "" {
 		StreamUrl = "wss://stream.tutum.co:443/v1/events?token=" + ApiKey + "&user=" + User
-	} else {
-		log.Fatal("No credentials found")
 	}
 	var origin = "http://localhost"
 	ws, err := websocket.Dial(StreamUrl, "", origin)
