@@ -120,12 +120,15 @@ if err = service.Stop(); err != nil {
 In order to handle events, you can call the TutumEvents function inside a goroutine.
 
 ```
+tutum.StreamUrl = "wss://stream.tutum.co:443/v1/"
+
 c := make(chan tutum.Event)
 go tutum.TutumEvents(c)
-	for {
-		event := <-c
-		log.Println(event)
-	}
+
+for {
+	event := <-c
+	log.Println(event)
+}
 ```
 
 The complete API Documentation is available [here](https://docs.tutum.co/v2/api/) with additional examples written in Go.
