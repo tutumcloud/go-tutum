@@ -9,7 +9,6 @@ import (
 )
 
 func TutumCall(url string, requestType string, requestBody []byte) ([]byte, error) {
-
 	if os.Getenv("TUTUM_BASE_URL") != "" {
 		BaseUrl = os.Getenv("TUTUM_BASE_URL")
 	}

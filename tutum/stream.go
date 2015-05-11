@@ -16,8 +16,6 @@ type Event struct {
 	State        string   `json:"state"`
 }
 
-var StreamUrl = ""
-
 /*
 	func dial()
 	Returns : a websocket connection
