@@ -75,7 +75,7 @@ Returns : Array of Trigger objects
 */
 func (self *Service) CreateTrigger(requestBody string) ([]Trigger, error) {
 
-	url := "service/" + self.Uuid + "/trigger/handler/"
+	url := "service/" + self.Uuid + "/trigger/"
 	request := "POST"
 
 	newTrigger := []byte(requestBody)
@@ -104,7 +104,7 @@ func (self *Service) DeleteTrigger(trigger_uuid string) error {
 	if string(trigger_uuid[0]) == "/" {
 		url = trigger_uuid[8:]
 	} else {
-		url = "service/" + self.Uuid + "/trigger/handler/" + trigger_uuid + "/"
+		url = "service/" + self.Uuid + "/trigger/" + trigger_uuid + "/"
 	}
 
 	request := "DELETE"
@@ -122,4 +122,33 @@ func (self *Service) DeleteTrigger(trigger_uuid string) error {
 	}
 
 	return nil
+}
+
+/*
+func CallTrigger
+Argument : service uuid and Trigger uuid
+Returns : Trigger JSON object
+*/
+func (self *Service) CallTrigger(trigger_uuid string) (Trigger, error) {
+	url := ""
+	if string(trigger_uuid[0]) == "/" {
+		url = trigger_uuid[8:]
+	} else {
+		url = "service/" + self.Uuid + "/trigger/" + trigger_uuid + "/call/"
+	}
+
+	request := "POST"
+	body := []byte(`{}`)
+	var response Trigger
+
+	data, err := TutumCall(url, request, body)
+	if err != nil {
+		return response, err
+	}
+
+	err = json.Unmarshal(data, &response)
+	if err != nil {
+		return response, err
+	}
+	return response, nil
 }
