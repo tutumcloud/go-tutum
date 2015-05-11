@@ -123,11 +123,16 @@ In order to handle events, you can call the TutumEvents function inside a gorout
 tutum.StreamUrl = "wss://stream.tutum.co:443/v1/"
 
 c := make(chan tutum.Event)
-go tutum.TutumEvents(c)
+e := make(chan error)
+go tutum.TutumEvents(c, e)
 
 for {
-	event := <-c
-	log.Println(event)
+	select {
+		case event := <-c:
+			log.Println(event)
+		case err := <-e:
+			log.Println(err)
+	}
 }
 ```
 
