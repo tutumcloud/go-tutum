@@ -1,13 +1,11 @@
 package tutum
 
 import (
-	"encoding/json"
-	"log"
 	"net/url"
 	"os"
 	"reflect"
 
-	"golang.org/x/net/websocket"
+	"code.google.com/p/go.net/websocket"
 )
 
 type Event struct {
@@ -18,13 +16,11 @@ type Event struct {
 	State        string   `json:"state"`
 }
 
-var StreamUrl = ""
-
 /*
 	func dial()
 	Returns : a websocket connection
 */
-func dial() (websocket.Conn, error) {
+func dial() (*websocket.Conn, error) {
 
 	if os.Getenv("TUTUM_STREAM_URL") != "" {
 		u, err := url.Parse(os.Getenv("TUTUM_STREAM_URL"))
@@ -50,34 +46,40 @@ func dial() (websocket.Conn, error) {
 	if err != nil {
 		dial()
 	}
-	return *ws, nil
+
+	return ws, nil
 }
 
 /*
 	func TutumStreamCall
 	Returns : The stream of all events from your NodeClusters, Containers, Services, Stack, Actions, ...
 */
-func TutumEvents(c chan Event) {
+func TutumEvents(c chan Event, e chan error) {
 
 	ws, err := dial()
-	var msg = make([]byte, 512)
-	var event Event
-	var n int
+	if err != nil {
+		e <- err
+	}
+
+	defer ws.Close()
+	var msg Event
 	for {
 
-		if n, err = ws.Read(msg); err != nil {
-			log.Println(err)
+		err := websocket.JSON.Receive(ws, &msg)
+		if err != nil {
+			e <- err
 		}
-		err2 := json.Unmarshal(msg[:n], &event)
+		/*err2 := json.Unmarshal(msg[:n], &event)
 		if err2 != nil {
 			log.Println(err)
+		}*/
+		if reflect.TypeOf(msg).String() == "tutum.Event" {
+			c <- msg
 		}
-		if reflect.TypeOf(event).String() == "tutum.Event" {
-			c <- event
-		}
-		if ws.IsClientConn() == false {
+
+		/*if ws.IsClientConn() == false {
 			log.Println("Redialing websocket")
 			dial()
-		}
+		}*/
 	}
 }
