@@ -91,7 +91,6 @@ func FetchByResourceUri(id string) interface{} {
 		}
 
 		return action
-		break
 	case "nodecluster":
 		nodecluster, err := GetNodeCluster(id)
 
@@ -100,7 +99,6 @@ func FetchByResourceUri(id string) interface{} {
 		}
 
 		return nodecluster
-		break
 	case "provider":
 		provider, err := GetProvider(id)
 
@@ -109,7 +107,6 @@ func FetchByResourceUri(id string) interface{} {
 		}
 
 		return provider
-		break
 	case "region":
 		region, err := GetRegion(id)
 
@@ -118,7 +115,6 @@ func FetchByResourceUri(id string) interface{} {
 		}
 
 		return region
-		break
 	case "service":
 		service, err := GetService(id)
 
@@ -127,7 +123,6 @@ func FetchByResourceUri(id string) interface{} {
 		}
 
 		return service
-		break
 	case "stack":
 		stack, err := GetStack(id)
 
@@ -136,7 +131,6 @@ func FetchByResourceUri(id string) interface{} {
 		}
 
 		return stack
-		break
 	case "volume":
 		volume, err := GetVolume(id)
 
@@ -145,7 +139,6 @@ func FetchByResourceUri(id string) interface{} {
 		}
 
 		return volume
-		break
 	case "volumegroup":
 		volumegroup, err := GetVolumeGroup(id)
 
@@ -154,7 +147,6 @@ func FetchByResourceUri(id string) interface{} {
 		}
 
 		return volumegroup
-		break
 	case "node":
 		node, err := GetNode(id)
 
@@ -163,7 +155,6 @@ func FetchByResourceUri(id string) interface{} {
 		}
 
 		return node
-		break
 	case "container":
 		container, err := GetContainer(id)
 
@@ -172,7 +163,6 @@ func FetchByResourceUri(id string) interface{} {
 		}
 
 		return container
-		break
 	}
 	return 0
 }
