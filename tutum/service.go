@@ -138,8 +138,7 @@ func CreateService(requestBody string) (Service, error) {
 
 /*
 func GetServiceLogs
-Argument : uuid
-Returns : A string containing the logs of the service
+Argument : string channel
 */
 func (self *Service) Logs(c chan string) {
 
@@ -158,18 +157,6 @@ func (self *Service) Logs(c chan string) {
 		}
 		c <- string(msg)
 	}
-
-	/*BaseUrl = "https://live-test.tutum.co/v1/"
-
-	log.Println(BaseUrl + url)
-	request := "GET"
-	//Empty Body Request
-	body := []byte(`{}`)
-	data, err := TutumCall2(url, request, body)
-	if err != nil {
-		log.Println(err)
-	}
-	c <- string(data)*/
 }
 
 /*

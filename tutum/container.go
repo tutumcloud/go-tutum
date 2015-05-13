@@ -1,6 +1,11 @@
 package tutum
 
-import "encoding/json"
+import (
+	"encoding/json"
+	"log"
+
+	"golang.org/x/net/websocket"
+)
 
 type CListResponse struct {
 	Objects []Container `json:"objects"`
@@ -98,19 +103,24 @@ func GetContainerLogs
 Argument : uuid
 Returns : A string containing the logs of the container
 */
-/*func (self *Container) Logs(c chan []byte) {
-	BaseUrl = "https://live-test.tutum.co/v1/"
-	url := "container/" + self.Uuid + "/logs/?user=" + User + "&token=" + ApiKey
-	log.Println(BaseUrl + url)
-	request := "GET"
-	//Empty Body Request
-	body := []byte(`{}`)
-	data, err := TutumCall2(url, request, body)
+func (self *Container) Logs(c chan string) {
+
+	endpoint := "container/" + self.Uuid + "/logs/?user=" + User + "&token=" + ApiKey
+	origin := "http://localhost/"
+	url := "wss://live-test.tutum.co/v1/" + endpoint
+	ws, err := websocket.Dial(url, "", origin)
 	if err != nil {
-		log.Println(err)
+		log.Fatal(err)
 	}
-	c <- data
-}*/
+	var msg = make([]byte, 512)
+	for {
+		ws.Request()
+		if _, err = ws.Read(msg); err != nil {
+			log.Fatal(err)
+		}
+		c <- string(msg)
+	}
+}
 
 /*
 func StartContainer
