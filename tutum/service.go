@@ -4,7 +4,7 @@ import (
 	"encoding/json"
 	"log"
 
-	"golang.org/x/net/websocket"
+	"code.google.com/p/go.net/websocket"
 )
 
 type SListResponse struct {
@@ -144,7 +144,7 @@ func (self *Service) Logs(c chan string) {
 
 	endpoint := "service/" + self.Uuid + "/logs/?user=" + User + "&token=" + ApiKey
 	origin := "http://localhost/"
-	url := "wss://live-test.tutum.co/v1/" + endpoint
+	url := "wss://stream.tutum.co:443/v1/" + endpoint
 	ws, err := websocket.Dial(url, "", origin)
 	if err != nil {
 		log.Fatal(err)
