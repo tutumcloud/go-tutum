@@ -55,13 +55,16 @@ func dial() (*websocket.Conn, error) {
 	Returns : The stream of all events from your NodeClusters, Containers, Services, Stack, Actions, ...
 */
 func TutumEvents(c chan Event, e chan error) {
-
 	ws, err := dial()
 	if err != nil {
 		e <- err
 	}
 
 	defer ws.Close()
+
+	defer close(c)
+	defer close(e)
+
 	var msg Event
 	for {
 
@@ -69,17 +72,9 @@ func TutumEvents(c chan Event, e chan error) {
 		if err != nil {
 			e <- err
 		}
-		/*err2 := json.Unmarshal(msg[:n], &event)
-		if err2 != nil {
-			log.Println(err)
-		}*/
 		if reflect.TypeOf(msg).String() == "tutum.Event" {
 			c <- msg
 		}
 
-		/*if ws.IsClientConn() == false {
-			log.Println("Redialing websocket")
-			dial()
-		}*/
 	}
 }
