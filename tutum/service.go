@@ -1,6 +1,11 @@
 package tutum
 
-import "encoding/json"
+import (
+	"encoding/json"
+	"log"
+
+	"golang.org/x/net/websocket"
+)
 
 type SListResponse struct {
 	Objects []Service `json: "objects"`
@@ -136,22 +141,35 @@ func GetServiceLogs
 Argument : uuid
 Returns : A string containing the logs of the service
 */
-func (self *Service) Logs() (string, error) {
+func (self *Service) Logs(c chan string) {
 
-	url := "service/" + self.Uuid + "/logs/"
-	request := "GET"
-
-	//Empty Body Request
-	body := []byte(`{}`)
-
-	data, err := TutumCall(url, request, body)
+	endpoint := "service/" + self.Uuid + "/logs/?user=" + User + "&token=" + ApiKey
+	origin := "http://localhost/"
+	url := "wss://live-test.tutum.co/v1/" + endpoint
+	ws, err := websocket.Dial(url, "", origin)
 	if err != nil {
-		return "", err
+		log.Fatal(err)
+	}
+	var msg = make([]byte, 512)
+	for {
+		ws.Request()
+		if _, err = ws.Read(msg); err != nil {
+			log.Fatal(err)
+		}
+		c <- string(msg)
 	}
 
-	s := string(data)
+	/*BaseUrl = "https://live-test.tutum.co/v1/"
 
-	return s, nil
+	log.Println(BaseUrl + url)
+	request := "GET"
+	//Empty Body Request
+	body := []byte(`{}`)
+	data, err := TutumCall2(url, request, body)
+	if err != nil {
+		log.Println(err)
+	}
+	c <- string(data)*/
 }
 
 /*

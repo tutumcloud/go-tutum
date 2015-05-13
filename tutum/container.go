@@ -98,21 +98,19 @@ func GetContainerLogs
 Argument : uuid
 Returns : A string containing the logs of the container
 */
-func (self *Container) Logs() (string, error) {
-
-	url := "container/" + self.Uuid + "/logs/"
+/*func (self *Container) Logs(c chan []byte) {
+	BaseUrl = "https://live-test.tutum.co/v1/"
+	url := "container/" + self.Uuid + "/logs/?user=" + User + "&token=" + ApiKey
+	log.Println(BaseUrl + url)
 	request := "GET"
 	//Empty Body Request
 	body := []byte(`{}`)
-	data, err := TutumCall(url, request, body)
+	data, err := TutumCall2(url, request, body)
 	if err != nil {
-		return "", err
+		log.Println(err)
 	}
-
-	s := string(data)
-
-	return s, nil
-}
+	c <- data
+}*/
 
 /*
 func StartContainer
