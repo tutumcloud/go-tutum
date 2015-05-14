@@ -2,17 +2,6 @@ package tutum
 
 import "encoding/json"
 
-type TriggerListResponse struct {
-	Objects []Trigger `json:"objects"`
-}
-
-type Trigger struct {
-	Url          string `json:"url"`
-	Name         string `json:"name"`
-	Operation    string `json:"operation"`
-	Resource_uri string `json:"resource_uri"`
-}
-
 /*
 func ListTriggers
 Returns : Array of Trigger objects

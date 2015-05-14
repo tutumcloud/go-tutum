@@ -2,19 +2,6 @@ package tutum
 
 import "encoding/json"
 
-type VolumeGroupListResponse struct {
-	Objects []VolumeGroup `json:"objects"`
-}
-
-type VolumeGroup struct {
-	Name         string   `json:"name"`
-	Resource_uri string   `json:"resource_uri"`
-	Services     []string `json:"services"`
-	State        string   `json:"state"`
-	Uuid         string   `json:"uuid"`
-	Volume       []string `json:"volume"`
-}
-
 /*
 func ListVolumeGroups
 Returns : Array of VolumeGroup objects

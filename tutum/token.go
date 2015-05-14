@@ -2,10 +2,6 @@ package tutum
 
 import "encoding/json"
 
-type Token struct {
-	Token string `json:"token"`
-}
-
 /*
 	func CreateToken
 	Returns : Token JSON object

@@ -2,19 +2,6 @@ package tutum
 
 import "encoding/json"
 
-type NodeTypeListResponse struct {
-	Objects []NodeType `json:"objects"`
-}
-
-type NodeType struct {
-	Available    bool     `json:"available"`
-	Label        string   `json:"label"`
-	Name         string   `json:"name"`
-	Provider     string   `json:"provider"`
-	Regions      []string `json:"regions"`
-	Resource_uri string   `json:"resource_uri"`
-}
-
 /*
 func ListNodeTypes
 Returns : Array of NodeType objects

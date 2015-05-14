@@ -2,26 +2,6 @@ package tutum
 
 import "encoding/json"
 
-type ActionListResponse struct {
-	Objects []Action `json:"objects"`
-}
-
-type Action struct {
-	Action       string `json:"action"`
-	Body         string `json:"body"`
-	End_date     string `json:"end_date"`
-	Ip           string `json:"ip"`
-	Location     string `json:"location"`
-	Logs         string `json:"logs"`
-	Method       string `json:"method"`
-	Object       string `json:"object"`
-	Path         string `json:"path"`
-	Resource_uri string `json:"resource_uri"`
-	Start_date   string `json:"start_date"`
-	State        string `json:"state"`
-	Uuid         string `json:"uuid"`
-}
-
 /*
 func ListActions
 Returns : Array of Action objects

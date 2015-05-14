@@ -5,24 +5,6 @@ import (
 	"fmt"
 )
 
-type NodeClusterListResponse struct {
-	Objects []NodeCluster `json:"objects"`
-}
-
-type NodeCluster struct {
-	Current_num_nodes  int       `json:"current_num_nodes"`
-	Deployed_datetime  string    `json:"deployed_datetime"`
-	Destroyed_datetime string    `json:"destroyed_datetime"`
-	Disk               int       `json:"disk"`
-	Nodes              []string  `json:"nodes"`
-	Region             string    `json:"region"`
-	Resource_uri       string    `json:"resource_uri"`
-	State              string    `json:"state"`
-	Tags               []NodeTag `json:"tags"`
-	Target_num_nodes   int       `json:"target_num_nodes"`
-	Uuid               string    `json:"uuid"`
-}
-
 /*
 func ListNodeClusters
 Returns : Array of NodeCluster objects

@@ -2,32 +2,6 @@ package tutum
 
 import "encoding/json"
 
-type StackListResponse struct {
-	Objects []StackShort `json:"objects"`
-}
-
-type StackShort struct {
-	Deployed_datetime  string   `json:"deployed_datetime"`
-	Destroyed_datetime string   `json:"destroyed_datetime"`
-	Name               string   `json:"name"`
-	Resource_uri       string   `json:"resource_uri"`
-	Service            []string `json:"services"`
-	State              string   `json:"state"`
-	Synchronized       bool     `json:"synchronized"`
-	Uuid               string   `json:"uuid"`
-}
-
-type Stack struct {
-	Deployed_datetime  string    `json:"deployed_datetime"`
-	Destroyed_datetime string    `json:"destroyed_datetime`
-	Name               string    `json:"name"`
-	Resource_uri       string    `json:"resource_uri`
-	Service            []Service `json:"services"`
-	State              string    `json:"state"`
-	Synchronized       bool      `json:"synchronized"`
-	Uuid               string    `json:"uuid"`
-}
-
 /*
 func ListStacks
 Returns : Array of Stack objects
@@ -42,12 +16,12 @@ func ListStacks() (StackListResponse, error) {
 
 	data, err := TutumCall(url, request, body)
 	if err != nil {
-		panic(err)
+		return response, err
 	}
 
 	err = json.Unmarshal(data, &response)
 	if err != nil {
-		panic(err)
+		return response, err
 	}
 
 	return response, nil

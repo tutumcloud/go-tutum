@@ -2,19 +2,6 @@ package tutum
 
 import "encoding/json"
 
-type RegionListResponse struct {
-	Objects []Region `json:"objects"`
-}
-
-type Region struct {
-	Available    bool     `json:"available"`
-	Label        string   `json:"label"`
-	Name         string   `json:"name"`
-	Node_types   []string `json:"node_types"`
-	Provider     string   `json:"provider"`
-	Resource_uri string   `json:"resource_uri"`
-}
-
 /*
 func ListRegions
 Returns : Array of Region objects

@@ -2,18 +2,6 @@ package tutum
 
 import "encoding/json"
 
-type ProviderListResponse struct {
-	Objects []Provider `json:"objects"`
-}
-
-type Provider struct {
-	Available    bool     `json:"available"`
-	Label        string   `json:"label"`
-	Name         string   `json:"name"`
-	Regions      []string `json:"regions"`
-	Resource_uri string   `json:"resource_uri"`
-}
-
 /*
 func ListProviders
 Returns : Array of Provider objects
