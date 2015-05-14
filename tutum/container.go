@@ -93,6 +93,21 @@ func Exec
 Arguments : the command to execute, a channel of type string for the output
 */
 
+func (self *Container) Execcmd(command string, c chan string) {
+	go self.Exec(command, c)
+Loop:
+	for {
+		select {
+		case s := <-c:
+			if s != "EOF" {
+				log.Println(s)
+			} else {
+				break Loop
+			}
+		}
+	}
+}
+
 func (self *Container) Exec(command string, c chan string) {
 
 	endpoint := "container/" + self.Uuid + "/exec/?user=" + User + "&token=" + ApiKey + "&command=" + url.QueryEscape(command)
@@ -110,12 +125,19 @@ func (self *Container) Exec(command string, c chan string) {
 	msg := make([]byte, 1024)
 
 	for {
-		if _, err = ws.Read(msg); err != nil {
-			if err.Error() == "EOF" {
-				c <- err.Error()
+		select {
+		case input := <-c:
+			log.Println(input)
+			//self.Exec(input, c)
+		default:
+			if _, err = ws.Read(msg); err != nil {
+				if err.Error() == "EOF" {
+					c <- err.Error()
+				}
 			}
+			c <- string(msg)
 		}
-		c <- string(msg)
+
 	}
 }
 
