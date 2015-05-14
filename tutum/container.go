@@ -3,6 +3,7 @@ package tutum
 import (
 	"encoding/json"
 	"log"
+	"net/url"
 
 	"code.google.com/p/go.net/websocket"
 )
@@ -63,23 +64,56 @@ func GetContainer(uuid string) (Container, error) {
 
 /*
 func GetContainerLogs
-Argument : uuid
-Returns : A string containing the logs of the container
+Argument : a channel of type string for the output
 */
 func (self *Container) Logs(c chan string) {
 
 	endpoint := "container/" + self.Uuid + "/logs/?user=" + User + "&token=" + ApiKey
 	origin := "http://localhost/"
-	url := "wss://stream.tutum.co:443/v1/" + endpoint
+	url := "wss://live-test.tutum.co:443/v1/" + endpoint
 	ws, err := websocket.Dial(url, "", origin)
+
 	if err != nil {
-		log.Fatal(err)
+		log.Println(err)
 	}
-	var msg = make([]byte, 512)
+
+	msg := make([]byte, 512)
+
 	for {
 		ws.Request()
 		if _, err = ws.Read(msg); err != nil {
-			log.Fatal(err)
+			log.Println(err)
+		}
+		c <- string(msg)
+	}
+}
+
+/*
+func Exec
+Arguments : the command to execute, a channel of type string for the output
+*/
+
+func (self *Container) Exec(command string, c chan string) {
+
+	endpoint := "container/" + self.Uuid + "/exec/?user=" + User + "&token=" + ApiKey + "&command=" + url.QueryEscape(command)
+	log.Println(endpoint)
+	origin := "http://localhost/"
+	url := "wss://live-test.tutum.co:443/v1/" + endpoint
+	ws, err := websocket.Dial(url, "", origin)
+
+	if err != nil {
+		if err.Error() != "EOF" {
+			log.Println(err)
+		}
+	}
+
+	msg := make([]byte, 1024)
+
+	for {
+		if _, err = ws.Read(msg); err != nil {
+			if err.Error() == "EOF" {
+				c <- err.Error()
+			}
 		}
 		c <- string(msg)
 	}
@@ -87,8 +121,7 @@ func (self *Container) Logs(c chan string) {
 
 /*
 func StartContainer
-Argument : uuid
-Returns : Container JSON object
+Returns : Error
 */
 func (self *Container) Start() error {
 
@@ -113,8 +146,7 @@ func (self *Container) Start() error {
 
 /*
 func StopContainer
-Argument : uuid
-Returns : Container JSON object
+Returns : Error
 */
 func (self *Container) Stop() error {
 
@@ -133,8 +165,7 @@ func (self *Container) Stop() error {
 
 /*
 func RedeployContainer
-Argument : uuid
-Returns : Container JSON object
+Returns : Error
 */
 func (self *Container) Redeploy() error {
 
@@ -153,8 +184,7 @@ func (self *Container) Redeploy() error {
 
 /*
 func TerminateContainer
-Argument : uuid
-Returns : Container JSON object
+Returns : Error
 */
 func (self *Container) Terminate() error {
 

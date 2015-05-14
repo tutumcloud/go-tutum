@@ -8,14 +8,6 @@ import (
 	"code.google.com/p/go.net/websocket"
 )
 
-type Event struct {
-	Type         string   `json:"type"`
-	Action       string   `json:"action"`
-	Parents      []string `json:"parents"`
-	Resource_uri string   `json:"resource_uri"`
-	State        string   `json:"state"`
-}
-
 /*
 	func dial()
 	Returns : a websocket connection

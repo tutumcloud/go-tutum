@@ -57,6 +57,14 @@ type CCPInfo struct {
 	Protocol   string `json:"protocol"`
 }
 
+type Event struct {
+	Type         string   `json:"type"`
+	Action       string   `json:"action"`
+	Parents      []string `json:"parents"`
+	Resource_uri string   `json:"resource_uri"`
+	State        string   `json:"state"`
+}
+
 type NodeListResponse struct {
 	Objects []Node `json:"objects"`
 }

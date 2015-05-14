@@ -91,7 +91,7 @@ func CreateService(requestBody string) (Service, error) {
 
 /*
 func GetServiceLogs
-Argument : string channel
+Argument : a channel of type string for the output
 */
 func (self *Service) Logs(c chan string) {
 
@@ -114,8 +114,8 @@ func (self *Service) Logs(c chan string) {
 
 /*
 func UpdateService
-Argument : uuid, updatedService JSON object
-Returns : Service JSON object
+Argument : updatedService JSON object
+Returns : Error
 */
 func (self *Service) Update(requestBody string) error {
 
@@ -134,8 +134,7 @@ func (self *Service) Update(requestBody string) error {
 
 /*
 func StartService
-Argument : uuid
-Returns : Service JSON object
+Returns : Error
 */
 func (self *Service) Start() error {
 	url := "service/" + self.Uuid + "/start/"
@@ -152,8 +151,7 @@ func (self *Service) Start() error {
 
 /*
 func StopService
-Argument : uuid
-Returns : Service JSON object
+Returns : Error
 */
 func (self *Service) StopService() error {
 
@@ -171,8 +169,7 @@ func (self *Service) StopService() error {
 
 /*
 func RedeployService
-Argument : uuid
-Returns : Service JSON object
+Returns : Error
 */
 func (self *Service) Redeploy() error {
 
@@ -191,8 +188,7 @@ func (self *Service) Redeploy() error {
 
 /*
 func TerminateService
-Argument : uuid
-Returns : Service JSON object
+Returns : Error
 */
 func (self *Service) TerminateService() error {
 	url := "service/" + self.Uuid + "/"
