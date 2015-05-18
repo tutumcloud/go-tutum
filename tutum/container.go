@@ -93,8 +93,8 @@ func Exec
 Arguments : the command to execute, a channel of type string for the output
 */
 
-func (self *Container) Execcmd(command string, c chan string) {
-	go self.Exec(command, c)
+func (self *Container) Exec(command string, c chan string) {
+	go self.Run(command, c)
 Loop:
 	for {
 		select {
@@ -108,7 +108,7 @@ Loop:
 	}
 }
 
-func (self *Container) Exec(command string, c chan string) {
+func (self *Container) Run(command string, c chan string) {
 
 	endpoint := "container/" + self.Uuid + "/exec/?user=" + User + "&token=" + ApiKey + "&command=" + url.QueryEscape(command)
 	log.Println(endpoint)
