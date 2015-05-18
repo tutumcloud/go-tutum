@@ -2,6 +2,7 @@ package tutum
 
 import (
 	"encoding/json"
+	"fmt"
 	"log"
 	"net/url"
 
@@ -70,7 +71,7 @@ func (self *Container) Logs(c chan string) {
 
 	endpoint := "container/" + self.Uuid + "/logs/?user=" + User + "&token=" + ApiKey
 	origin := "http://localhost/"
-	url := "wss://live-test.tutum.co:443/v1/" + endpoint
+	url := "wss://stream.tutum.co:443/v1/" + endpoint
 	ws, err := websocket.Dial(url, "", origin)
 
 	if err != nil {
@@ -100,7 +101,7 @@ Loop:
 		select {
 		case s := <-c:
 			if s != "EOF" {
-				log.Println(s)
+				fmt.Printf("%s", s)
 			} else {
 				break Loop
 			}
@@ -111,27 +112,24 @@ Loop:
 func (self *Container) Run(command string, c chan string) {
 
 	endpoint := "container/" + self.Uuid + "/exec/?user=" + User + "&token=" + ApiKey + "&command=" + url.QueryEscape(command)
-	log.Println(endpoint)
 	origin := "http://localhost/"
-	url := "wss://live-test.tutum.co:443/v1/" + endpoint
+	url := "wss://stream.tutum.co:443/v1/" + endpoint
 	ws, err := websocket.Dial(url, "", origin)
-
 	if err != nil {
 		if err.Error() != "EOF" {
 			log.Println(err)
 		}
 	}
 
-	msg := make([]byte, 1024)
-
+	msg := make([]byte, 512)
+	var n int
 	for {
-		if _, err = ws.Read(msg); err != nil {
+		if n, err = ws.Read(msg); err != nil {
 			if err.Error() == "EOF" {
 				c <- err.Error()
 			}
 		}
-		c <- string(msg)
-
+		c <- string(msg[:n])
 	}
 }
 
