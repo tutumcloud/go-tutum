@@ -125,18 +125,12 @@ func (self *Container) Run(command string, c chan string) {
 	msg := make([]byte, 1024)
 
 	for {
-		select {
-		case input := <-c:
-			log.Println(input)
-			//self.Exec(input, c)
-		default:
-			if _, err = ws.Read(msg); err != nil {
-				if err.Error() == "EOF" {
-					c <- err.Error()
-				}
+		if _, err = ws.Read(msg); err != nil {
+			if err.Error() == "EOF" {
+				c <- err.Error()
 			}
-			c <- string(msg)
 		}
+		c <- string(msg)
 
 	}
 }
