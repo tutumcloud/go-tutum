@@ -63,6 +63,7 @@ func TutumEvents(c chan Event, e chan error) {
 		err := websocket.JSON.Receive(ws, &msg)
 		if err != nil {
 			e <- err
+			return
 		}
 		if reflect.TypeOf(msg).String() == "tutum.Event" {
 			c <- msg
