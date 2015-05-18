@@ -25,7 +25,7 @@ func dial() (*websocket.Conn, error) {
 	if os.Getenv("TUTUM_STREAM_URL") != "" {
 		u, err := url.Parse(os.Getenv("TUTUM_STREAM_URL"))
 		if err != nil {
-			panic(err)
+			return nil, err
 		}
 		u.Host = u.Host + ":443"
 		StreamUrl = u.Scheme + "://" + u.Host + u.Path
