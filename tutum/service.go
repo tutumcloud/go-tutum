@@ -93,22 +93,30 @@ func CreateService(requestBody string) (Service, error) {
 func GetServiceLogs
 Argument : a channel of type string for the output
 */
-func (self *Service) Logs(c chan string) {
+
+func (self *Service) Logs(c chan Logs) {
 
 	endpoint := "service/" + self.Uuid + "/logs/?user=" + User + "&token=" + ApiKey
 	origin := "http://localhost/"
-	url := "wss://stream.tutum.co:443/v1/" + endpoint
+	url := "wss://live-test.tutum.co:443/v1/" + endpoint
 	ws, err := websocket.Dial(url, "", origin)
 	if err != nil {
 		log.Fatal(err)
 	}
-	var msg = make([]byte, 512)
+	var response Logs
+
+	var msg = make([]byte, 1024)
 	for {
 		ws.Request()
-		if _, err = ws.Read(msg); err != nil {
-			log.Fatal(err)
+		var n int
+		if n, err = ws.Read(msg); err != nil {
+			log.Println(err)
 		}
-		c <- string(msg)
+		err = json.Unmarshal(msg[:n], &response)
+		if err != nil {
+			log.Println(err)
+		}
+		c <- response
 	}
 }
 

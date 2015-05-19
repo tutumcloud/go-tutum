@@ -67,25 +67,30 @@ func GetContainer(uuid string) (Container, error) {
 func GetContainerLogs
 Argument : a channel of type string for the output
 */
-func (self *Container) Logs(c chan string) {
+
+func (self *Container) Logs(c chan Logs) {
 
 	endpoint := "container/" + self.Uuid + "/logs/?user=" + User + "&token=" + ApiKey
 	origin := "http://localhost/"
-	url := "wss://stream.tutum.co:443/v1/" + endpoint
+	url := "wss://live-test.tutum.co:443/v1/" + endpoint
 	ws, err := websocket.Dial(url, "", origin)
-
 	if err != nil {
-		log.Println(err)
+		log.Fatal(err)
 	}
+	var response Logs
 
-	msg := make([]byte, 512)
-
+	var msg = make([]byte, 1024)
 	for {
 		ws.Request()
-		if _, err = ws.Read(msg); err != nil {
+		var n int
+		if n, err = ws.Read(msg); err != nil {
 			log.Println(err)
 		}
-		c <- string(msg)
+		err = json.Unmarshal(msg[:n], &response)
+		if err != nil {
+			log.Println(err)
+		}
+		c <- response
 	}
 }
 

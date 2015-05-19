@@ -65,6 +65,13 @@ type Event struct {
 	State        string   `json:"state"`
 }
 
+type Logs struct {
+	Type      string `json:"type"`
+	Source    string `json:"source"`
+	Log       string `json:"log"`
+	Timestamp int    `json:"timestamp"`
+}
+
 type NodeListResponse struct {
 	Objects []Node `json:"objects"`
 }

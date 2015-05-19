@@ -1,10 +1,10 @@
 package tutum
 
 import (
-	"log"
 	"net/url"
 	"os"
 	"reflect"
+	"time"
 
 	"code.google.com/p/go.net/websocket"
 )
@@ -15,34 +15,30 @@ import (
 */
 func dial() (*websocket.Conn, error) {
 	var streamWebsocket *websocket.Conn
-Loop:
-	for {
-		if os.Getenv("TUTUM_STREAM_URL") != "" {
-			u, err := url.Parse(os.Getenv("TUTUM_STREAM_URL"))
-			if err != nil {
-				return nil, err
-			}
-			u.Host = u.Host + ":443"
-			StreamUrl = u.Scheme + "://" + u.Host + u.Path
-		}
 
-		if os.Getenv("TUTUM_AUTH") != "" {
-			endpoint := url.QueryEscape(os.Getenv("TUTUM_AUTH"))
+	var Url = ""
 
-			StreamUrl = StreamUrl + "events?auth=" + endpoint
-		}
-		if User != "" && ApiKey != "" {
-			StreamUrl = StreamUrl + "events?token=" + ApiKey + "&user=" + User
-		}
+	if os.Getenv("TUTUM_STREAM_URL") != "" {
+		u, _ := url.Parse(os.Getenv("TUTUM_STREAM_URL"))
+		u.Host = u.Host + ":443"
+		StreamUrl = u.Scheme + "://" + u.Host + u.Path
+	}
 
-		var origin = "http://localhost"
-		ws, err := websocket.Dial(StreamUrl, "", origin)
-		if err != nil {
-			return nil, err
-		} else {
-			streamWebsocket = ws
-			break Loop
-		}
+	if os.Getenv("TUTUM_AUTH") != "" {
+		endpoint := ""
+		endpoint = url.QueryEscape(os.Getenv("TUTUM_AUTH"))
+		Url = StreamUrl + "events?auth=" + endpoint
+	}
+	if User != "" && ApiKey != "" {
+		Url = StreamUrl + "events?token=" + ApiKey + "&user=" + User
+	}
+
+	var origin = "http://localhost"
+	ws, err := websocket.Dial(Url, "", origin)
+	if err != nil {
+		return nil, err
+	} else {
+		streamWebsocket = ws
 	}
 	return streamWebsocket, nil
 }
@@ -52,39 +48,38 @@ Loop:
 	Returns : The stream of all events from your NodeClusters, Containers, Services, Stack, Actions, ...
 */
 func TutumEvents(c chan Event, e chan error) {
-
 	var ws *websocket.Conn
 	tries := 0
+Loop:
 	for {
 		webSocket, err := dial()
 		if err != nil {
-			log.Print("Error")
 			tries++
+			time.Sleep(3 * time.Second)
 			if tries > 3 {
-				log.Print("Returning")
 				e <- err
 				return
 			}
 		} else {
 			ws = webSocket
-			break
+			break Loop
 		}
 	}
-
-	defer ws.Close()
 
 	defer close(c)
 	defer close(e)
 
 	var msg Event
+Loop2:
 	for {
 		err := websocket.JSON.Receive(ws, &msg)
 		if err != nil {
 			e <- err
-			return
+			break Loop2
 		}
 		if reflect.TypeOf(msg).String() == "tutum.Event" {
 			c <- msg
 		}
 	}
+	ws.Close()
 }
