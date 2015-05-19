@@ -117,6 +117,32 @@ func UpdateService
 Argument : updatedService JSON object
 Returns : Error
 */
+func (self *Service) Scale() error {
+
+	url := "service/" + self.Uuid + "/scale/"
+	request := "POST"
+	//Empty Body Request
+	body := []byte(`{}`)
+	var response Service
+
+	data, err := TutumCall(url, request, body)
+	if err != nil {
+		return err
+	}
+
+	err = json.Unmarshal(data, &response)
+	if err != nil {
+		return err
+	}
+
+	return nil
+}
+
+/*
+func UpdateService
+Argument : updatedService JSON object
+Returns : Error
+*/
 func (self *Service) Update(requestBody string) error {
 
 	url := "service/" + self.Uuid + "/"
