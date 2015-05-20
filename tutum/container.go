@@ -72,7 +72,7 @@ func (self *Container) Logs(c chan Logs) {
 
 	endpoint := "container/" + self.Uuid + "/logs/?user=" + User + "&token=" + ApiKey
 	origin := "http://localhost/"
-	url := "wss://live-test.tutum.co:443/v1/" + endpoint
+	url := StreamUrl + endpoint
 	ws, err := websocket.Dial(url, "", origin)
 	if err != nil {
 		log.Fatal(err)
