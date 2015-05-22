@@ -65,6 +65,12 @@ type Event struct {
 	State        string   `json:"state"`
 }
 
+type Exec struct {
+	Type       string `json:"type"`
+	Output     string `json:"output"`
+	StreamType string `json:"streamType"`
+}
+
 type Logs struct {
 	Type      string `json:"type"`
 	Source    string `json:"source"`

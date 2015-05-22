@@ -99,14 +99,14 @@ func Exec
 Arguments : the command to execute, a channel of type string for the output
 */
 
-func (self *Container) Exec(command string, c chan string) {
+func (self *Container) Exec(command string, c chan Exec) {
 	go self.Run(command, c)
 Loop:
 	for {
 		select {
 		case s := <-c:
-			if s != "EOF" {
-				fmt.Printf("%s", s)
+			if s.Output != "EOF" {
+				fmt.Printf("%s", s.Output)
 			} else {
 				break Loop
 			}
@@ -114,12 +114,15 @@ Loop:
 	}
 }
 
-func (self *Container) Run(command string, c chan string) {
+func (self *Container) Run(command string, c chan Exec) {
 
 	endpoint := "container/" + self.Uuid + "/exec/?user=" + User + "&token=" + ApiKey + "&command=" + url.QueryEscape(command)
 	origin := "http://localhost/"
-	url := "wss://stream.tutum.co:443/v1/" + endpoint
+	url := "wss://live-test.tutum.co:443/v1/" + endpoint
 	ws, err := websocket.Dial(url, "", origin)
+
+	var response Exec
+
 	if err != nil {
 		if err.Error() != "EOF" {
 			log.Println(err)
@@ -128,13 +131,22 @@ func (self *Container) Run(command string, c chan string) {
 
 	msg := make([]byte, 512)
 	var n int
+
+Loop:
 	for {
 		if n, err = ws.Read(msg); err != nil {
-			if err.Error() == "EOF" {
-				c <- err.Error()
+			if err != nil && err.Error() != "EOF" {
+				log.Println(err)
+			} else {
+				break Loop
 			}
 		}
-		c <- string(msg[:n])
+		err = json.Unmarshal(msg[:n], &response)
+		if err != nil {
+			log.Println(err)
+		}
+
+		c <- response
 	}
 }
 
