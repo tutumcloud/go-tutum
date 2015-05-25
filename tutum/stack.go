@@ -1,6 +1,9 @@
 package tutum
 
-import "encoding/json"
+import (
+	"encoding/json"
+	"log"
+)
 
 /*
 func ListStacks
@@ -84,12 +87,17 @@ func (self *Stack) ExportStack() (string, error) {
 func CreateStack
 Argument : Stack JSON object (see documentation)
 */
-func CreateStack(requestBody string) (Stack, error) {
+func CreateStack(createRequest StackCreateRequest) (Stack, error) {
 	url := "stack/"
 	request := "POST"
-
-	newStack := []byte(requestBody)
 	var response Stack
+
+	newStack, err := json.Marshal(createRequest)
+	if err != nil {
+		return response, err
+	}
+
+	log.Println(string(newStack))
 
 	data, err := TutumCall(url, request, newStack)
 	if err != nil {
