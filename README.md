@@ -42,7 +42,7 @@ Each of the methods that require a uuid number as argument can also use a resour
 **Creating and deploying a NodeCluster**
 
 ```
-nodecluster, err := tutum.CreateNodeCluster(`{"name": "my_cluster", "region": "/api/v1/region/digitalocean/lon1/", "node_type": "/api/v1/nodetype/digitalocean/1gb/", "disk": 60}`)
+nodecluster, err := tutum.CreateNodeCluster(tutum.NodeCreateRequest{Name: "Go-SDK-test", Region: "/api/v1/region/digitalocean/lon1/", NodeType: "/api/v1/nodetype/digitalocean/1gb/", Target_num_nodes: 2})
 
 if err != nil {
   log.Println(err)
@@ -56,26 +56,7 @@ if err = nodecluster.Deploy(); err != nil {
 **Creating and starting a Stack**
 
 ```
-stack, err := tutum.CreateStack(`{
-    "name": "my-new-stack",
-    "services": [
-        {
-            "name": "hello-word",
-            "image": "tutum/hello-world",
-            "target_num_containers": 2,
-            "linked_to_service": [
-                {
-                    "to_service": "database",
-                    "name": "DB"
-                }
-            ]
-        },
-        {
-            "name": "database",
-            "image": "tutum/mysql"
-        }
-    ]
-}`)
+stack, err := tutum.CreateStack(tutum.StackCreateRequest{Name: "new-stack", Services: []tutum.ServiceCreateRequest{{Image: "tutum/hello-world", Name: "test", Target_num_containers: 2}}})
 
 if err != nil {
   log.Println(err)

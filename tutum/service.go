@@ -68,13 +68,16 @@ func CreateService
 Argument : Service JSON object (see documentation)
 Returns : Service JSON object
 */
-func CreateService(requestBody string) (Service, error) {
+func CreateService(createRequest ServiceCreateRequest) (Service, error) {
 
 	url := "service/"
 	request := "POST"
-
-	newService := []byte(requestBody)
 	var response Service
+
+	newService, err := json.Marshal(createRequest)
+	if err != nil {
+		return response, err
+	}
 
 	data, err := TutumCall(url, request, newService)
 	if err != nil {
@@ -151,16 +154,19 @@ func UpdateService
 Argument : updatedService JSON object
 Returns : Error
 */
-func (self *Service) Update(requestBody string) error {
+func (self *Service) Update(createRequest ServiceCreateRequest) error {
 
 	url := "service/" + self.Uuid + "/"
 	request := "PATCH"
 
-	updatedService := []byte(requestBody)
-
-	_, err := TutumCall(url, request, updatedService)
+	updatedService, err := json.Marshal(createRequest)
 	if err != nil {
 		return err
+	}
+
+	_, errr := TutumCall(url, request, updatedService)
+	if errr != nil {
+		return errr
 	}
 
 	return nil

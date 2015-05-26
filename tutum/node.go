@@ -64,16 +64,19 @@ func UpdateNode
 Argument : uuid
 Returns : Node JSON object
 */
-func (self *Node) Update(requestBody string) error {
+func (self *Node) Update(createRequest Node) error {
 
 	url := "node/" + self.Uuid + "/"
 	request := "PATCH"
 
-	updatedNode := []byte(requestBody)
-
-	_, err := TutumCall(url, request, updatedNode)
+	updatedNode, err := json.Marshal(createRequest)
 	if err != nil {
 		return err
+	}
+
+	_, errr := TutumCall(url, request, updatedNode)
+	if err != nil {
+		return errr
 	}
 
 	return nil

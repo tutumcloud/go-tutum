@@ -50,6 +50,11 @@ type Container struct {
 	Uuid                   string    `json:"uuid"`
 }
 
+type ContainerEnv struct {
+	Key   string `json:"key"`
+	Value string `json:value`
+}
+
 type CCPInfo struct {
 	Container  string `json:"container"`
 	Inner_port int    `json:"inner_port"`
@@ -65,6 +70,12 @@ type Event struct {
 	State        string   `json:"state"`
 }
 
+type Exec struct {
+	Type       string `json:"type"`
+	Output     string `json:"output"`
+	StreamType string `json:"streamType"`
+}
+
 type Logs struct {
 	Type      string `json:"type"`
 	Source    string `json:"source"`
@@ -77,17 +88,17 @@ type NodeListResponse struct {
 }
 
 type Node struct {
-	Deployed_datetime  string    `json:"deployed_datetime"`
-	Destroyed_datetime string    `json:"destroyed_datetime"`
-	Docker_version     string    `json:"docker_version"`
-	Last_seen          string    `json:"last_seen"`
-	Node_cluster       string    `json:"node_cluster"`
-	Public_ip          string    `json:"public_ip"`
-	Region             string    `json:"region"`
-	Resource_uri       string    `json:"resource_uri"`
-	State              string    `json:"state"`
-	Tags               []NodeTag `json:"tags"`
-	Uuid               string    `json:"uuid"`
+	Deployed_datetime  string    `json:"deployed_datetime,omitempty"`
+	Destroyed_datetime string    `json:"destroyed_datetime,omitempty"`
+	Docker_version     string    `json:"docker_version,omitempty"`
+	Last_seen          string    `json:"last_seen,omitempty"`
+	Node_cluster       string    `json:"node_cluster,omitempty"`
+	Public_ip          string    `json:"public_ip,omitempty"`
+	Region             string    `json:"region,omitempty"`
+	Resource_uri       string    `json:"resource_uri,omitempty"`
+	State              string    `json:"state,omitempty"`
+	Tags               []NodeTag `json:"tags,omitempty"`
+	Uuid               string    `json:"uuid,omitempty"`
 }
 
 type NodeTag struct {
@@ -107,9 +118,18 @@ type NodeCluster struct {
 	Region             string    `json:"region"`
 	Resource_uri       string    `json:"resource_uri"`
 	State              string    `json:"state"`
-	Tags               []NodeTag `json:"tags"`
+	Tags               []NodeTag `json:"tags,omitempty"`
 	Target_num_nodes   int       `json:"target_num_nodes"`
 	Uuid               string    `json:"uuid"`
+}
+
+type NodeCreateRequest struct {
+	Disk             int    `json:"disk,omitempty"`
+	Name             string `json:"name,omitempty"`
+	NodeType         string `json:"node_type,omitempty"`
+	Region           string `json:"region,omitempty"`
+	Target_num_nodes int    `json:"target_num_nodes,omitempty"`
+	Tags             int    `json:"tags,omitempty"`
 }
 
 type NodeTypeListResponse struct {
@@ -155,32 +175,46 @@ type SListResponse struct {
 }
 
 type Service struct {
-	Autodestroy            string       `json:"autodestroy`
-	Autoredeploy           bool         `json:"autoredeploy`
-	Autorestart            string       `json:"autorestart`
-	Containers             []string     `json:"containers`
-	Container_ports        []SCPInfo    `json:"container_ports`
-	Container_size         string       `json:"container_size`
-	Current_num_containers int          `json:"current_num_containers`
-	Deployed_datetime      string       `json:"deployed_datetime`
-	Destroyed_datetime     string       `json:"destroyed_datetime`
-	Entrypoint             string       `json:"entrypoint`
-	Exit_code              int          `json:"exit_code`
-	Exit_code_message      string       `json:"exit_code_message`
-	Image_name             string       `json:"image_name"`
-	Image_tag              string       `json:"image_tag`
-	Linked_to_service      []LinkToInfo `json:"linked_to_service`
-	Name                   string       `json:"name"`
-	Public_dns             string       `json:"public_dns"`
-	Resource_uri           string       `json:"resource_uri"`
-	Run_command            string       `json:"run_command"`
-	Started_datetime       string       `json:"started_datetime"`
-	State                  string       `json:"state"`
-	Stack                  string       `json:"stack"`
-	Stopped_datetime       string       `json:"stopped_datetime"`
-	Target_num_containers  int          `json:"target_num_containers"`
-	Unique_name            string       `json:"unique_name"`
-	Uuid                   string       `json:"uuid"`
+	Autodestroy            string         `json:"autodestroy`
+	Autoredeploy           bool           `json:"autoredeploy`
+	Autorestart            string         `json:"autorestart`
+	Containers             []string       `json:"containers`
+	Container_envvars      []ContainerEnv `json:"container_envvars"`
+	Container_ports        []SCPInfo      `json:"container_ports`
+	Container_size         string         `json:"container_size`
+	Current_num_containers int            `json:"current_num_containers`
+	Deployed_datetime      string         `json:"deployed_datetime`
+	Destroyed_datetime     string         `json:"destroyed_datetime`
+	Entrypoint             string         `json:"entrypoint`
+	Exit_code              int            `json:"exit_code`
+	Exit_code_message      string         `json:"exit_code_message`
+	Image_name             string         `json:"image_name"`
+	Image_tag              string         `json:"image_tag`
+	Linked_to_service      []LinkToInfo   `json:"linked_to_service`
+	Name                   string         `json:"name"`
+	Public_dns             string         `json:"public_dns"`
+	Resource_uri           string         `json:"resource_uri"`
+	Run_command            string         `json:"run_command"`
+	Started_datetime       string         `json:"started_datetime"`
+	State                  string         `json:"state"`
+	Stack                  string         `json:"stack"`
+	Stopped_datetime       string         `json:"stopped_datetime"`
+	Target_num_containers  int            `json:"target_num_containers"`
+	Unique_name            string         `json:"unique_name"`
+	Uuid                   string         `json:"uuid"`
+}
+
+type ServiceCreateRequest struct {
+	Autodestroy           string       `json:"autodestroy,omitempty"`
+	Autoredeploy          bool         `json:"autoredeploy,omitempty"`
+	Autorestart           string       `json:"autorestart,omitempty"`
+	Container_ports       []SCPInfo    `json:"container_ports,omitempty"`
+	Entrypoint            string       `json:"entrypoint,omitempty"`
+	Image                 string       `json:"image,omitempty"`
+	Linked_to_service     []LinkToInfo `json:"linked_to_service,omitempty"`
+	Name                  string       `json:"name,omitempty"`
+	Tags                  []string     `json:"tags,omitempty"`
+	Target_num_containers int          `json:"target_num_containers,omitempty"`
 }
 
 type SCPInfo struct {
@@ -221,6 +255,11 @@ type Stack struct {
 	State              string    `json:"state"`
 	Synchronized       bool      `json:"synchronized"`
 	Uuid               string    `json:"uuid"`
+}
+
+type StackCreateRequest struct {
+	Name     string                 `json:"name,omitempty"`
+	Services []ServiceCreateRequest `json:"services,omitempty"`
 }
 
 type Token struct {

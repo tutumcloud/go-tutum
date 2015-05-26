@@ -1,9 +1,6 @@
 package tutum
 
-import (
-	"encoding/json"
-	"fmt"
-)
+import "encoding/json"
 
 /*
 func ListNodeClusters
@@ -68,13 +65,16 @@ func CreateNodeCluster
 Argument : NodeCluster JSON object (see documentation)
 Returns : NodeCluster JSON object
 */
-func CreateNodeCluster(requestBody string) (NodeCluster, error) {
+func CreateNodeCluster(createRequest NodeCreateRequest) (NodeCluster, error) {
 
 	url := "nodecluster/"
 	request := "POST"
-
-	newCluster := []byte(requestBody)
 	var response NodeCluster
+
+	newCluster, err := json.Marshal(createRequest)
+	if err != nil {
+		return response, err
+	}
 
 	data, err := TutumCall(url, request, newCluster)
 	if err != nil {
@@ -114,17 +114,19 @@ func UpdateNodeCluster
 Argument : uuid and nodecluster JSON object (see documentation)
 Returns : NodeCluster JSON object
 */
-func (self *NodeCluster) Update(requestBody string) error {
+func (self *NodeCluster) Update(createRequest NodeCreateRequest) error {
 
 	url := "nodecluster/" + self.Uuid + "/"
 	request := "PATCH"
 
-	updatedNodeCluster := []byte(requestBody)
-	fmt.Println(string(updatedNodeCluster))
-
-	_, err := TutumCall(url, request, updatedNodeCluster)
+	updatedNodeCluster, err := json.Marshal(createRequest)
 	if err != nil {
 		return err
+	}
+
+	_, errr := TutumCall(url, request, updatedNodeCluster)
+	if errr != nil {
+		return errr
 	}
 
 	return nil
