@@ -68,7 +68,7 @@ func CreateService
 Argument : Service JSON object (see documentation)
 Returns : Service JSON object
 */
-func CreateService(createRequest *ServiceCreateRequest) (Service, error) {
+func CreateService(createRequest ServiceCreateRequest) (Service, error) {
 
 	url := "service/"
 	request := "POST"
