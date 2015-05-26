@@ -116,16 +116,21 @@ func CreateStack(createRequest StackCreateRequest) (Stack, error) {
 func Update
 Argument : a Stack JSON object (see documentation)
 */
-func (self *Stack) Update(requestBody string) error {
+func (self *Stack) Update(createRequest StackCreateRequest) error {
 
 	url := "stack/" + self.Uuid + "/"
 	request := "PATCH"
 
-	updatedStack := []byte(requestBody)
-
-	_, err := TutumCall(url, request, updatedStack)
+	updatedStack, err := json.Marshal(createRequest)
 	if err != nil {
 		return err
+	}
+
+	log.Println(string(updatedStack))
+
+	_, errr := TutumCall(url, request, updatedStack)
+	if errr != nil {
+		return errr
 	}
 
 	return nil

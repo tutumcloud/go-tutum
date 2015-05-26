@@ -154,16 +154,19 @@ func UpdateService
 Argument : updatedService JSON object
 Returns : Error
 */
-func (self *Service) Update(requestBody string) error {
+func (self *Service) Update(createRequest ServiceCreateRequest) error {
 
 	url := "service/" + self.Uuid + "/"
 	request := "PATCH"
 
-	updatedService := []byte(requestBody)
-
-	_, err := TutumCall(url, request, updatedService)
+	updatedService, err := json.Marshal(createRequest)
 	if err != nil {
 		return err
+	}
+
+	_, errr := TutumCall(url, request, updatedService)
+	if errr != nil {
+		return errr
 	}
 
 	return nil

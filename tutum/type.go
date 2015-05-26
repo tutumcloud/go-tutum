@@ -88,17 +88,17 @@ type NodeListResponse struct {
 }
 
 type Node struct {
-	Deployed_datetime  string    `json:"deployed_datetime"`
-	Destroyed_datetime string    `json:"destroyed_datetime"`
-	Docker_version     string    `json:"docker_version"`
-	Last_seen          string    `json:"last_seen"`
-	Node_cluster       string    `json:"node_cluster"`
-	Public_ip          string    `json:"public_ip"`
-	Region             string    `json:"region"`
-	Resource_uri       string    `json:"resource_uri"`
-	State              string    `json:"state"`
-	Tags               []NodeTag `json:"tags"`
-	Uuid               string    `json:"uuid"`
+	Deployed_datetime  string    `json:"deployed_datetime,omitempty"`
+	Destroyed_datetime string    `json:"destroyed_datetime,omitempty"`
+	Docker_version     string    `json:"docker_version,omitempty"`
+	Last_seen          string    `json:"last_seen,omitempty"`
+	Node_cluster       string    `json:"node_cluster,omitempty"`
+	Public_ip          string    `json:"public_ip,omitempty"`
+	Region             string    `json:"region,omitempty"`
+	Resource_uri       string    `json:"resource_uri,omitempty"`
+	State              string    `json:"state,omitempty"`
+	Tags               []NodeTag `json:"tags,omitempty"`
+	Uuid               string    `json:"uuid,omitempty"`
 }
 
 type NodeTag struct {
@@ -118,16 +118,16 @@ type NodeCluster struct {
 	Region             string    `json:"region"`
 	Resource_uri       string    `json:"resource_uri"`
 	State              string    `json:"state"`
-	Tags               []NodeTag `json:"tags"`
+	Tags               []NodeTag `json:"tags,omitempty"`
 	Target_num_nodes   int       `json:"target_num_nodes"`
 	Uuid               string    `json:"uuid"`
 }
 
 type NodeCreateRequest struct {
 	Disk             int    `json:"disk,omitempty"`
-	Name             string `json:"name"`
-	NodeType         string `json:"node_type"`
-	Region           string `json:"region"`
+	Name             string `json:"name,omitempty"`
+	NodeType         string `json:"node_type,omitempty"`
+	Region           string `json:"region,omitempty"`
 	Target_num_nodes int    `json:"target_num_nodes,omitempty"`
 	Tags             int    `json:"tags,omitempty"`
 }
@@ -210,7 +210,7 @@ type ServiceCreateRequest struct {
 	Autorestart           string       `json:"autorestart,omitempty"`
 	Container_ports       []SCPInfo    `json:"container_ports,omitempty"`
 	Entrypoint            string       `json:"entrypoint,omitempty"`
-	Image                 string       `json:"image"`
+	Image                 string       `json:"image,omitempty"`
 	Linked_to_service     []LinkToInfo `json:"linked_to_service,omitempty"`
 	Name                  string       `json:"name,omitempty"`
 	Tags                  []string     `json:"tags,omitempty"`
@@ -258,8 +258,8 @@ type Stack struct {
 }
 
 type StackCreateRequest struct {
-	Name     string                 `json:"name"`
-	Services []ServiceCreateRequest `json:"services"`
+	Name     string                 `json:"name,omitempty"`
+	Services []ServiceCreateRequest `json:"services,omitempty"`
 }
 
 type Token struct {

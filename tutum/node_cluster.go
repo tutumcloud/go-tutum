@@ -1,9 +1,6 @@
 package tutum
 
-import (
-	"encoding/json"
-	"fmt"
-)
+import "encoding/json"
 
 /*
 func ListNodeClusters
@@ -117,17 +114,19 @@ func UpdateNodeCluster
 Argument : uuid and nodecluster JSON object (see documentation)
 Returns : NodeCluster JSON object
 */
-func (self *NodeCluster) Update(requestBody string) error {
+func (self *NodeCluster) Update(createRequest NodeCreateRequest) error {
 
 	url := "nodecluster/" + self.Uuid + "/"
 	request := "PATCH"
 
-	updatedNodeCluster := []byte(requestBody)
-	fmt.Println(string(updatedNodeCluster))
-
-	_, err := TutumCall(url, request, updatedNodeCluster)
+	updatedNodeCluster, err := json.Marshal(createRequest)
 	if err != nil {
 		return err
+	}
+
+	_, errr := TutumCall(url, request, updatedNodeCluster)
+	if errr != nil {
+		return errr
 	}
 
 	return nil
