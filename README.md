@@ -56,26 +56,7 @@ if err = nodecluster.Deploy(); err != nil {
 **Creating and starting a Stack**
 
 ```
-stack, err := tutum.CreateStack(`{
-    "name": "my-new-stack",
-    "services": [
-        {
-            "name": "hello-word",
-            "image": "tutum/hello-world",
-            "target_num_containers": 2,
-            "linked_to_service": [
-                {
-                    "to_service": "database",
-                    "name": "DB"
-                }
-            ]
-        },
-        {
-            "name": "database",
-            "image": "tutum/mysql"
-        }
-    ]
-}`)
+stack, err := tutum.CreateStack(tutum.StackCreateRequest{Name: "new-stack", Services: []tutum.ServiceCreateRequest{{Image: "tutum/hello-world", Name: "test", Target_num_containers: 2}}})
 
 if err != nil {
   log.Println(err)
