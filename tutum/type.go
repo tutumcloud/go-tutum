@@ -271,10 +271,15 @@ type TriggerListResponse struct {
 }
 
 type Trigger struct {
-	Url          string `json:"url"`
+	Url          string `json:"url,omitempty"`
 	Name         string `json:"name"`
 	Operation    string `json:"operation"`
-	Resource_uri string `json:"resource_uri"`
+	Resource_uri string `json:"resource_uri,omitempty"`
+}
+
+type TriggerCreateRequest struct {
+	Name      string `json:"name"`
+	Operation string `json:"operation"`
 }
 
 type VolumeListResponse struct {
