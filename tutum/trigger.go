@@ -62,14 +62,16 @@ func CreateTrigger
 Argument : service uuid and Trigger JSON object
 Returns : Array of Trigger objects
 */
-func (self *Service) CreateTrigger(requestBody string) ([]Trigger, error) {
+func (self *Service) CreateTrigger(createRequest TriggerCreateRequest) (Trigger, error) {
 
 	url := "service/" + self.Uuid + "/trigger/"
 	request := "POST"
+	var response Trigger
 
-	newTrigger := []byte(requestBody)
-
-	var response []Trigger
+	newTrigger, err := json.Marshal(createRequest)
+	if err != nil {
+		return response, err
+	}
 
 	data, err := TutumCall(url, request, newTrigger)
 	if err != nil {
