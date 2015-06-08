@@ -93,7 +93,7 @@ func CreateService(createRequest ServiceCreateRequest) (Service, error) {
 }
 
 /*
-func GetServiceLogs
+func Logs
 Argument : a channel of type string for the output
 */
 
@@ -108,17 +108,21 @@ func (self *Service) Logs(c chan Logs) {
 	}
 	var response Logs
 
+	var n int
 	var msg = make([]byte, 1024)
 	for {
-		ws.Request()
-		var n int
 		if n, err = ws.Read(msg); err != nil {
-			log.Println(err)
+			if err != nil && err.Error() != "EOF" {
+				log.Println(err)
+			} else {
+				break
+			}
 		}
 		err = json.Unmarshal(msg[:n], &response)
 		if err != nil {
 			log.Println(err)
 		}
+
 		c <- response
 	}
 }

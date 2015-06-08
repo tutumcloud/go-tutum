@@ -1,6 +1,11 @@
 package tutum
 
-import "encoding/json"
+import (
+	"encoding/json"
+	"log"
+
+	"code.google.com/p/go.net/websocket"
+)
 
 /*
 func ListActions
@@ -56,4 +61,38 @@ func GetAction(uuid string) (Action, error) {
 	}
 
 	return response, nil
+}
+
+/*
+func GetLogs
+Argument : a channel of type string for the output
+*/
+
+func (self *Action) GetLogs(c chan Logs) {
+	endpoint := "action/" + self.Uuid + "/logs/?user=" + User + "&token=" + ApiKey
+	origin := "http://localhost/"
+	url := StreamUrl + endpoint
+	ws, err := websocket.Dial(url, "", origin)
+	if err != nil {
+		log.Fatal(err)
+	}
+	var response Logs
+
+	var n int
+	var msg = make([]byte, 1024)
+	for {
+		if n, err = ws.Read(msg); err != nil {
+			if err != nil && err.Error() != "EOF" {
+				log.Println(err)
+			} else {
+				break
+			}
+		}
+		err = json.Unmarshal(msg[:n], &response)
+		if err != nil {
+			log.Println(err)
+		}
+
+		c <- response
+	}
 }

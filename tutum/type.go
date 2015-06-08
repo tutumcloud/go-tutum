@@ -77,10 +77,10 @@ type Exec struct {
 }
 
 type Logs struct {
-	Type      string `json:"type"`
-	Source    string `json:"source"`
-	Log       string `json:"log"`
-	Timestamp int    `json:"timestamp"`
+	Type       string `json:"type"`
+	Log        string `json:"log"`
+	StreamType string `json:streamType`
+	Timestamp  int    `json:"timestamp"`
 }
 
 type NodeListResponse struct {
