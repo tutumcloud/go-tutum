@@ -9,7 +9,7 @@ import (
 	"github.com/BurntSushi/toml"
 )
 
-var version string = "0.9.8"
+var version string = "0.16.0"
 
 var (
 	User       string
