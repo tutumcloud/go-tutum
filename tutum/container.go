@@ -71,7 +71,6 @@ Argument : a channel of type string for the output
 func (self *Container) Logs(c chan Logs) {
 
 	endpoint := "container/" + self.Uuid + "/logs/?user=" + User + "&token=" + ApiKey
-	log.Println(endpoint)
 	origin := "http://localhost/"
 	url := StreamUrl + endpoint
 	ws, err := websocket.Dial(url, "", origin)

@@ -1,6 +1,11 @@
 package tutum
 
-import "encoding/json"
+import (
+	"encoding/json"
+	"log"
+
+	"golang.org/x/net/websocket"
+)
 
 /*
 func ListNodes
@@ -120,4 +125,41 @@ func (self *Node) Terminate() error {
 	}
 
 	return nil
+}
+
+func (self *Node) Events(c chan NodeEvent) {
+	endpoint := "node/" + self.Uuid + "/events/?user=" + User + "&token=" + ApiKey
+	origin := "http://localhost/"
+	url := StreamUrl + endpoint
+
+	config, err := websocket.NewConfig(url, origin)
+	if err != nil {
+		log.Println(err)
+	}
+
+	config.Header.Add("User-Agent", "go-tutum/"+version)
+
+	ws, err := websocket.DialConfig(config)
+	if err != nil {
+		log.Println(err)
+	}
+	var response NodeEvent
+
+	var n int
+	var msg = make([]byte, 1024)
+	for {
+		if n, err = ws.Read(msg); err != nil {
+			if err != nil && err.Error() != "EOF" {
+				log.Println(err)
+			} else {
+				break
+			}
+		}
+		err = json.Unmarshal(msg[:n], &response)
+		if err != nil {
+			log.Println(err)
+		}
+
+		c <- response
+	}
 }

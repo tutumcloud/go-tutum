@@ -74,7 +74,7 @@ func (self *Action) GetLogs(c chan Logs) {
 	url := StreamUrl + endpoint
 	ws, err := websocket.Dial(url, "", origin)
 	if err != nil {
-		log.Fatal(err)
+		log.Println(err)
 	}
 	var response Logs
 
