@@ -72,7 +72,15 @@ func (self *Action) GetLogs(c chan Logs) {
 	endpoint := "action/" + self.Uuid + "/logs/?user=" + User + "&token=" + ApiKey
 	origin := "http://localhost/"
 	url := StreamUrl + endpoint
-	ws, err := websocket.Dial(url, "", origin)
+
+	config, err := websocket.NewConfig(url, origin)
+	if err != nil {
+		log.Println(err)
+	}
+
+	config.Header.Add("User-Agent", customUserAgent)
+
+	ws, err := websocket.DialConfig(config)
 	if err != nil {
 		log.Println(err)
 	}

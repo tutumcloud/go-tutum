@@ -40,7 +40,7 @@ func dial() (*websocket.Conn, error) {
 		return nil, err
 	}
 
-	config.Header.Add("User-Agent", "go-tutum/"+version)
+	config.Header.Add("User-Agent", customUserAgent)
 
 	ws, err := websocket.DialConfig(config)
 	if err != nil {
