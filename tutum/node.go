@@ -4,7 +4,7 @@ import (
 	"encoding/json"
 	"log"
 
-	"golang.org/x/net/websocket"
+	"code.google.com/p/go.net/websocket"
 )
 
 /*
@@ -137,7 +137,7 @@ func (self *Node) Events(c chan NodeEvent) {
 		log.Println(err)
 	}
 
-	config.Header.Add("User-Agent", "go-tutum/"+version)
+	config.Header.Add("User-Agent", customUserAgent)
 
 	ws, err := websocket.DialConfig(config)
 	if err != nil {

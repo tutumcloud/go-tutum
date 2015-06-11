@@ -3,4 +3,4 @@ test:
     - go get github.com/BurntSushi/toml
     - go get code.google.com/p/go.net/websocket
   override:
-    - go test -v tutum/*.go
+    - go test -v ./... -race

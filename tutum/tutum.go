@@ -9,14 +9,13 @@ import (
 	"github.com/BurntSushi/toml"
 )
 
-var version string = "0.16.0"
-
 var (
 	User       string
 	ApiKey     string
 	BaseUrl    = "https://dashboard.tutum.co/api/v1/"
 	StreamUrl  = "wss://stream.tutum.co:443/v1/"
 	AuthHeader string
+	version    = "0.16.0"
 )
 
 type config map[string]Auth
