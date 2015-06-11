@@ -8,6 +8,13 @@ import (
 	"os"
 )
 
+var customUserAgent = ""
+
+func SetUserAgent(name string) string {
+	customUserAgent = name
+	return customUserAgent
+}
+
 func TutumCall(url string, requestType string, requestBody []byte) ([]byte, error) {
 	if os.Getenv("TUTUM_BASE_URL") != "" {
 		BaseUrl = os.Getenv("TUTUM_BASE_URL")
@@ -21,9 +28,10 @@ func TutumCall(url string, requestType string, requestBody []byte) ([]byte, erro
 	if ApiKey != "" {
 		AuthHeader = fmt.Sprintf("ApiKey %s:%s", User, ApiKey)
 	}
+
 	req.Header.Add("Authorization", AuthHeader)
 	req.Header.Add("Accept", "application/json")
-	req.Header.Add("User-Agent", "go-tutum "+version)
+	req.Header.Add("User-Agent", customUserAgent+" go-tutum/"+version)
 	response, err := client.Do(req)
 	if err != nil {
 		return nil, err

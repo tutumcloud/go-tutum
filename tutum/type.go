@@ -20,6 +20,16 @@ type Action struct {
 	Uuid         string `json:"uuid"`
 }
 
+type AZListResponse struct {
+	Objects []AZ `json:"objects"`
+}
+
+type AZ struct {
+	Available    bool   `json:"available"`
+	Name         string `json:"name"`
+	Resource_uri string `json:resource_uri`
+}
+
 type CListResponse struct {
 	Objects []Container `json:"objects"`
 }
@@ -77,10 +87,10 @@ type Exec struct {
 }
 
 type Logs struct {
-	Type      string `json:"type"`
-	Source    string `json:"source"`
-	Log       string `json:"log"`
-	Timestamp int    `json:"timestamp"`
+	Type       string `json:"type"`
+	Log        string `json:"log"`
+	StreamType string `json:streamType`
+	Timestamp  int    `json:"timestamp"`
 }
 
 type NodeListResponse struct {
@@ -88,6 +98,7 @@ type NodeListResponse struct {
 }
 
 type Node struct {
+	Availability_zone  string    `json:"availability_zone,omniempty"`
 	Deployed_datetime  string    `json:"deployed_datetime,omitempty"`
 	Destroyed_datetime string    `json:"destroyed_datetime,omitempty"`
 	Docker_version     string    `json:"docker_version,omitempty"`

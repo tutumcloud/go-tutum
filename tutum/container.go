@@ -71,6 +71,7 @@ Argument : a channel of type string for the output
 func (self *Container) Logs(c chan Logs) {
 
 	endpoint := "container/" + self.Uuid + "/logs/?user=" + User + "&token=" + ApiKey
+	log.Println(endpoint)
 	origin := "http://localhost/"
 	url := StreamUrl + endpoint
 	ws, err := websocket.Dial(url, "", origin)
@@ -79,17 +80,21 @@ func (self *Container) Logs(c chan Logs) {
 	}
 	var response Logs
 
+	var n int
 	var msg = make([]byte, 1024)
 	for {
-		ws.Request()
-		var n int
 		if n, err = ws.Read(msg); err != nil {
-			log.Println(err)
+			if err != nil && err.Error() != "EOF" {
+				log.Println(err)
+			} else {
+				break
+			}
 		}
 		err = json.Unmarshal(msg[:n], &response)
 		if err != nil {
 			log.Println(err)
 		}
+
 		c <- response
 	}
 }
