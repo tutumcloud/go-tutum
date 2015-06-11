@@ -34,7 +34,15 @@ func dial() (*websocket.Conn, error) {
 	}
 
 	var origin = "http://localhost"
-	ws, err := websocket.Dial(Url, "", origin)
+
+	config, err := websocket.NewConfig(Url, origin)
+	if err != nil {
+		return nil, err
+	}
+
+	config.Header.Add("User-Agent", "go-tutum/"+version)
+
+	ws, err := websocket.DialConfig(config)
 	if err != nil {
 		return nil, err
 	} else {
