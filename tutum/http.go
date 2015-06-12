@@ -8,10 +8,10 @@ import (
 	"os"
 )
 
-var customUserAgent = ""
+var customUserAgent = "go-tutum/" + version
 
 func SetUserAgent(name string) string {
-	customUserAgent = name
+	customUserAgent = name + " " + customUserAgent
 	return customUserAgent
 }
 

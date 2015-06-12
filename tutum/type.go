@@ -112,6 +112,11 @@ type Node struct {
 	Uuid               string    `json:"uuid,omitempty"`
 }
 
+type NodeEvent struct {
+	Type string `json:"type"`
+	Log  string `json:log`
+}
+
 type NodeTag struct {
 	Name string `json:"name"`
 }
