@@ -31,7 +31,7 @@ func TutumCall(url string, requestType string, requestBody []byte) ([]byte, erro
 
 	req.Header.Add("Authorization", AuthHeader)
 	req.Header.Add("Accept", "application/json")
-	req.Header.Add("User-Agent", customUserAgent+" go-tutum/"+version)
+	req.Header.Add("User-Agent", customUserAgent)
 	response, err := client.Do(req)
 	if err != nil {
 		return nil, err
