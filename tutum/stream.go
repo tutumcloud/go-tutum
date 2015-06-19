@@ -51,14 +51,9 @@ func dial() (*websocket.Conn, error) {
 	return streamWebsocket, nil
 }
 
-/*
-	func TutumStreamCall
-	Returns : The stream of all events from your NodeClusters, Containers, Services, Stack, Actions, ...
-*/
-func TutumEvents(c chan Event, e chan error) {
+func dialHandler(e chan error) *websocket.Conn {
 	var ws *websocket.Conn
 	tries := 0
-Loop:
 	for {
 		webSocket, err := dial()
 		if err != nil {
@@ -66,28 +61,39 @@ Loop:
 			time.Sleep(3 * time.Second)
 			if tries > 3 {
 				e <- err
-				return
+				return nil
 			}
 		} else {
 			ws = webSocket
-			break Loop
+			return ws
 		}
 	}
+}
 
-	defer close(c)
-	defer close(e)
-
-	var msg Event
-Loop2:
+func messagesHandler(ws *websocket.Conn, msg Event, c chan Event, e chan error) {
 	for {
 		err := websocket.JSON.Receive(ws, &msg)
 		if err != nil {
 			e <- err
-			break Loop2
+			return
 		}
 		if reflect.TypeOf(msg).String() == "tutum.Event" {
 			c <- msg
 		}
 	}
+}
+
+/*
+	func TutumStreamCall
+	Returns : The stream of all events from your NodeClusters, Containers, Services, Stack, Actions, ...
+*/
+func TutumEvents(c chan Event, e chan error) {
+
+	defer close(c)
+	defer close(e)
+
+	var msg Event
+	ws := dialHandler(e)
+	messagesHandler(ws, msg, c, e)
 	ws.Close()
 }
