@@ -27,7 +27,14 @@ type AZListResponse struct {
 type AZ struct {
 	Available    bool   `json:"available"`
 	Name         string `json:"name"`
-	Resource_uri string `json:resource_uri`
+	Resource_uri string `json:"resource_uri"`
+}
+
+type ContainerBindings struct {
+	Container_path string `json:"container_path"`
+	Host_path      string `json:"host_path"`
+	Rewritable     bool   `json:"rewritable"`
+	Volume         string `json:"volume"`
 }
 
 type CListResponse struct {
@@ -35,29 +42,39 @@ type CListResponse struct {
 }
 
 type Container struct {
-	Application            string    `json:"application"`
-	Autodestroy            string    `json:"autodestroy"`
-	Autoreplace            string    `json:"autoreplace"`
-	Autorestart            string    `json:"autorestart"`
-	Container_ports        []CCPInfo `json:"container_ports"`
-	Container_size         string    `json:"container_size"`
-	Current_num_containers int       `json:"current_num_containers"`
-	Deployed_datetime      string    `json:"deployed_datetime"`
-	Destroyed_datetime     string    `json:"destroyed_datetime"`
-	Entrypoint             string    `json:"entrypoint"`
-	Exit_code              int       `json:"exit_code"`
-	Exit_code_message      string    `json:"exit_code_message"`
-	Image_name             string    `json:"image_name"`
-	Image_tag              string    `json:"image_tag"`
-	Name                   string    `json:"name"`
-	Public_dns             string    `json:"public_dns"`
-	Resource_uri           string    `json:"resource_uri"`
-	Run_command            string    `json:"run_command"`
-	Started_datetime       string    `json:"started_datetime"`
-	State                  string    `json:"state"`
-	Stopped_datetime       string    `json:"stopped_datetime"`
-	Unique_name            string    `json:"unique_name"`
-	Uuid                   string    `json:"uuid"`
+	Application            string              `json:"application"`
+	Autodestroy            string              `json:"autodestroy"`
+	Autoreplace            string              `json:"autoreplace"`
+	Autorestart            string              `json:"autorestart"`
+	Bindings               []ContainerBindings `json:"bindings"`
+	Container_envvars      []ContainerEnv      `json:"container_envvars"`
+	Container_ports        []CCPInfo           `json:"container_ports"`
+	Container_size         string              `json:"container_size"`
+	Cpu_shares             int                 `json:"cpu_shares"`
+	Current_num_containers int                 `json:"current_num_containers"`
+	Deployed_datetime      string              `json:"deployed_datetime"`
+	Destroyed_datetime     string              `json:"destroyed_datetime"`
+	Entrypoint             string              `json:"entrypoint"`
+	Exit_code              int                 `json:"exit_code"`
+	Exit_code_message      string              `json:"exit_code_message"`
+	Image_name             string              `json:"image_name"`
+	Image_tag              string              `json:"image_tag"`
+	Memory                 int                 `json:"memory"`
+	Name                   string              `json:"name"`
+	Node                   string              `json:"node"`
+	Public_dns             string              `json:"public_dns"`
+	Privileged             bool                `json:"privileged"`
+	Private_ip             string              `json:"private_ip"`
+	Resource_uri           string              `json:"resource_uri"`
+	Roles                  []string            `json:"roles"`
+	Run_command            string              `json:"run_command"`
+	Service                string              `json:"service"`
+	Started_datetime       string              `json:"started_datetime"`
+	State                  string              `json:"state"`
+	Stopped_datetime       string              `json:"stopped_datetime"`
+	Synchronized           bool                `json:"synchronized"`
+	Unique_name            string              `json:"unique_name"`
+	Uuid                   string              `json:"uuid"`
 }
 
 type ContainerEnv struct {

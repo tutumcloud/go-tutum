@@ -52,10 +52,9 @@ func dial() (*websocket.Conn, error) {
 }
 
 func dialHandler(e chan error) *websocket.Conn {
-	var ws *websocket.Conn
 	tries := 0
 	for {
-		webSocket, err := dial()
+		ws, err := dial()
 		if err != nil {
 			tries++
 			time.Sleep(3 * time.Second)
@@ -64,7 +63,6 @@ func dialHandler(e chan error) *websocket.Conn {
 				return nil
 			}
 		} else {
-			ws = webSocket
 			return ws
 		}
 	}
