@@ -3,8 +3,9 @@ package tutum
 import (
 	"encoding/json"
 	"log"
+	"net/http"
 
-	"code.google.com/p/go.net/websocket"
+	"github.com/gorilla/websocket"
 )
 
 /*
@@ -100,39 +101,27 @@ Argument : a channel of type string for the output
 func (self *Service) Logs(c chan Logs) {
 
 	endpoint := "service/" + self.Uuid + "/logs/?user=" + User + "&token=" + ApiKey
-	origin := "http://localhost/"
 	url := StreamUrl + endpoint
 
-	config, err := websocket.NewConfig(url, origin)
+	header := http.Header{}
+	header.Add("User-Agent", customUserAgent)
+
+	var Dialer websocket.Dialer
+	ws, _, err := Dialer.Dial(url, header)
 	if err != nil {
 		log.Println(err)
 	}
 
-	config.Header.Add("User-Agent", customUserAgent)
-
-	ws, err := websocket.DialConfig(config)
-	if err != nil {
-		log.Println(err)
-	}
-
-	var response Logs
-
-	var n int
-	var msg = make([]byte, 1024)
+	var msg Logs
 	for {
-		if n, err = ws.Read(msg); err != nil {
+		if err = ws.ReadJSON(&msg); err != nil {
 			if err != nil && err.Error() != "EOF" {
 				log.Println(err)
 			} else {
 				break
 			}
 		}
-		err = json.Unmarshal(msg[:n], &response)
-		if err != nil {
-			log.Println(err)
-		}
-
-		c <- response
+		c <- msg
 	}
 }
 

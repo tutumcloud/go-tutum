@@ -1,21 +1,26 @@
 package tutum
 
 import (
+	"log"
+	"net/http"
 	"net/url"
 	"os"
 	"reflect"
 	"time"
 
-	"code.google.com/p/go.net/websocket"
+	"github.com/gorilla/websocket"
+)
+
+const (
+	pongWait = (5 * time.Second) / 2
 )
 
 /*
 	func dial()
 	Returns : a websocket connection
 */
-func dial() (*websocket.Conn, error) {
-	var streamWebsocket *websocket.Conn
 
+func dial() (*websocket.Conn, error) {
 	var Url = ""
 
 	if os.Getenv("TUTUM_STREAM_URL") != "" {
@@ -33,22 +38,17 @@ func dial() (*websocket.Conn, error) {
 		Url = StreamUrl + "events?token=" + ApiKey + "&user=" + User
 	}
 
-	var origin = "http://localhost"
+	header := http.Header{}
+	header.Add("User-Agent", customUserAgent)
 
-	config, err := websocket.NewConfig(Url, origin)
+	var Dialer websocket.Dialer
+	ws, _, err := Dialer.Dial(Url, header)
 	if err != nil {
+		log.Println(err)
 		return nil, err
 	}
 
-	config.Header.Add("User-Agent", customUserAgent)
-
-	ws, err := websocket.DialConfig(config)
-	if err != nil {
-		return nil, err
-	} else {
-		streamWebsocket = ws
-	}
-	return streamWebsocket, nil
+	return ws, nil
 }
 
 func dialHandler(e chan error) *websocket.Conn {
@@ -70,11 +70,12 @@ func dialHandler(e chan error) *websocket.Conn {
 
 func messagesHandler(ws *websocket.Conn, msg Event, c chan Event, e chan error) {
 	for {
-		err := websocket.JSON.Receive(ws, &msg)
+		err := ws.ReadJSON(&msg)
 		if err != nil {
 			e <- err
 			return
 		}
+
 		if reflect.TypeOf(msg).String() == "tutum.Event" {
 			c <- msg
 		}
@@ -86,12 +87,26 @@ func messagesHandler(ws *websocket.Conn, msg Event, c chan Event, e chan error) 
 	Returns : The stream of all events from your NodeClusters, Containers, Services, Stack, Actions, ...
 */
 func TutumEvents(c chan Event, e chan error) {
-
-	defer close(c)
-	defer close(e)
-
 	var msg Event
+
+	ticker := time.NewTicker(5 * time.Second)
 	ws := dialHandler(e)
-	messagesHandler(ws, msg, c, e)
-	ws.Close()
+
+	defer func() {
+		close(c)
+		close(e)
+		ws.Close()
+	}()
+
+	go messagesHandler(ws, msg, c, e)
+
+	for {
+		select {
+		case <-ticker.C:
+			if err := ws.WriteControl(websocket.PingMessage, []byte{}, time.Now().Add(pongWait)); err != nil {
+				e <- err
+				return
+			}
+		}
+	}
 }

@@ -4,9 +4,10 @@ import (
 	"encoding/json"
 	"fmt"
 	"log"
+	"net/http"
 	"net/url"
 
-	"code.google.com/p/go.net/websocket"
+	"github.com/gorilla/websocket"
 )
 
 /*
@@ -71,39 +72,27 @@ Argument : a channel of type string for the output
 func (self *Container) Logs(c chan Logs) {
 
 	endpoint := "container/" + self.Uuid + "/logs/?user=" + User + "&token=" + ApiKey
-	origin := "http://localhost/"
 	url := StreamUrl + endpoint
 
-	config, err := websocket.NewConfig(url, origin)
+	header := http.Header{}
+	header.Add("User-Agent", customUserAgent)
+
+	var Dialer websocket.Dialer
+	ws, _, err := Dialer.Dial(url, header)
 	if err != nil {
 		log.Println(err)
 	}
 
-	config.Header.Add("User-Agent", customUserAgent)
-
-	ws, err := websocket.DialConfig(config)
-	if err != nil {
-		log.Println(err)
-	}
-
-	var response Logs
-
-	var n int
-	var msg = make([]byte, 1024)
+	var msg Logs
 	for {
-		if n, err = ws.Read(msg); err != nil {
+		if err = ws.ReadJSON(&msg); err != nil {
 			if err != nil && err.Error() != "EOF" {
 				log.Println(err)
 			} else {
 				break
 			}
 		}
-		err = json.Unmarshal(msg[:n], &response)
-		if err != nil {
-			log.Println(err)
-		}
-
-		c <- response
+		c <- msg
 	}
 }
 
@@ -130,36 +119,27 @@ Loop:
 func (self *Container) Run(command string, c chan Exec) {
 
 	endpoint := "container/" + self.Uuid + "/exec/?user=" + User + "&token=" + ApiKey + "&command=" + url.QueryEscape(command)
-	origin := "http://localhost/"
 	url := "wss://live-test.tutum.co:443/v1/" + endpoint
-	ws, err := websocket.Dial(url, "", origin)
 
-	var response Exec
+	header := http.Header{}
+	header.Add("User-Agent", customUserAgent)
 
+	var Dialer websocket.Dialer
+	ws, _, err := Dialer.Dial(url, header)
 	if err != nil {
-		if err.Error() != "EOF" {
-			log.Println(err)
-		}
+		log.Println(err)
 	}
 
-	msg := make([]byte, 512)
-	var n int
-
-Loop:
+	var msg Exec
 	for {
-		if n, err = ws.Read(msg); err != nil {
+		if err = ws.ReadJSON(&msg); err != nil {
 			if err != nil && err.Error() != "EOF" {
 				log.Println(err)
 			} else {
-				break Loop
+				break
 			}
 		}
-		err = json.Unmarshal(msg[:n], &response)
-		if err != nil {
-			log.Println(err)
-		}
-
-		c <- response
+		c <- msg
 	}
 }
 
