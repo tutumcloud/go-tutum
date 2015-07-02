@@ -12,7 +12,12 @@ import (
 )
 
 const (
-	pongWait = (5 * time.Second) / 2
+	// Time allowed to write a message to the peer.
+	WRITE_WAIT = 5 * time.Second
+	// Time allowed to read the next pong message from the peer.
+	PONG_WAIT = 10 * time.Second
+	// Send pings to client with this period. Must be less than PONG_WAIT.
+	PING_PERIOD = PONG_WAIT / 2
 )
 
 /*
@@ -60,7 +65,6 @@ func dialHandler(e chan error) *websocket.Conn {
 			time.Sleep(3 * time.Second)
 			if tries > 3 {
 				e <- err
-				return nil
 			}
 		} else {
 			return ws
@@ -68,12 +72,23 @@ func dialHandler(e chan error) *websocket.Conn {
 	}
 }
 
-func messagesHandler(ws *websocket.Conn, msg Event, c chan Event, e chan error) {
+func write(ws *websocket.Conn, opCode int, payload []byte) error {
+	ws.SetWriteDeadline(time.Now().Add(WRITE_WAIT))
+	return ws.WriteMessage(opCode, payload)
+}
+
+func messagesHandler(ws *websocket.Conn, ticker *time.Ticker, msg Event, c chan Event, e chan error) {
+	ws.SetReadDeadline(time.Now().Add(PONG_WAIT))
+	ws.SetPongHandler(func(string) error {
+		ws.SetReadDeadline(time.Now().Add(PONG_WAIT))
+		return nil
+	})
 	for {
 		err := ws.ReadJSON(&msg)
 		if err != nil {
+			log.Println("READ ERR")
+			ticker.Stop()
 			e <- err
-			return
 		}
 
 		if reflect.TypeOf(msg).String() == "tutum.Event" {
@@ -86,10 +101,10 @@ func messagesHandler(ws *websocket.Conn, msg Event, c chan Event, e chan error) 
 	func TutumStreamCall
 	Returns : The stream of all events from your NodeClusters, Containers, Services, Stack, Actions, ...
 */
+
 func TutumEvents(c chan Event, e chan error) {
 	var msg Event
-
-	ticker := time.NewTicker(5 * time.Second)
+	ticker := time.NewTicker(PING_PERIOD)
 	ws := dialHandler(e)
 
 	defer func() {
@@ -97,16 +112,19 @@ func TutumEvents(c chan Event, e chan error) {
 		close(e)
 		ws.Close()
 	}()
+	go messagesHandler(ws, ticker, msg, c, e)
 
-	go messagesHandler(ws, msg, c, e)
-
+Loop:
 	for {
 		select {
 		case <-ticker.C:
-			if err := ws.WriteControl(websocket.PingMessage, []byte{}, time.Now().Add(pongWait)); err != nil {
+			if err := write(ws, websocket.PingMessage, []byte{}); err != nil {
+				ticker.Stop()
 				e <- err
-				return
+				break Loop
 			}
+		case <-e:
+			ticker.Stop()
 		}
 	}
 }

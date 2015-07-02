@@ -11,7 +11,8 @@ import (
 var customUserAgent = "go-tutum/" + version
 
 func SetUserAgent(name string) string {
-	customUserAgent = name + " " + customUserAgent
+	customUserAgent = ""
+	customUserAgent = name + " go-tutum/" + version
 	return customUserAgent
 }
 
