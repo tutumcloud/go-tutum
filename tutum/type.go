@@ -104,6 +104,75 @@ type Exec struct {
 	StreamType string `json:"streamType"`
 }
 
+type BuildSettings struct {
+	Autobuild  bool   `json:"autobuild,omitempty"`
+	Branch     string `json:"branch"`
+	Dockerfile string `json:"dockerfile"`
+	Tag        string `json:"tag"`
+}
+
+type BuildSource struct {
+	Autotest       string          `json:"autotest,omitempty"`
+	Build_Settings []BuildSettings `json:"build_settings"`
+	Owner          string          `json:"owner,omitempty"`
+	Repository     string          `json:"repository"`
+	Type           string          `json:"type,omitempty"`
+}
+
+type ImageListResponse struct {
+	Objects []Image `json:"objects"`
+}
+
+type Image struct {
+	Build_Source     BuildSource `json:"build_source"`
+	Description      string      `json:"description"`
+	Registry         string      `json:"registry"`
+	Icon_url         string      `json:"icon_url"`
+	In_use           bool        `json:"in_use"`
+	Is_private_image bool        `json:"is_private_image"`
+	Jumpstart        bool        `json:"jumpstart"`
+	Last_build_date  string      `json:"last_build_date"`
+	Name             string      `json:"name"`
+	Public_url       string      `json:"public_url"`
+	Resource_uri     string      `json:"resource_uri"`
+	Star_count       int         `json:"star_count"`
+	State            string      `json:"state"`
+	Tags             []string    `json:"tags"`
+}
+
+type ImageCreateRequest struct {
+	BuildSource BuildSource `json:"build_source"`
+	Name        string      `json:"name"`
+	Username    string      `json:"username,omitempty"`
+	Password    string      `json:"password,omniempty"`
+	Description string      `json:"description"`
+}
+
+type ImageTagsListResponse struct {
+	Objects []ImageTags `json:"objects"`
+}
+
+type ImageTags struct {
+	Buildable    bool        `json:"buildable"`
+	Full_name    string      `json:"full_name"`
+	Layer        LayerStruct `json:"layer"`
+	Image        string      `json:"image"`
+	Name         string      `json:"name"`
+	Resource_uri string      `json:"resource_uri"`
+}
+
+type LayerStruct struct {
+	Author       string         `json:"author"`
+	Creation     string         `json:"creation"`
+	Docker_id    string         `json:"docker_id"`
+	Entrypoint   string         `json:"entrypoint"`
+	Envvars      []ContainerEnv `json:"envvars"`
+	Ports        []Ports        `json:"ports"`
+	Resource_uri string         `json:"resource_uri"`
+	Run_command  string         `json:"run_command"`
+	Volumes      []VolumePath   `json:"volumes"`
+}
+
 type Logs struct {
 	Type       string `json:"type"`
 	Log        string `json:"log"`
@@ -177,6 +246,11 @@ type NodeType struct {
 	Provider     string   `json:"provider"`
 	Regions      []string `json:"regions"`
 	Resource_uri string   `json:"resource_uri"`
+}
+
+type Ports struct {
+	Port     int    `json:"port"`
+	Protocol string `json:"protocol"`
 }
 
 type ProviderListResponse struct {
@@ -341,4 +415,8 @@ type VolumeGroup struct {
 	State        string   `json:"state"`
 	Uuid         string   `json:"uuid"`
 	Volume       []string `json:"volume"`
+}
+
+type VolumePath struct {
+	Container_path string `json:"container_path"`
 }

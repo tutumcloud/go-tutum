@@ -166,9 +166,9 @@ func (self *Service) Update(createRequest ServiceCreateRequest) error {
 		return err
 	}
 
-	_, errr := TutumCall(url, request, updatedService)
-	if errr != nil {
-		return errr
+	_, err = TutumCall(url, request, updatedService)
+	if err != nil {
+		return err
 	}
 
 	return nil
