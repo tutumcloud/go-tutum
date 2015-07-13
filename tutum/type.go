@@ -1,6 +1,7 @@
 package tutum
 
 type ActionListResponse struct {
+	Meta    Meta     `json:"meta"`
 	Objects []Action `json:"objects"`
 }
 
@@ -21,6 +22,7 @@ type Action struct {
 }
 
 type AZListResponse struct {
+	Meta    Meta `json:"meta"`
 	Objects []AZ `json:"objects"`
 }
 
@@ -37,7 +39,14 @@ type ContainerBindings struct {
 	Volume         string `json:"volume"`
 }
 
+type Meta struct {
+	Limit      int    `json:"limit"`
+	Next       string `json:"next"`
+	TotalCount int    `json:"total_count"`
+}
+
 type CListResponse struct {
+	Meta    Meta        `json:"meta"`
 	Objects []Container `json:"objects"`
 }
 
@@ -120,6 +129,7 @@ type BuildSource struct {
 }
 
 type ImageListResponse struct {
+	Meta    Meta    `json:"meta"`
 	Objects []Image `json:"objects"`
 }
 
@@ -149,6 +159,7 @@ type ImageCreateRequest struct {
 }
 
 type ImageTagsListResponse struct {
+	Meta    Meta        `json:"meta"`
 	Objects []ImageTags `json:"objects"`
 }
 
@@ -181,6 +192,7 @@ type Logs struct {
 }
 
 type NodeListResponse struct {
+	Meta    Meta   `json:"meta"`
 	Objects []Node `json:"objects"`
 }
 
@@ -209,6 +221,7 @@ type NodeTag struct {
 }
 
 type NodeClusterListResponse struct {
+	Meta    Meta          `json:"meta"`
 	Objects []NodeCluster `json:"objects"`
 }
 
@@ -236,6 +249,7 @@ type NodeCreateRequest struct {
 }
 
 type NodeTypeListResponse struct {
+	Meta    Meta       `json:"meta"`
 	Objects []NodeType `json:"objects"`
 }
 
@@ -254,6 +268,7 @@ type Ports struct {
 }
 
 type ProviderListResponse struct {
+	Meta    Meta       `json:"meta"`
 	Objects []Provider `json:"objects"`
 }
 
@@ -266,6 +281,7 @@ type Provider struct {
 }
 
 type RegionListResponse struct {
+	Meta    Meta     `json:"meta"`
 	Objects []Region `json:"objects"`
 }
 
@@ -279,6 +295,7 @@ type Region struct {
 }
 
 type SListResponse struct {
+	Meta    Meta      `json:"meta"`
 	Objects []Service `json: "objects"`
 }
 
@@ -341,6 +358,7 @@ type LinkToInfo struct {
 }
 
 type StackListResponse struct {
+	Meta    Meta         `json:"meta"`
 	Objects []StackShort `json:"objects"`
 }
 
@@ -376,6 +394,7 @@ type Token struct {
 }
 
 type TriggerListResponse struct {
+	Meta    Meta      `json:"meta"`
 	Objects []Trigger `json:"objects"`
 }
 
@@ -392,6 +411,7 @@ type TriggerCreateRequest struct {
 }
 
 type VolumeListResponse struct {
+	Meta    Meta     `json:"meta"`
 	Objects []Volume `json:"objects"`
 }
 
@@ -405,6 +425,7 @@ type Volume struct {
 }
 
 type VolumeGroupListResponse struct {
+	Meta    Meta          `json:"meta"`
 	Objects []VolumeGroup `json:"objects"`
 }
 
