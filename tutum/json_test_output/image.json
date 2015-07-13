@@ -1,0 +1,34 @@
+{
+    "meta": {
+        "limit": 25,
+        "next": null,
+        "offset": 0,
+        "previous": null,
+        "total_count": 23
+    },
+    "objects": [
+        {
+            "build_source": null,
+            "categories": [
+                {
+                    "name": "Database servers"
+                }
+            ],
+            "description": "MySQL Server image - listens in port 3306. For the admin account password, either set MYSQL_PASS environment variable, or check the logs for a randomly generated one.",
+            "icon_url": "/_static/assets/images/dockerimages/mysql-64.png",
+            "in_use": false,
+            "is_private_image": false,
+            "jumpstart": true,
+            "last_build_date": "2015-06-19 15:12:04+00:00",
+            "name": "tutum/mysql",
+            "public_url": "https://registry.hub.docker.com/u/tutum/mysql/",
+            "registry": "/api/v1/registry/registry.hub.docker.com/",
+            "resource_uri": "/api/v1/image/tutum/mysql/",
+            "star_count": 124,
+            "state": "Success",
+            "tags": [
+                "/api/v1/image/tutum/mysql/tag/latest/"
+            ]
+        }
+    ]
+}

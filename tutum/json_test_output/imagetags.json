@@ -1,0 +1,65 @@
+{
+    "buildable": false,
+    "full_name": "tutum/mysql:latest",
+    "image": "/api/v1/image/tutum/mysql/",
+    "layer": {
+        "author": "Fernando Mayo <fernando@tutum.co>, Feng Honglin <hfeng@tutum.co>",
+        "creation": "Tue, 7 Jul 2015 15:14:04 +0000",
+        "docker_id": "033a71bff2be14f7b7c1db05c6e76cb483b8d59b9df085bc2dbe8ec48f97a9a1",
+        "entrypoint": "",
+        "envvars": [
+            {
+                "key": "MYSQL_PASS",
+                "value": "**Random**"
+            },
+            {
+                "key": "MYSQL_USER",
+                "value": "admin"
+            },
+            {
+                "key": "ON_CREATE_DB",
+                "value": "**False**"
+            },
+            {
+                "key": "PATH",
+                "value": "/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+            },
+            {
+                "key": "REPLICATION_MASTER",
+                "value": "**False**"
+            },
+            {
+                "key": "REPLICATION_PASS",
+                "value": "replica"
+            },
+            {
+                "key": "REPLICATION_SLAVE",
+                "value": "**False**"
+            },
+            {
+                "key": "REPLICATION_USER",
+                "value": "replica"
+            }
+        ],
+        "labels": [],
+        "ports": [
+            {
+                "port": 3306,
+                "protocol": "tcp"
+            }
+        ],
+        "resource_uri": "/api/v1/layer/033a71bff2be14f7b7c1db05c6e76cb483b8d59b9df085bc2dbe8ec48f97a9a1/",
+        "run_command": "/run.sh",
+        "volumes": [
+            {
+                "container_path": "/etc/mysql"
+            },
+            {
+                "container_path": "/var/lib/mysql"
+            }
+        ]
+    },
+    "name": "latest",
+    "resource_uri": "/api/v1/image/tutum/mysql/tag/latest/",
+    "state": "Success"
+}

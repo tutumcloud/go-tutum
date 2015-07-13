@@ -1,7 +1,7 @@
 {
     "meta": {
         "limit": 25,
-        "next": "/api/v1/nodetype/?limit=25&offset=25",
+        "next": null,
         "offset": 0,
         "previous": null,
         "total_count": 159

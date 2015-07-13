@@ -21,6 +21,8 @@ var (
 	fake_uuid_stack       = "09cbcf8d-a727-40d9-b420-c8e18b7fa55b"
 	fake_uuid_volume      = "1863e34d-6a7d-4945-aefc-8f27a4ab1a9e"
 	fake_uuid_volumegroup = "1863e34d-6a7d-4945-aefc-8f27a4ab1a9e"
+	fake_image_name       = "tutum/mysql"
+	fake_image_tag        = "latest"
 )
 
 /*
