@@ -2,6 +2,7 @@ package tutum
 
 import (
 	"log"
+	"net"
 	"net/http"
 	"net/url"
 	"os"
@@ -30,8 +31,12 @@ func dial() (*websocket.Conn, error) {
 
 	if os.Getenv("TUTUM_STREAM_URL") != "" {
 		u, _ := url.Parse(os.Getenv("TUTUM_STREAM_URL"))
-		u.Host = u.Host + ":443"
+		_, port, _ := net.SplitHostPort(u.Host)
+		if port == "" {
+			u.Host = u.Host + ":443"
+		}
 		StreamUrl = u.Scheme + "://" + u.Host + u.Path
+		log.Println(StreamUrl)
 	}
 
 	if os.Getenv("TUTUM_AUTH") != "" {
@@ -41,6 +46,7 @@ func dial() (*websocket.Conn, error) {
 	}
 	if User != "" && ApiKey != "" {
 		Url = StreamUrl + "events?token=" + ApiKey + "&user=" + User
+		log.Println(Url)
 	}
 
 	header := http.Header{}
