@@ -8,6 +8,7 @@ func ListAZ() (AZListResponse, error) {
 	//Empty Body Request
 	body := []byte(`{}`)
 	var response AZListResponse
+	var finalResponse AZListResponse
 
 	data, err := TutumCall(url, request, body)
 	if err != nil {
@@ -19,7 +20,29 @@ func ListAZ() (AZListResponse, error) {
 		return response, err
 	}
 
-	return response, nil
+	finalResponse = response
+
+Loop:
+	for {
+		if response.Meta.Next != "" {
+			var nextResponse AZListResponse
+			data, err := TutumCall(response.Meta.Next[8:], request, body)
+			if err != nil {
+				return nextResponse, err
+			}
+			err = json.Unmarshal(data, &nextResponse)
+			if err != nil {
+				return nextResponse, err
+			}
+			finalResponse.Objects = append(finalResponse.Objects, nextResponse.Objects...)
+			response = nextResponse
+
+		} else {
+			break Loop
+		}
+	}
+
+	return finalResponse, nil
 }
 
 func GetAZ(az string) (AZ, error) {

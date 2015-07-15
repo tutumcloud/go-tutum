@@ -24,8 +24,10 @@ func TutumCall(url string, requestType string, requestBody []byte) ([]byte, erro
 	if !IsAuthenticated() {
 		return nil, fmt.Errorf("Couldn't find any Tutum credentials in ~/.tutum or environment variables TUTUM_USER and TUTUM_APIKEY")
 	}
+
 	client := &http.Client{}
 	req, err := http.NewRequest(requestType, BaseUrl+url, bytes.NewBuffer(requestBody))
+
 	if ApiKey != "" {
 		AuthHeader = fmt.Sprintf("ApiKey %s:%s", User, ApiKey)
 	}
@@ -33,6 +35,7 @@ func TutumCall(url string, requestType string, requestBody []byte) ([]byte, erro
 	req.Header.Add("Authorization", AuthHeader)
 	req.Header.Add("Accept", "application/json")
 	req.Header.Add("User-Agent", customUserAgent)
+
 	response, err := client.Do(req)
 	if err != nil {
 		return nil, err

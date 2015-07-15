@@ -18,16 +18,42 @@ func ListServices() (SListResponse, error) {
 	//Empty Body Request
 	body := []byte(`{}`)
 	var response SListResponse
+	var finalResponse SListResponse
 
 	data, err := TutumCall(url, request, body)
 	if err != nil {
 		return response, err
 	}
+
 	err = json.Unmarshal(data, &response)
 	if err != nil {
 		return response, err
 	}
-	return response, nil
+
+	finalResponse = response
+
+Loop:
+	for {
+		if response.Meta.Next != "" {
+			var nextResponse SListResponse
+			data, err := TutumCall(response.Meta.Next[8:], request, body)
+			if err != nil {
+				return nextResponse, err
+			}
+			err = json.Unmarshal(data, &nextResponse)
+			if err != nil {
+				return nextResponse, err
+			}
+			finalResponse.Objects = append(finalResponse.Objects, nextResponse.Objects...)
+			response = nextResponse
+
+		} else {
+			break Loop
+		}
+
+	}
+
+	return finalResponse, nil
 
 }
 
@@ -166,9 +192,9 @@ func (self *Service) Update(createRequest ServiceCreateRequest) error {
 		return err
 	}
 
-	_, errr := TutumCall(url, request, updatedService)
-	if errr != nil {
-		return errr
+	_, err = TutumCall(url, request, updatedService)
+	if err != nil {
+		return err
 	}
 
 	return nil

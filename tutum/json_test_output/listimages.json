@@ -1,0 +1,80 @@
+{
+    "meta": {
+        "limit": 25,
+        "next": null,
+        "offset": 0,
+        "previous": null,
+        "total_count": 23
+    },
+    "objects": [
+        {
+            "build_source": null,
+            "categories": [
+                {
+                    "name": "Database servers"
+                }
+            ],
+            "description": "MySQL Server image - listens in port 3306. For the admin account password, either set MYSQL_PASS environment variable, or check the logs for a randomly generated one.",
+            "icon_url": "/_static/assets/images/dockerimages/mysql-64.png",
+            "in_use": false,
+            "is_private_image": false,
+            "jumpstart": true,
+            "last_build_date": "2015-06-19 15:12:04+00:00",
+            "name": "tutum/mysql",
+            "public_url": "https://registry.hub.docker.com/u/tutum/mysql/",
+            "registry": "/api/v1/registry/registry.hub.docker.com/",
+            "resource_uri": "/api/v1/image/tutum/mysql/",
+            "star_count": 124,
+            "state": "Success",
+            "tags": [
+                "/api/v1/image/tutum/mysql/tag/latest/"
+            ]
+        },
+        {
+            "build_source": null,
+            "categories": [
+                {
+                    "name": "Database servers"
+                }
+            ],
+            "description": "InfluxDB image - listens in port 8083 (web) and 8086 (HTTP API). Please fill the port mapping to 8086 when using web console. Default credential: root:root. ",
+            "icon_url": "/_static/assets/images/dockerimages/influxdb-64.png",
+            "in_use": false,
+            "is_private_image": false,
+            "jumpstart": true,
+            "last_build_date": "2015-06-22 17:14:10+00:00",
+            "name": "tutum/influxdb",
+            "public_url": "https://registry.hub.docker.com/u/tutum/influxdb/",
+            "registry": "/api/v1/registry/registry.hub.docker.com/",
+            "resource_uri": "/api/v1/image/tutum/influxdb/",
+            "star_count": 60,
+            "state": "Success",
+            "tags": [
+                "/api/v1/image/tutum/influxdb/tag/latest/"
+            ]
+        },
+        {
+            "build_source": null,
+            "categories": [
+                {
+                    "name": "Messaging queues"
+                }
+            ],
+            "description": "RabbitMQ Docker image – listens in ports 5672/15672 (admin). For the admin password, either set RABBITMQ_PASS environment variable or read the logs for a randomly generated one",
+            "icon_url": "/_static/assets/images/dockerimages/rabbitmq-64.png",
+            "in_use": false,
+            "is_private_image": false,
+            "jumpstart": true,
+            "last_build_date": "2015-05-12 10:22:33+00:00",
+            "name": "tutum/rabbitmq",
+            "public_url": "https://registry.hub.docker.com/u/tutum/rabbitmq/",
+            "registry": "/api/v1/registry/registry.hub.docker.com/",
+            "resource_uri": "/api/v1/image/tutum/rabbitmq/",
+            "star_count": 42,
+            "state": "Success",
+            "tags": [
+                "/api/v1/image/tutum/rabbitmq/tag/latest/"
+            ]
+        }
+    ]
+}

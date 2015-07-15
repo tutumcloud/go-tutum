@@ -2,6 +2,7 @@ package tutum
 
 import (
 	"log"
+	"net"
 	"net/http"
 	"net/url"
 	"os"
@@ -30,8 +31,12 @@ func dial() (*websocket.Conn, error) {
 
 	if os.Getenv("TUTUM_STREAM_URL") != "" {
 		u, _ := url.Parse(os.Getenv("TUTUM_STREAM_URL"))
-		u.Host = u.Host + ":443"
+		_, port, _ := net.SplitHostPort(u.Host)
+		if port == "" {
+			u.Host = u.Host + ":443"
+		}
 		StreamUrl = u.Scheme + "://" + u.Host + u.Path
+		log.Println(StreamUrl)
 	}
 
 	if os.Getenv("TUTUM_AUTH") != "" {
@@ -41,6 +46,7 @@ func dial() (*websocket.Conn, error) {
 	}
 	if User != "" && ApiKey != "" {
 		Url = StreamUrl + "events?token=" + ApiKey + "&user=" + User
+		log.Println(Url)
 	}
 
 	header := http.Header{}
@@ -72,13 +78,7 @@ func dialHandler(e chan error) *websocket.Conn {
 	}
 }
 
-func write(ws *websocket.Conn, opCode int, payload []byte) error {
-	ws.SetWriteDeadline(time.Now().Add(WRITE_WAIT))
-	return ws.WriteMessage(opCode, payload)
-}
-
 func messagesHandler(ws *websocket.Conn, ticker *time.Ticker, msg Event, c chan Event, e chan error) {
-	ws.SetReadDeadline(time.Now().Add(PONG_WAIT))
 	ws.SetPongHandler(func(string) error {
 		ws.SetReadDeadline(time.Now().Add(PONG_WAIT))
 		return nil
@@ -118,7 +118,7 @@ Loop:
 	for {
 		select {
 		case <-ticker.C:
-			if err := write(ws, websocket.PingMessage, []byte{}); err != nil {
+			if err := ws.WriteMessage(websocket.PingMessage, []byte{}); err != nil {
 				ticker.Stop()
 				e <- err
 				break Loop
