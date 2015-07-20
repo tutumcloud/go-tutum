@@ -17,8 +17,11 @@ func SetUserAgent(name string) string {
 }
 
 func TutumCall(url string, requestType string, requestBody []byte) ([]byte, error) {
-	if os.Getenv("TUTUM_BASE_URL") != "" {
+	if os.Getenv("TUTUM_REST_HOST") != "" {
 		BaseUrl = os.Getenv("TUTUM_BASE_URL")
+		BaseUrl = BaseUrl + "/api/v1/"
+	} else {
+		BaseUrl = "https://dashboard.tutum.co/api/v1/"
 	}
 
 	if !IsAuthenticated() {
