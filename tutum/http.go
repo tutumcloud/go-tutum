@@ -16,17 +16,23 @@ func SetUserAgent(name string) string {
 	return customUserAgent
 }
 
-func TutumCall(url string, requestType string, requestBody []byte) ([]byte, error) {
+func SetBaseUrl() string {
 	if os.Getenv("TUTUM_REST_HOST") != "" {
 		BaseUrl = os.Getenv("TUTUM_REST_HOST")
 		BaseUrl = BaseUrl + "/api/v1/"
-	} else {
-		BaseUrl = "https://dashboard.tutum.co/api/v1/"
+	} else if os.Getenv("TUTUM_BASE_URL") != "" {
+		BaseUrl = os.Getenv("TUTUM_BASE_URL")
 	}
+	return BaseUrl
+}
+
+func TutumCall(url string, requestType string, requestBody []byte) ([]byte, error) {
 
 	if !IsAuthenticated() {
 		return nil, fmt.Errorf("Couldn't find any Tutum credentials in ~/.tutum or environment variables TUTUM_USER and TUTUM_APIKEY")
 	}
+
+	BaseUrl = SetBaseUrl()
 
 	client := &http.Client{}
 	req, err := http.NewRequest(requestType, BaseUrl+url, bytes.NewBuffer(requestBody))
