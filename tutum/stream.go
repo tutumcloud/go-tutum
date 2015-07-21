@@ -36,8 +36,13 @@ func dial() (*websocket.Conn, error) {
 			u.Host = u.Host + ":443"
 		}
 		StreamUrl = u.Scheme + "://" + u.Host + "/v1/"
-	} else {
-		StreamUrl = "wss://stream.tutum.co:443/v1/"
+	} else if os.Getenv("TUTUM_STREAM_URL") != "" {
+		u, _ := url.Parse(os.Getenv("TUTUM_STREAM_URL"))
+		_, port, _ := net.SplitHostPort(u.Host)
+		if port == "" {
+			u.Host = u.Host + ":443"
+		}
+		StreamUrl = u.Scheme + "://" + u.Host + "/v1/"
 	}
 
 	log.Println(StreamUrl)
