@@ -70,11 +70,12 @@ type Container struct {
 	Image_tag              string              `json:"image_tag"`
 	Memory                 int                 `json:"memory"`
 	Name                   string              `json:"name"`
-	Network                string              `json:"network"`
+	Net                    string              `json:"net"`
 	Node                   string              `json:"node"`
-	Public_dns             string              `json:"public_dns"`
+	Pid                    string              `json:"pid"`
 	Privileged             bool                `json:"privileged"`
 	Private_ip             string              `json:"private_ip"`
+	Public_dns             string              `json:"public_dns"`
 	Resource_uri           string              `json:"resource_uri"`
 	Roles                  []string            `json:"roles"`
 	Run_command            string              `json:"run_command"`
@@ -317,8 +318,9 @@ type Service struct {
 	Image_tag              string         `json:"image_tag`
 	Linked_to_service      []LinkToInfo   `json:"linked_to_service`
 	Name                   string         `json:"name"`
-	Network                string         `json:"network"`
+	Net                    string         `json:"net"`
 	Public_dns             string         `json:"public_dns"`
+	Pid                    string         `json:"pid"`
 	Resource_uri           string         `json:"resource_uri"`
 	Run_command            string         `json:"run_command"`
 	Started_datetime       string         `json:"started_datetime"`
