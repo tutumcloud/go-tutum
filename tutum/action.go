@@ -116,3 +116,55 @@ func (self *Action) GetLogs(c chan Logs) {
 		c <- msg
 	}
 }
+
+func (self *Action) Cancel() (Action, error) {
+	url := ""
+	if string(self.Uuid[0]) == "/" {
+		url = self.Uuid[8:]
+	} else {
+		url = "action/" + self.Uuid + "/cancel/"
+	}
+
+	request := "POST"
+	//Empty Body Request
+	body := []byte(`{}`)
+	var response Action
+
+	data, err := TutumCall(url, request, body)
+	if err != nil {
+		return response, err
+	}
+
+	err = json.Unmarshal(data, &response)
+	if err != nil {
+		return response, err
+	}
+
+	return response, nil
+}
+
+func (self *Action) Retry() (Action, error) {
+	url := ""
+	if string(self.Uuid[0]) == "/" {
+		url = self.Uuid[8:]
+	} else {
+		url = "action/" + self.Uuid + "/retry/"
+	}
+
+	request := "POST"
+	//Empty Body Request
+	body := []byte(`{}`)
+	var response Action
+
+	data, err := TutumCall(url, request, body)
+	if err != nil {
+		return response, err
+	}
+
+	err = json.Unmarshal(data, &response)
+	if err != nil {
+		return response, err
+	}
+
+	return response, nil
+}
