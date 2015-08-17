@@ -45,8 +45,6 @@ func dial() (*websocket.Conn, error) {
 		StreamUrl = u.Scheme + "://" + u.Host + "/v1/"
 	}
 
-	log.Println(StreamUrl)
-
 	if os.Getenv("TUTUM_AUTH") != "" {
 		endpoint := ""
 		endpoint = url.QueryEscape(os.Getenv("TUTUM_AUTH"))
@@ -54,7 +52,6 @@ func dial() (*websocket.Conn, error) {
 	}
 	if User != "" && ApiKey != "" {
 		Url = StreamUrl + "events?token=" + ApiKey + "&user=" + User
-		log.Println(Url)
 	}
 
 	header := http.Header{}
@@ -63,7 +60,6 @@ func dial() (*websocket.Conn, error) {
 	var Dialer websocket.Dialer
 	ws, _, err := Dialer.Dial(Url, header)
 	if err != nil {
-		log.Println(err)
 		return nil, err
 	}
 
@@ -78,6 +74,7 @@ func dialHandler(e chan error) *websocket.Conn {
 			tries++
 			time.Sleep(3 * time.Second)
 			if tries > 3 {
+				log.Println("[DIAL ERROR]: " + err.Error())
 				e <- err
 			}
 		} else {

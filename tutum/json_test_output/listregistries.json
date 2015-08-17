@@ -1,0 +1,20 @@
+{
+    "meta": {
+        "limit": 25,
+        "next": null,
+        "offset": 0,
+        "previous": null,
+        "total_count": 2
+    },
+    "objects": [
+        {
+            "host": "r-staging.tutum.co",
+            "icon_url": "/_static/assets/images/dockerregistries/tutum.png",
+            "is_ssl": true,
+            "is_tutum_registry": true,
+            "name": "Tutum registry",
+            "port": null,
+            "resource_uri": "/api/v1/registry/r-staging.tutum.co/"
+        }
+    ]
+}

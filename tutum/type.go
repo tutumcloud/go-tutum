@@ -295,6 +295,20 @@ type Region struct {
 	Resource_uri string   `json:"resource_uri"`
 }
 
+type RegistryListResponse struct {
+	Meta    Meta       `json:"meta"`
+	Objects []Registry `json:"objects"`
+}
+
+type Registry struct {
+	Host              string `json:"host"`
+	Icon_url          string `json:"icon_url"`
+	Is_ssl            bool   `json:"is_ssl"`
+	Is_tutum_registry bool   `json:"is_tutum_registry"`
+	Name              string `json:"name"`
+	Resource_uri      string `json:"resource_uri"`
+}
+
 type SListResponse struct {
 	Meta    Meta      `json:"meta"`
 	Objects []Service `json: "objects"`
