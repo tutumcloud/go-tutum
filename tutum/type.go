@@ -115,18 +115,21 @@ type Exec struct {
 }
 
 type BuildSettings struct {
-	Autobuild  bool   `json:"autobuild,omitempty"`
-	Branch     string `json:"branch"`
-	Dockerfile string `json:"dockerfile"`
-	Tag        string `json:"tag"`
+	Autobuild    bool   `json:"autobuild,omitempty"`
+	Branch       string `json:"branch"`
+	Dockerfile   string `json:"dockerfile"`
+	Image        string `json:"image"`
+	Resource_uri string `json:"resource_uri"`
+	State        string `json:"state"`
+	Tag          string `json:"tag"`
 }
 
 type BuildSource struct {
-	Autotest       string          `json:"autotest,omitempty"`
-	Build_Settings []BuildSettings `json:"build_settings"`
-	Owner          string          `json:"owner,omitempty"`
-	Repository     string          `json:"repository"`
-	Type           string          `json:"type,omitempty"`
+	Autotest       string `json:"autotest,omitempty"`
+	Build_Settings string `json:"build_settings"`
+	Owner          string `json:"owner,omitempty"`
+	Repository     string `json:"repository"`
+	Type           string `json:"type,omitempty"`
 }
 
 type ImageListResponse struct {
