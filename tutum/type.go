@@ -172,11 +172,11 @@ type ImageCreateRequest struct {
 }
 
 type ImageTagsListResponse struct {
-	Meta    Meta       `json:"meta"`
-	Objects []ImageTag `json:"objects"`
+	Meta    Meta        `json:"meta"`
+	Objects []ImageTags `json:"objects"`
 }
 
-type ImageTag struct {
+type ImageTags struct {
 	Buildable    bool        `json:"buildable"`
 	Full_name    string      `json:"full_name"`
 	Layer        LayerStruct `json:"layer"`
@@ -197,7 +197,7 @@ type LayerStruct struct {
 	Volumes      []VolumePath      `json:"volumes"`
 }
 
-type Log struct {
+type Logs struct {
 	Type       string `json:"type"`
 	Log        string `json:"log"`
 	StreamType string `json:streamType`
