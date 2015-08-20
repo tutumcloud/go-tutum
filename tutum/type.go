@@ -70,7 +70,7 @@ type Container struct {
 	Exit_code_message   string              `json:"exit_code_message"`
 	Image_name          string              `json:"image_name"`
 	Image_tag           string              `json:"image_tag"`
-	Last_metric         []Metric            `json:"last_metric"`
+	Last_metric         Metric              `json:"last_metric"`
 	Link_variables      map[string]string   `json:"link_variables"`
 	Linked_to_container []ContainerLinkInfo `json:"linked_to_container"`
 	Memory              int                 `json:"memory"`
