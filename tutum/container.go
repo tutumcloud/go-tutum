@@ -145,7 +145,7 @@ Loop:
 func (self *Container) Run(command string, c chan Exec) {
 
 	endpoint := "container/" + self.Uuid + "/exec/?user=" + User + "&token=" + ApiKey + "&command=" + url.QueryEscape(command)
-	url := "wss://live-test.tutum.co:443/v1/" + endpoint
+	url := StreamUrl + endpoint
 
 	header := http.Header{}
 	header.Add("User-Agent", customUserAgent)
