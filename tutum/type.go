@@ -82,6 +82,7 @@ type Container struct {
 	Privileged          bool                `json:"privileged"`
 	Public_dns          string              `json:"public_dns"`
 	Resource_uri        string              `json:"resource_uri"`
+	Reuse_volumes       bool                `json:"reuse_volumes"`
 	Roles               []string            `json:"roles"`
 	Run_command         string              `json:"run_command"`
 	Service             string              `json:"service"`
@@ -372,8 +373,9 @@ type Service struct {
 	Privileged             bool                `json:"privileged"`
 	Public_dns             string              `json:"public_dns"`
 	Resource_uri           string              `json:"resource_uri"`
+	Reuse_volumes          string              `json:"reuse_volumes"`
 	Roles                  []string            `json:"roles"`
-	Run_command            string              `json:"run_command"`
+	Run_command            bool                `json:"run_command"`
 	Running_num_containers int                 `json:"running_num_containers"`
 	Sequential_deployment  bool                `json:"sequential_deployment"`
 	Stack                  string              `json:"stack"`
