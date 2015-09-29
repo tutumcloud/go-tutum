@@ -1,9 +1,6 @@
 package tutum
 
-import (
-	"encoding/json"
-	"log"
-)
+import "encoding/json"
 
 func ListImages() (ImageListResponse, error) {
 	url := "image/"
@@ -109,8 +106,6 @@ func (self *Image) Update(createRequest ImageCreateRequest) error {
 		return err
 	}
 
-	log.Println(createRequest)
-	log.Println(string(updatedImage))
 	_, err = TutumCall(url, request, updatedImage)
 	if err != nil {
 		return err
