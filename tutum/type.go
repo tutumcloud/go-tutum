@@ -137,16 +137,33 @@ type BuildSettings struct {
 }
 
 type BuildSource struct {
-	Autotest       string `json:"autotest,omitempty"`
-	Build_Settings string `json:"build_settings"`
-	Owner          string `json:"owner,omitempty"`
-	Repository     string `json:"repository"`
-	Type           string `json:"type,omitempty"`
+	Autotest       string   `json:"autotest,omitempty"`
+	Build_Settings []string `json:"build_settings,omitempty"`
+	Owner          string   `json:"owner,omitempty"`
+	Repository     string   `json:"repository,omitempty"`
+	Type           string   `json:"type,omitempty"`
 }
 
 type ImageListResponse struct {
-	Meta    Meta    `json:"meta"`
-	Objects []Image `json:"objects"`
+	Meta    Meta         `json:"meta"`
+	Objects []ImageShort `json:"objects"`
+}
+
+type ImageShort struct {
+	Build_Source     string   `json:"build_source"`
+	Description      string   `json:"description"`
+	Icon_url         string   `json:"icon_url"`
+	In_use           bool     `json:"in_use"`
+	Is_private_image bool     `json:"is_private_image"`
+	Jumpstart        bool     `json:"jumpstart"`
+	Last_build_date  string   `json:"last_build_date"`
+	Name             string   `json:"name"`
+	Public_url       string   `json:"public_url"`
+	Registry         string   `json:"registry"`
+	Resource_uri     string   `json:"resource_uri"`
+	Star_count       int      `json:"star_count"`
+	State            string   `json:"state"`
+	Tags             []string `json:"tags"`
 }
 
 type Image struct {
@@ -167,11 +184,11 @@ type Image struct {
 }
 
 type ImageCreateRequest struct {
-	BuildSource BuildSource `json:"build_source"`
-	Name        string      `json:"name"`
-	Username    string      `json:"username,omitempty"`
-	Password    string      `json:"password,omniempty"`
-	Description string      `json:"description"`
+	BuildSource *BuildSource `json:"build_source,omitempty"`
+	Name        string       `json:"name,omitempty"`
+	Username    string       `json:"username,omitempty"`
+	Password    string       `json:"password,omitempty"`
+	Description string       `json:"description,omitempty"`
 }
 
 type ImageTagsListResponse struct {
