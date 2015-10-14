@@ -12,7 +12,7 @@
             "destroyed_datetime": null,
             "name": "tutum-app",
             "resource_uri": "/api/v1/stack/7fe7ec85-58be-4904-81da-de2219098d7c/",
-            "services": [],
+            "services": ["/api/v1/service/7fe7ec85-58be-4904-81da-de2219098d7c/"],
             "state": "Running",
             "synchronized": true,
             "uuid": "09cbcf8d-a727-40d9-b420-c8e18b7fa55b"

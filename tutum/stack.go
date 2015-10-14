@@ -189,9 +189,16 @@ func (self *Stack) Stop() error {
 	return nil
 }
 
-func (self *Stack) Redeploy() error {
+func (self *Stack) Redeploy(reuse_volumes bool) error {
 
-	url := "stack/" + self.Uuid + "/redeploy/"
+	url := ""
+	if reuse_volumes != true {
+		url = "stack/" + self.Uuid + "/redeploy/?reuse_volumes=false"
+	} else {
+		url = "stack/" + self.Uuid + "/redeploy/"
+	}
+
+	log.Println(url)
 	request := "POST"
 	//Empty Body Request
 	body := []byte(`{}`)

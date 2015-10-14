@@ -96,25 +96,23 @@ func CreateImage(createRequest ImageCreateRequest) (Image, error) {
 	return response, nil
 }
 
-/*func (self *Image) Update(createRequest ImageCreateRequest) error {
+func (self *Image) Update(createRequest ImageCreateRequest) error {
 
-	//url := "image/" + self.Name + "/"
-	//request := "PATCH"
+	url := "image/" + self.Name + "/"
+	request := "PATCH"
 
 	updatedImage, err := json.Marshal(createRequest)
 	if err != nil {
 		return err
 	}
 
-	log.Println(createRequest)
-	log.Println(string(updatedImage))
 	_, err = TutumCall(url, request, updatedImage)
 	if err != nil {
 		return err
 	}
 
 	return nil
-}*/
+}
 
 func (self *Image) Remove() error {
 	url := "image/" + self.Name + "/"
