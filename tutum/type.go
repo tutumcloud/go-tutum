@@ -82,7 +82,6 @@ type Container struct {
 	Privileged          bool                `json:"privileged"`
 	Public_dns          string              `json:"public_dns"`
 	Resource_uri        string              `json:"resource_uri"`
-	Reuse_volumes       bool                `json:"reuse_volumes"`
 	Roles               []string            `json:"roles"`
 	Run_command         string              `json:"run_command"`
 	Service             string              `json:"service"`
@@ -348,24 +347,24 @@ type SListResponse struct {
 }
 
 type Service struct {
-	Autodestroy            string              `json:"autodestroy`
-	Autoredeploy           bool                `json:"autoredeploy`
-	Autorestart            string              `json:"autorestart`
+	Autodestroy            string              `json:"autodestroy"`
+	Autoredeploy           bool                `json:"autoredeploy"`
+	Autorestart            string              `json:"autorestart"`
 	Bindings               []ServiceBinding    `json:"bindings"`
 	Container_envvars      []ContainerEnvvar   `json:"container_envvars"`
-	Container_ports        []ContainerPortInfo `json:"container_ports`
-	Containers             []string            `json:"containers`
+	Container_ports        []ContainerPortInfo `json:"container_ports"`
+	Containers             []string            `json:"containers"`
 	Cpu_shares             int                 `json:"cpu_shares"`
-	Current_num_containers int                 `json:"current_num_containers`
-	Deployed_datetime      string              `json:"deployed_datetime`
+	Current_num_containers int                 `json:"current_num_containers"`
+	Deployed_datetime      string              `json:"deployed_datetime"`
 	Deployment_strategy    string              `json:"deployment_strategy"`
-	Destroyed_datetime     string              `json:"destroyed_datetime`
-	Entrypoint             string              `json:"entrypoint`
+	Destroyed_datetime     string              `json:"destroyed_datetime"`
+	Entrypoint             string              `json:"entrypoint"`
 	Image_name             string              `json:"image_name"`
-	Image_tag              string              `json:"image_tag`
+	Image_tag              string              `json:"image_tag"`
 	Link_variables         map[string]string   `json:"link_variables"`
 	Linked_from_service    []ServiceLinkInfo   `json:"linked_from_service"`
-	Linked_to_service      []ServiceLinkInfo   `json:"linked_to_service`
+	Linked_to_service      []ServiceLinkInfo   `json:"linked_to_service"`
 	Memory                 int                 `json:"memory"`
 	Name                   string              `json:"name"`
 	Net                    string              `json:"net"`
@@ -373,9 +372,8 @@ type Service struct {
 	Privileged             bool                `json:"privileged"`
 	Public_dns             string              `json:"public_dns"`
 	Resource_uri           string              `json:"resource_uri"`
-	Reuse_volumes          string              `json:"reuse_volumes"`
 	Roles                  []string            `json:"roles"`
-	Run_command            bool                `json:"run_command"`
+	Run_command            string              `json:"run_command"`
 	Running_num_containers int                 `json:"running_num_containers"`
 	Sequential_deployment  bool                `json:"sequential_deployment"`
 	Stack                  string              `json:"stack"`
