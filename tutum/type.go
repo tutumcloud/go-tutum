@@ -347,24 +347,24 @@ type SListResponse struct {
 }
 
 type Service struct {
-	Autodestroy            string              `json:"autodestroy`
-	Autoredeploy           bool                `json:"autoredeploy`
-	Autorestart            string              `json:"autorestart`
+	Autodestroy            string              `json:"autodestroy"`
+	Autoredeploy           bool                `json:"autoredeploy"`
+	Autorestart            string              `json:"autorestart"`
 	Bindings               []ServiceBinding    `json:"bindings"`
 	Container_envvars      []ContainerEnvvar   `json:"container_envvars"`
-	Container_ports        []ContainerPortInfo `json:"container_ports`
-	Containers             []string            `json:"containers`
+	Container_ports        []ContainerPortInfo `json:"container_ports"`
+	Containers             []string            `json:"containers"`
 	Cpu_shares             int                 `json:"cpu_shares"`
-	Current_num_containers int                 `json:"current_num_containers`
-	Deployed_datetime      string              `json:"deployed_datetime`
+	Current_num_containers int                 `json:"current_num_containers"`
+	Deployed_datetime      string              `json:"deployed_datetime"`
 	Deployment_strategy    string              `json:"deployment_strategy"`
-	Destroyed_datetime     string              `json:"destroyed_datetime`
-	Entrypoint             string              `json:"entrypoint`
+	Destroyed_datetime     string              `json:"destroyed_datetime"`
+	Entrypoint             string              `json:"entrypoint"`
 	Image_name             string              `json:"image_name"`
-	Image_tag              string              `json:"image_tag`
+	Image_tag              string              `json:"image_tag"`
 	Link_variables         map[string]string   `json:"link_variables"`
 	Linked_from_service    []ServiceLinkInfo   `json:"linked_from_service"`
-	Linked_to_service      []ServiceLinkInfo   `json:"linked_to_service`
+	Linked_to_service      []ServiceLinkInfo   `json:"linked_to_service"`
 	Memory                 int                 `json:"memory"`
 	Name                   string              `json:"name"`
 	Net                    string              `json:"net"`
@@ -419,30 +419,19 @@ type ServiceTag struct {
 }
 
 type StackListResponse struct {
-	Meta    Meta         `json:"meta"`
-	Objects []StackShort `json:"objects"`
-}
-
-type StackShort struct {
-	Deployed_datetime  string   `json:"deployed_datetime"`
-	Destroyed_datetime string   `json:"destroyed_datetime"`
-	Name               string   `json:"name"`
-	Resource_uri       string   `json:"resource_uri"`
-	Service            []string `json:"services"`
-	State              string   `json:"state"`
-	Synchronized       bool     `json:"synchronized"`
-	Uuid               string   `json:"uuid"`
+	Meta    Meta    `json:"meta"`
+	Objects []Stack `json:"objects"`
 }
 
 type Stack struct {
-	Deployed_datetime  string    `json:"deployed_datetime"`
-	Destroyed_datetime string    `json:"destroyed_datetime`
-	Name               string    `json:"name"`
-	Resource_uri       string    `json:"resource_uri`
-	Services           []Service `json:"services"`
-	State              string    `json:"state"`
-	Synchronized       bool      `json:"synchronized"`
-	Uuid               string    `json:"uuid"`
+	Deployed_datetime  string   `json:"deployed_datetime"`
+	Destroyed_datetime string   `json:"destroyed_datetime`
+	Name               string   `json:"name"`
+	Resource_uri       string   `json:"resource_uri`
+	Services           []string `json:"services"`
+	State              string   `json:"state"`
+	Synchronized       bool     `json:"synchronized"`
+	Uuid               string   `json:"uuid"`
 }
 
 type StackCreateRequest struct {

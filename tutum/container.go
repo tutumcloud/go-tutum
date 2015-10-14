@@ -217,9 +217,15 @@ func (self *Container) Stop() error {
 func RedeployContainer
 Returns : Error
 */
-func (self *Container) Redeploy() error {
+func (self *Container) Redeploy(reuse_volume bool) error {
 
-	url := "container/" + self.Uuid + "/redeploy/"
+	url := ""
+	if reuse_volume != true {
+		url = "container/" + self.Uuid + "/redeploy/?reuse_volumes=false"
+	} else {
+		url = "container/" + self.Uuid + "/redeploy/"
+	}
+
 	request := "POST"
 	//Empty Body Request
 	body := []byte(`{}`)

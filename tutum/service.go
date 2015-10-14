@@ -239,9 +239,15 @@ func (self *Service) StopService() error {
 func RedeployService
 Returns : Error
 */
-func (self *Service) Redeploy() error {
+func (self *Service) Redeploy(reuse_volume bool) error {
 
-	url := "service/" + self.Uuid + "/redeploy/"
+	url := ""
+	if reuse_volume != true {
+		url = "service/" + self.Uuid + "/redeploy/?reuse_volumes=false"
+	} else {
+		url = "service/" + self.Uuid + "/redeploy/"
+	}
+
 	request := "POST"
 	//Empty Body Request
 	body := []byte(`{}`)
