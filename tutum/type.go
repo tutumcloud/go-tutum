@@ -419,30 +419,19 @@ type ServiceTag struct {
 }
 
 type StackListResponse struct {
-	Meta    Meta         `json:"meta"`
-	Objects []StackShort `json:"objects"`
-}
-
-type StackShort struct {
-	Deployed_datetime  string   `json:"deployed_datetime"`
-	Destroyed_datetime string   `json:"destroyed_datetime"`
-	Name               string   `json:"name"`
-	Resource_uri       string   `json:"resource_uri"`
-	Service            []string `json:"services"`
-	State              string   `json:"state"`
-	Synchronized       bool     `json:"synchronized"`
-	Uuid               string   `json:"uuid"`
+	Meta    Meta    `json:"meta"`
+	Objects []Stack `json:"objects"`
 }
 
 type Stack struct {
-	Deployed_datetime  string    `json:"deployed_datetime"`
-	Destroyed_datetime string    `json:"destroyed_datetime`
-	Name               string    `json:"name"`
-	Resource_uri       string    `json:"resource_uri`
-	Services           []Service `json:"services"`
-	State              string    `json:"state"`
-	Synchronized       bool      `json:"synchronized"`
-	Uuid               string    `json:"uuid"`
+	Deployed_datetime  string   `json:"deployed_datetime"`
+	Destroyed_datetime string   `json:"destroyed_datetime`
+	Name               string   `json:"name"`
+	Resource_uri       string   `json:"resource_uri`
+	Services           []string `json:"services"`
+	State              string   `json:"state"`
+	Synchronized       bool     `json:"synchronized"`
+	Uuid               string   `json:"uuid"`
 }
 
 type StackCreateRequest struct {
