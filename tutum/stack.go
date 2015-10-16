@@ -189,10 +189,10 @@ func (self *Stack) Stop() error {
 	return nil
 }
 
-func (self *Stack) Redeploy(reuse_volumes bool) error {
+func (self *Stack) Redeploy(reuse_volume ReuseVolumesOption) error {
 
 	url := ""
-	if reuse_volumes != true {
+	if reuse_volume.Reuse != true {
 		url = "stack/" + self.Uuid + "/redeploy/?reuse_volumes=false"
 	} else {
 		url = "stack/" + self.Uuid + "/redeploy/"

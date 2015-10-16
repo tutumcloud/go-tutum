@@ -217,10 +217,10 @@ func (self *Container) Stop() error {
 func RedeployContainer
 Returns : Error
 */
-func (self *Container) Redeploy(reuse_volume bool) error {
+func (self *Container) Redeploy(reuse_volume ReuseVolumesOption) error {
 
 	url := ""
-	if reuse_volume != true {
+	if reuse_volume.Reuse != true {
 		url = "container/" + self.Uuid + "/redeploy/?reuse_volumes=false"
 	} else {
 		url = "container/" + self.Uuid + "/redeploy/"

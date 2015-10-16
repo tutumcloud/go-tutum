@@ -239,10 +239,10 @@ func (self *Service) StopService() error {
 func RedeployService
 Returns : Error
 */
-func (self *Service) Redeploy(reuse_volume bool) error {
+func (self *Service) Redeploy(reuse_volume ReuseVolumesOption) error {
 
 	url := ""
-	if reuse_volume != true {
+	if reuse_volume.Reuse != true {
 		url = "service/" + self.Uuid + "/redeploy/?reuse_volumes=false"
 	} else {
 		url = "service/" + self.Uuid + "/redeploy/"
