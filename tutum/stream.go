@@ -94,6 +94,7 @@ func messagesHandler(ws *websocket.Conn, ticker *time.Ticker, msg Event, c chan 
 			log.Println("READ ERR")
 			ticker.Stop()
 			e <- err
+			return
 		}
 
 		if reflect.TypeOf(msg).String() == "tutum.Event" {
