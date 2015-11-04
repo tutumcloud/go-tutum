@@ -341,6 +341,10 @@ type Registry struct {
 	Resource_uri      string `json:"resource_uri"`
 }
 
+type ReuseVolumesOption struct {
+	Reuse bool
+}
+
 type SListResponse struct {
 	Meta    Meta      `json:"meta"`
 	Objects []Service `json: "objects"`
