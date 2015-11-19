@@ -83,7 +83,7 @@ func dialHandler(e chan error) *websocket.Conn {
 	}
 }
 
-func messagesHandler(ws *websocket.Conn, ticker *time.Ticker, msg Event, c chan Event, e chan error) {
+func messagesHandler(ws *websocket.Conn, ticker *time.Ticker, msg Event, c chan Event, e chan error, e2 chan error) {
 	ws.SetPongHandler(func(string) error {
 		ws.SetReadDeadline(time.Now().Add(PONG_WAIT))
 		return nil
@@ -91,13 +91,14 @@ func messagesHandler(ws *websocket.Conn, ticker *time.Ticker, msg Event, c chan 
 	for {
 		err := ws.ReadJSON(&msg)
 		if err != nil {
-			log.Println("READ ERR")
-			ticker.Stop()
+			log.Println(err)
 			e <- err
-		}
-
-		if reflect.TypeOf(msg).String() == "tutum.Event" {
-			c <- msg
+			e2 <- err
+			time.Sleep(4 * time.Second)
+		} else {
+			if reflect.TypeOf(msg).String() == "tutum.Event" {
+				c <- msg
+			}
 		}
 	}
 }
@@ -112,12 +113,14 @@ func TutumEvents(c chan Event, e chan error) {
 	ticker := time.NewTicker(PING_PERIOD)
 	ws := dialHandler(e)
 
+	e2 := make(chan error)
+
 	defer func() {
 		close(c)
 		close(e)
 		ws.Close()
 	}()
-	go messagesHandler(ws, ticker, msg, c, e)
+	go messagesHandler(ws, ticker, msg, c, e, e2)
 
 Loop:
 	for {
@@ -125,10 +128,11 @@ Loop:
 		case <-ticker.C:
 			if err := ws.WriteMessage(websocket.PingMessage, []byte{}); err != nil {
 				ticker.Stop()
+				log.Println("Ping Timeout")
 				e <- err
 				break Loop
 			}
-		case <-e:
+		case <-e2:
 			ticker.Stop()
 		}
 	}
