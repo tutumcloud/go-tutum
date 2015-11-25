@@ -224,6 +224,11 @@ type Logs struct {
 	Timestamp  int    `json:"timestamp"`
 }
 
+type Network struct {
+	Name string `json:"name"`
+	CIDR string `json:"cidr"`
+}
+
 type NodeListResponse struct {
 	Meta    Meta   `json:"meta"`
 	Objects []Node `json:"objects"`
@@ -237,6 +242,7 @@ type Node struct {
 	Last_seen          string    `json:"last_seen,omitempty"`
 	Node_cluster       string    `json:"node_cluster,omitempty"`
 	Public_ip          string    `json:"public_ip,omitempty"`
+	Private_ips        []Network `json:"private_ips,omitempty"`
 	Region             string    `json:"region,omitempty"`
 	Resource_uri       string    `json:"resource_uri,omitempty"`
 	State              string    `json:"state,omitempty"`
