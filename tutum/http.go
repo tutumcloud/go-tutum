@@ -38,7 +38,7 @@ func TutumCall(url string, requestType string, requestBody []byte) ([]byte, erro
 	req, err := http.NewRequest(requestType, BaseUrl+url, bytes.NewBuffer(requestBody))
 
 	if ApiKey != "" {
-		AuthHeader = fmt.Sprintf("ApiKey %s:%s", User, ApiKey)
+		AuthHeader = fmt.Sprintf("Basic %s:%s", User, ApiKey)
 	}
 
 	req.Header.Add("Authorization", AuthHeader)
