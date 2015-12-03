@@ -12,6 +12,7 @@ import (
 var (
 	User       string
 	ApiKey     string
+	BasicAuth  string
 	AuthHeader string
 	BaseUrl    = "https://dashboard.tutum.co/api/v1/"
 	StreamUrl  = "wss://stream.tutum.co:443/v1/"
@@ -21,8 +22,9 @@ var (
 type config map[string]Auth
 
 type Auth struct {
-	User   string
-	Apikey string
+	User       string
+	Apikey     string
+	Basic_auth string
 }
 
 type TutumObject interface {
@@ -58,6 +60,12 @@ func LoadAuth() error {
 					User = conf["auth"].User
 					ApiKey = conf["auth"].Apikey
 					return nil
+				} else {
+					if conf["auth"].Basic_auth != "" {
+						BasicAuth = conf["auth"].Basic_auth
+						AuthHeader = fmt.Sprintf("Basic %s", conf["auth"].Basic_auth)
+						return nil
+					}
 				}
 			} else {
 				return fmt.Errorf("Malformed Tutum configuration file found at %s: %s", confFilePath, err)
@@ -76,7 +84,7 @@ func LoadAuth() error {
 }
 
 func IsAuthenticated() bool {
-	return ((User != "" && ApiKey != "") || os.Getenv("TUTUM_AUTH") != "")
+	return ((User != "" && ApiKey != "") || BasicAuth != "" || os.Getenv("TUTUM_AUTH") != "")
 }
 
 func FetchByResourceUri(id string) interface{} {
