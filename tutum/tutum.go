@@ -1,6 +1,7 @@
 package tutum
 
 import (
+	"encoding/base64"
 	"fmt"
 	"os"
 	"os/user"
@@ -12,17 +13,19 @@ import (
 var (
 	User       string
 	ApiKey     string
+	BasicAuth  string
 	AuthHeader string
 	BaseUrl    = "https://dashboard.tutum.co/api/v1/"
 	StreamUrl  = "wss://stream.tutum.co:443/v1/"
-	version    = "0.16.0"
+	version    = "0.21.0"
 )
 
 type config map[string]Auth
 
 type Auth struct {
-	User   string
-	Apikey string
+	User       string
+	Apikey     string
+	Basic_auth string
 }
 
 type TutumObject interface {
@@ -41,6 +44,8 @@ func init() {
 
 func LoadAuth() error {
 	if User != "" && ApiKey != "" {
+		sEnc := base64.StdEncoding.EncodeToString([]byte(User + ":" + ApiKey))
+		AuthHeader = fmt.Sprintf("Basic %s", sEnc)
 		return nil
 	} else {
 		if os.Getenv("TUTUM_AUTH") != "" {
@@ -57,7 +62,15 @@ func LoadAuth() error {
 				if conf["auth"].User != "" && conf["auth"].Apikey != "" {
 					User = conf["auth"].User
 					ApiKey = conf["auth"].Apikey
+					sEnc := base64.StdEncoding.EncodeToString([]byte(User + ":" + ApiKey))
+					AuthHeader = fmt.Sprintf("Basic %s", sEnc)
 					return nil
+				} else {
+					if conf["auth"].Basic_auth != "" {
+						BasicAuth = conf["auth"].Basic_auth
+						AuthHeader = fmt.Sprintf("Basic %s", BasicAuth)
+						return nil
+					}
 				}
 			} else {
 				return fmt.Errorf("Malformed Tutum configuration file found at %s: %s", confFilePath, err)
@@ -69,6 +82,8 @@ func LoadAuth() error {
 	if os.Getenv("TUTUM_USER") != "" && os.Getenv("TUTUM_APIKEY") != "" {
 		User = os.Getenv("TUTUM_USER")
 		ApiKey = os.Getenv("TUTUM_APIKEY")
+		sEnc := base64.StdEncoding.EncodeToString([]byte(User + ":" + ApiKey))
+		AuthHeader = fmt.Sprintf("Basic %s", sEnc)
 		return nil
 	}
 
@@ -76,7 +91,7 @@ func LoadAuth() error {
 }
 
 func IsAuthenticated() bool {
-	return ((User != "" && ApiKey != "") || os.Getenv("TUTUM_AUTH") != "")
+	return (AuthHeader != "")
 }
 
 func FetchByResourceUri(id string) interface{} {
