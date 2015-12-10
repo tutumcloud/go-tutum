@@ -27,7 +27,7 @@ const (
 */
 
 func dial() (*websocket.Conn, error) {
-	var Url = ""
+	LoadAuth()
 
 	if os.Getenv("TUTUM_STREAM_HOST") != "" {
 		u, _ := url.Parse(os.Getenv("TUTUM_STREAM_HOST"))
@@ -45,16 +45,10 @@ func dial() (*websocket.Conn, error) {
 		StreamUrl = u.Scheme + "://" + u.Host + "/v1/"
 	}
 
-	if os.Getenv("TUTUM_AUTH") != "" {
-		endpoint := ""
-		endpoint = url.QueryEscape(os.Getenv("TUTUM_AUTH"))
-		Url = StreamUrl + "events?auth=" + endpoint
-	}
-	if User != "" && ApiKey != "" {
-		Url = StreamUrl + "events?token=" + ApiKey + "&user=" + User
-	}
+	Url := StreamUrl + "events/"
 
 	header := http.Header{}
+	header.Add("Authorization", AuthHeader)
 	header.Add("User-Agent", customUserAgent)
 
 	var Dialer websocket.Dialer
@@ -97,6 +91,7 @@ func messagesHandler(ws *websocket.Conn, ticker *time.Ticker, msg Event, c chan 
 			time.Sleep(4 * time.Second)
 		} else {
 			if reflect.TypeOf(msg).String() == "tutum.Event" {
+				log.Println(msg)
 				c <- msg
 			}
 		}
