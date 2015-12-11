@@ -85,13 +85,11 @@ func messagesHandler(ws *websocket.Conn, ticker *time.Ticker, msg Event, c chan 
 	for {
 		err := ws.ReadJSON(&msg)
 		if err != nil {
-			log.Println(err)
 			e <- err
 			e2 <- err
 			time.Sleep(4 * time.Second)
 		} else {
 			if reflect.TypeOf(msg).String() == "tutum.Event" {
-				log.Println(msg)
 				c <- msg
 			}
 		}
