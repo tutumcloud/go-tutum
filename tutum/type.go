@@ -95,7 +95,7 @@ type Container struct {
 
 type ContainerEnvvar struct {
 	Key   string `json:"key"`
-	Value string `json:value`
+	Value string `json:"value"`
 }
 
 type ContainerLinkInfo struct {
@@ -411,13 +411,23 @@ type ServiceCreateRequest struct {
 	Autodestroy           string              `json:"autodestroy,omitempty"`
 	Autoredeploy          bool                `json:"autoredeploy,omitempty"`
 	Autorestart           string              `json:"autorestart,omitempty"`
+	Bindings              []ServiceBinding    `json:"bindings,omitempty"`
+	Container_envvars     []ContainerEnvvar   `json:"container_envvars,omitempty"`
 	Container_ports       []ContainerPortInfo `json:"container_ports,omitempty"`
+	Deployment_strategy   string              `json:"deployment_strategy,omitempty"`
 	Entrypoint            string              `json:"entrypoint,omitempty"`
 	Image                 string              `json:"image,omitempty"`
 	Linked_to_service     []ServiceLinkInfo   `json:"linked_to_service,omitempty"`
 	Name                  string              `json:"name,omitempty"`
+	Net                   string              `json:"net,omitempty"`
+	Pid                   string              `json:"pid,omitempty"`
+	Privileged            bool                `json:"privileged,omitempty"`
+	Roles                 []string            `json:"roles,omitempty"`
+	Run_command           string              `json:"run_command,omitempty"`
+	Sequential_deployment bool                `json:"sequential_deployment,omitempty"`
 	Tags                  []string            `json:"tags,omitempty"`
 	Target_num_containers int                 `json:"target_num_containers,omitempty"`
+	Working_dir           string              `json:"working_dir,omitempty"`
 }
 
 type ServiceLinkInfo struct {
