@@ -264,20 +264,36 @@ type NodeClusterListResponse struct {
 	Objects []NodeCluster `json:"objects"`
 }
 
+type VPC struct {
+	Id              string   `json:"id"`
+	Subnets         []string `json:"subnets,omitempty"`
+	Security_groups []string `json:"security_groups,omitempty"`
+}
+
+type IAM struct {
+	Instance_profile_name string `json:"instance_profile_name,omitempty"`
+}
+
+type ProviderOption struct {
+	Vpc VPC `json:"vpc,omitempty"`
+	Iam IAM `json:"iam,omitempty"`
+}
+
 type NodeCluster struct {
-	Current_num_nodes  int       `json:"current_num_nodes"`
-	Deployed_datetime  string    `json:"deployed_datetime"`
-	Destroyed_datetime string    `json:"destroyed_datetime"`
-	Disk               int       `json:"disk"`
-	Name               string    `json:"name"`
-	Nodes              []string  `json:"nodes"`
-	NodeType           string    `json:"node_type"`
-	Region             string    `json:"region"`
-	Resource_uri       string    `json:"resource_uri"`
-	State              string    `json:"state"`
-	Tags               []NodeTag `json:"tags,omitempty"`
-	Target_num_nodes   int       `json:"target_num_nodes"`
-	Uuid               string    `json:"uuid"`
+	Current_num_nodes  int            `json:"current_num_nodes"`
+	Deployed_datetime  string         `json:"deployed_datetime"`
+	Destroyed_datetime string         `json:"destroyed_datetime"`
+	Disk               int            `json:"disk"`
+	Name               string         `json:"name"`
+	Nodes              []string       `json:"nodes"`
+	NodeType           string         `json:"node_type"`
+	Provider_options   ProviderOption `json:"provider_options"`
+	Region             string         `json:"region"`
+	Resource_uri       string         `json:"resource_uri"`
+	State              string         `json:"state"`
+	Tags               []NodeTag      `json:"tags,omitempty"`
+	Target_num_nodes   int            `json:"target_num_nodes"`
+	Uuid               string         `json:"uuid"`
 }
 
 type NodeCreateRequest struct {
