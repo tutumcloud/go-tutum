@@ -144,6 +144,10 @@ type BuildSource struct {
 	Type           string   `json:"type,omitempty"`
 }
 
+type IamOptions struct {
+	Instance_profile_name string `json:"instance_profile_name,omitempty"`
+}
+
 type ImageListResponse struct {
 	Meta    Meta         `json:"meta"`
 	Objects []ImageShort `json:"objects"`
@@ -265,28 +269,30 @@ type NodeClusterListResponse struct {
 }
 
 type NodeCluster struct {
-	Current_num_nodes  int       `json:"current_num_nodes"`
-	Deployed_datetime  string    `json:"deployed_datetime"`
-	Destroyed_datetime string    `json:"destroyed_datetime"`
-	Disk               int       `json:"disk"`
-	Name               string    `json:"name"`
-	Nodes              []string  `json:"nodes"`
-	NodeType           string    `json:"node_type"`
-	Region             string    `json:"region"`
-	Resource_uri       string    `json:"resource_uri"`
-	State              string    `json:"state"`
-	Tags               []NodeTag `json:"tags,omitempty"`
-	Target_num_nodes   int       `json:"target_num_nodes"`
-	Uuid               string    `json:"uuid"`
+	Current_num_nodes  int             `json:"current_num_nodes"`
+	Deployed_datetime  string          `json:"deployed_datetime"`
+	Destroyed_datetime string          `json:"destroyed_datetime"`
+	Disk               int             `json:"disk"`
+	Name               string          `json:"name"`
+	Nodes              []string        `json:"nodes"`
+	NodeType           string          `json:"node_type"`
+	Provider_options   ProviderOptions `json:"provider_options"`
+	Region             string          `json:"region"`
+	Resource_uri       string          `json:"resource_uri"`
+	State              string          `json:"state"`
+	Tags               []NodeTag       `json:"tags,omitempty"`
+	Target_num_nodes   int             `json:"target_num_nodes"`
+	Uuid               string          `json:"uuid"`
 }
 
 type NodeCreateRequest struct {
-	Disk             int       `json:"disk,omitempty"`
-	Name             string    `json:"name,omitempty"`
-	NodeType         string    `json:"node_type,omitempty"`
-	Region           string    `json:"region,omitempty"`
-	Target_num_nodes int       `json:"target_num_nodes,omitempty"`
-	Tags             []NodeTag `json:"tags,omitempty"`
+	Disk             int              `json:"disk,omitempty"`
+	Name             string           `json:"name,omitempty"`
+	NodeType         string           `json:"node_type,omitempty"`
+	Provider_options *ProviderOptions `json:"provider_options,omitempty"`
+	Region           string           `json:"region,omitempty"`
+	Target_num_nodes int              `json:"target_num_nodes,omitempty"`
+	Tags             []NodeTag        `json:"tags,omitempty"`
 }
 
 type NodeTypeListResponse struct {
@@ -319,6 +325,11 @@ type Provider struct {
 	Name         string   `json:"name"`
 	Regions      []string `json:"regions"`
 	Resource_uri string   `json:"resource_uri"`
+}
+
+type ProviderOptions struct {
+	Vpc *VpcOptions `json:"vpc,omitempty"`
+	Iam *IamOptions `json:"iam,omitempty"`
 }
 
 type RegionListResponse struct {
@@ -512,4 +523,10 @@ type VolumeGroup struct {
 
 type VolumePath struct {
 	Container_path string `json:"container_path"`
+}
+
+type VpcOptions struct {
+	Id              string   `json:"id,omitempty"`
+	Subnets         []string `json:"subnets,omitempty"`
+	Security_groups []string `json:"security_groups,omitempty"`
 }
