@@ -269,19 +269,20 @@ type NodeClusterListResponse struct {
 }
 
 type NodeCluster struct {
-	Current_num_nodes  int       `json:"current_num_nodes"`
-	Deployed_datetime  string    `json:"deployed_datetime"`
-	Destroyed_datetime string    `json:"destroyed_datetime"`
-	Disk               int       `json:"disk"`
-	Name               string    `json:"name"`
-	Nodes              []string  `json:"nodes"`
-	NodeType           string    `json:"node_type"`
-	Region             string    `json:"region"`
-	Resource_uri       string    `json:"resource_uri"`
-	State              string    `json:"state"`
-	Tags               []NodeTag `json:"tags,omitempty"`
-	Target_num_nodes   int       `json:"target_num_nodes"`
-	Uuid               string    `json:"uuid"`
+	Current_num_nodes  int             `json:"current_num_nodes"`
+	Deployed_datetime  string          `json:"deployed_datetime"`
+	Destroyed_datetime string          `json:"destroyed_datetime"`
+	Disk               int             `json:"disk"`
+	Name               string          `json:"name"`
+	Nodes              []string        `json:"nodes"`
+	NodeType           string          `json:"node_type"`
+	Provider_options   ProviderOptions `json:"provider_options"`
+	Region             string          `json:"region"`
+	Resource_uri       string          `json:"resource_uri"`
+	State              string          `json:"state"`
+	Tags               []NodeTag       `json:"tags,omitempty"`
+	Target_num_nodes   int             `json:"target_num_nodes"`
+	Uuid               string          `json:"uuid"`
 }
 
 type NodeCreateRequest struct {
