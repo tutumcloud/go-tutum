@@ -235,19 +235,25 @@ type NodeListResponse struct {
 }
 
 type Node struct {
-	Availability_zone  string    `json:"availability_zone,omniempty"`
-	Deployed_datetime  string    `json:"deployed_datetime,omitempty"`
-	Destroyed_datetime string    `json:"destroyed_datetime,omitempty"`
-	Docker_version     string    `json:"docker_version,omitempty"`
-	Last_seen          string    `json:"last_seen,omitempty"`
-	Node_cluster       string    `json:"node_cluster,omitempty"`
-	Public_ip          string    `json:"public_ip,omitempty"`
-	Private_ips        []Network `json:"private_ips,omitempty"`
-	Region             string    `json:"region,omitempty"`
-	Resource_uri       string    `json:"resource_uri,omitempty"`
-	State              string    `json:"state,omitempty"`
-	Tags               []NodeTag `json:"tags,omitempty"`
-	Uuid               string    `json:"uuid,omitempty"`
+	Availability_zone      string    `json:"availability_zone,omniempty"`
+	Cpu                    int       `json:"cpu,omitempty"`
+	Current_num_containers int       `json:"current_num_containers,omitempty"`
+	Deployed_datetime      string    `json:"deployed_datetime,omitempty"`
+	Destroyed_datetime     string    `json:"destroyed_datetime,omitempty"`
+	Disk                   int       `json:"disk,omitempty"`
+	Docker_version         string    `json:"docker_version,omitempty"`
+	Last_metric            Metric    `json:"last_metric"`
+	Last_seen              string    `json:"last_seen,omitempty"`
+	Memory                 int       `json:"memory,omitempty"`
+	Nickname               string    `json:"nickname,omitempty"`
+	Node_cluster           string    `json:"node_cluster,omitempty"`
+	Public_ip              string    `json:"public_ip,omitempty"`
+	Private_ips            []Network `json:"private_ips,omitempty"`
+	Region                 string    `json:"region,omitempty"`
+	Resource_uri           string    `json:"resource_uri,omitempty"`
+	State                  string    `json:"state,omitempty"`
+	Tags                   []NodeTag `json:"tags,omitempty"`
+	Uuid                   string    `json:"uuid,omitempty"`
 }
 
 type NodeEvent struct {
